@@ -27,7 +27,7 @@ to switch to another existing branch
 
 git checkout main
 
-git merge nameyourbranch
+don't use git merge nameyourbranch
 
 _
 
