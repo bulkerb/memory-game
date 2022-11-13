@@ -35,3 +35,7 @@ to update the latest changes from branched code
 
 git fetch
 
+to check for changes
+
+git status
+
