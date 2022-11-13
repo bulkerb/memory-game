@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Emoji Match Up</h1>
+
+<p>Concentrate! The game is to remember where all the emoji are!</p>
+
+</body>
+</html>
