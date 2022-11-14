@@ -39,5 +39,5 @@ to check for changes
 
 git status
 
-## Examples found online
-memozor.com
+## Examples Found Online
+https://www.memozor.com/other-memory-games/numbers-memory-games/match-game-numbers
