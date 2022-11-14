@@ -39,3 +39,5 @@ to check for changes
 
 git status
 
+## Examples found online
+memozor.com
