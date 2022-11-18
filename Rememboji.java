@@ -1,5 +1,3 @@
-package cpsc3720.memoryGame;
-
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
@@ -17,11 +15,11 @@ public class Rememboji {
 
         // Add Title Screen
         frame.setContentPane(new JLabel(new ImageIcon("C:\\Users\\student\\Desktop" +
-                "\\School Work\\Year 4\\Semester 1\\CPSC 3720\\Memory Game\\img\\titleScreen.png")));
+                "\\School Work\\Year 4\\Semester 1\\CPSC 3720\\Memory Game\\img\\titleScreen.png"))); // TODO: Change File Location
 
         // Add Start Button
         startButton = new JLabel(new ImageIcon("C:\\Users\\student\\Desktop" +
-                "\\School Work\\Year 4\\Semester 1\\CPSC 3720\\Memory Game\\img\\start.PNG"));
+                "\\School Work\\Year 4\\Semester 1\\CPSC 3720\\Memory Game\\img\\start.PNG")); // TODO: Change File Location
         startButton.setBounds(634, 550, 268, 88);
         /*
          * MouseEvent code retrieved from:
@@ -47,13 +45,13 @@ public class Rememboji {
 
         // Add Background
         frame.setContentPane(new JLabel(new ImageIcon("C:\\Users\\student\\Desktop" +
-                "\\School Work\\Year 4\\Semester 1\\CPSC 3720\\Memory Game\\img\\background.png")));
+                "\\School Work\\Year 4\\Semester 1\\CPSC 3720\\Memory Game\\img\\background.png"))); // TODO: Change File Location 
 
         // Setup Card Layout
         for (int i = 118; i < 1418; i += 227) {
             for (int j = 100; j < 478; j += 377) {
                 cardBack = new JLabel(new ImageIcon("C:\\Users\\student\\Desktop" +
-                        "\\School Work\\Year 4\\Semester 1\\CPSC 3720\\Memory Game\\img\\cardBack.png"));
+                        "\\School Work\\Year 4\\Semester 1\\CPSC 3720\\Memory Game\\img\\cardBack.png")); // TODO: Change File Location
                 cardBack.setBounds(i, j, 177, 277);
 
                 /*
