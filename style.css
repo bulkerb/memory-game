@@ -1,8 +1,11 @@
 h1 {
     height: 100%;
     width: 90%;
-    align-items: center;
+    text-align: center;
     color:lightseagreen;   
+}
+.body {
+    background-color: lightslategrey;
 }
 
 .game_info {
@@ -10,4 +13,23 @@ h1 {
     color:black;
     display: flex;
     justify-content: space-around;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows:  1fr 1fr 1fr 1fr;
+    align-content: stretch;
+    gap: 50px 50px;
+    outline: 1px solid;
+
+}
+
+.card {
+    grid-column-start: auto;
+    grid-column-end: auto;
+    grid-row-start: auto;
+    grid-row-end: auto;
+    outline: 1px solid;
+    justify-content: center;
 }
