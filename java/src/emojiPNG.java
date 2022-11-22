@@ -20,6 +20,7 @@ public class emojiPNG {
     }
     
     public static void main(String[] args) {
+        // whatever unicode we need - this was moreso for testing on my end
         String emojiCode = "1f92a";
         getPng(emojiCode);
         
