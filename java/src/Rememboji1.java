@@ -1,4 +1,4 @@
-package cpsc3720.memoryGame;
+//package cpsc3720.memoryGame;
 
 import javax.swing.*;
 import java.awt.Font;
