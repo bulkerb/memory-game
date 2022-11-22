@@ -1,40 +1,51 @@
 package cpsc3720.memoryGame;
 
 import javax.swing.*;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+
 
 public class Rememboji1 {
-    //keep track of how many cards selected
-    private static boolean click1 = false;
-    private static boolean click2= false;
-    private static JLabel cardBack,c2,c3,a,b,c,d,e,f,g,h,i,j,k,l;
-    private static JLabel startButton;
+    //images to change quickly
+    public static String startBackground = "C:\\Users\\Zack\\Desktop\\pics\\titleScreen.png";
+    public static String startbuttonpic = "C:\\Users\\Zack\\Desktop\\pics\\start.png";
+    public static String gameBackground = "C:\\Users\\Zack\\Desktop\\pics\\background.png";
+    public static String cardBackPicture = "C:\\Users\\Zack\\Desktop\\pics\\cardBack.png";
+    public static ImageIcon cardBackImage = new ImageIcon(cardBackPicture);
+
+
     //array to hold pictures
     private static String[] arraypic;
+    private static JButton flipCards;
     //array keeps track of what cards have been selected
-    private static int[] cardtrack = new int[12];
+    private static final int[] cardtrack = new int[13];
     //for making comparison of the pictures
     private static String x1 = null, x2 = null;
-    private static JLabel[] cardback2;
+    private static JButton[] cardback3;
+    private static JFrame frame;
+    private static int turns;
 
 
     public static void main(String[] args) {
 
         // Initialize Frame
-        JFrame frame = new JFrame("Start Screen");
+        frame = new JFrame("Start Screen");
         frame.setUndecorated(true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Add Title Screen
-        frame.setContentPane(new JLabel(new ImageIcon("C:\\Users\\Zack\\Desktop\\pics\\emoji.png")));
+        frame.setContentPane(new JLabel(new ImageIcon(startBackground)));
 
         // Add Start Button
-        startButton = new JLabel(new ImageIcon("C:\\Users\\Zack\\Desktop\\pics\\start.png"));
+        JLabel startButton = new JLabel(new ImageIcon(startbuttonpic));
         startButton.setBounds(634, 550, 268, 88);
         /*
          * MouseEvent code retrieved from:
@@ -51,393 +62,148 @@ public class Rememboji1 {
         frame.setVisible(true);
     }
 
-    private static void startGame() {
+    public static void startGame() {
         // Initialize Frame
-        JFrame frame = new JFrame("Game Screen");
+        frame = new JFrame("Game Screen");
         frame.setUndecorated(true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        shuffle();
         // Add Background
-        frame.setContentPane(new JLabel(new ImageIcon("C:\\Users\\Zack\\Desktop\\pics\\background1.png")));
+        frame.setContentPane(new JLabel(new ImageIcon(gameBackground)));
         //array for the JLabels
-        cardback2 = new JLabel[]{a,b,c,d,e,f,g,h,i,j,k,l};
+        cardback3 = new JButton[12];
         // Setup Card Layout
-        int x=0;
+
+        frame.setVisible(true);
+
+        int x = 0;
         for (int j = 100; j < 478; j += 377) {
             for (int i = 118; i < 1418; i += 227) {
-                //cardBack = new JLabel(new ImageIcon("C:\\Users\\Zack\\Desktop\\pics\\card back1.png"));
-                //cardBack.setBounds(i, j, 177, 277);
 
-                cardback2[x] = new JLabel(new ImageIcon("C:\\Users\\Zack\\Desktop\\pics\\card back1.png"));
-                cardback2[x].setBounds(i, j, 177, 277);
-
-                /*
-                 * MouseEvent code retrieved from:
-                 * https://stackoverflow.com/questions/2275277/how-to-put-clickable-image-jframe
-                 */
-                /*cardBack.addMouseListener(new MouseAdapter() {
-
-                });*/
-                frame.add(cardback2[x]);
+                cardback3[x] = new JButton(arraypic[x]);
+                cardback3[x].setFont(new Font(cardback3[x].getFont().getName(), Font.PLAIN, 120));
+                cardback3[x].setBounds(i, j, 177, 277);
+                frame.add(cardback3[x]);
                 x++;
-
             }
         }
-        arraypic = new String[]{"C:\\Users\\Zack\\Desktop\\pics\\stars.png",
-                "C:\\Users\\Zack\\Desktop\\pics\\stars.png", "C:\\Users\\Zack\\Desktop\\pics\\orange.png",
-                "C:\\Users\\Zack\\Desktop\\pics\\orange.png", "C:\\Users\\Zack\\Desktop\\pics\\purple.png",
-                "C:\\Users\\Zack\\Desktop\\pics\\purple.png", "C:\\Users\\Zack\\Desktop\\pics\\red.png",
-                "C:\\Users\\Zack\\Desktop\\pics\\red.png", "C:\\Users\\Zack\\Desktop\\pics\\yellow.png",
-                "C:\\Users\\Zack\\Desktop\\pics\\yellow.png", "C:\\Users\\Zack\\Desktop\\pics\\emoji.png",
-                "C:\\Users\\Zack\\Desktop\\pics\\emoji.png"};
+
+        flipCards = new JButton("Flip Cards Over");
+        flipCards.addActionListener(buttonListener);
+        flipCards.setBounds(650,50,200,50);
+        frame.add(flipCards,0);
+        frame.validate();
+        frame.repaint();
+        flipCards.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+
+            }
+        });
+
         //Randomizes the array of pictures and puts them back into the array
-        List<String> strList = Arrays.asList(arraypic);
-        Collections.shuffle(strList);
-        arraypic = strList.toArray(new String[strList.size()]);
-        frame.setVisible(true);
-            frame.addMouseListener(new MouseAdapter(){
-               public void mouseClicked(MouseEvent me2){
-                   //Keep track of where the mouse was clicked
-                   int x = me2.getX();
-                   int y = me2.getY();
-
-                   //runs after both clicks have been made
-                   //really runs after the third click if put at the end so it runs after the second card is selected
-                   //the second picture doesn't show up
-                   if(click1 && click2) {
-                       frame.revalidate();
-                       frame.repaint();
-                       //if the cards are the same it changes the variable to 2 so the card is never selected again
-                       if (x1 == x2) {
-                           for(int i = 0; i < 12; i++) {
-                               if (cardtrack[i] == 1) {
-                                   cardtrack[i] = 2;
-                               }
-                           }
-                       }
-                       //if the cards don't match
-                       else {
-                           //removes the two pictures showing the back of the cards again
-                           frame.remove(c2);
-                           frame.remove(c3);
-
-                       }
-
-                       //resets all variables back
-                       click1 = false;
-                       click2 = false;
-                       //if a card is still at one it means it was selected this turn and they didn't match
-                       //this sets them back to zero so they can be selected again
-                       for(int i = 0; i < 12; i++){
-                           if (cardtrack[i]==1) {
-                               cardtrack[i] = 0;
-
-                               //puts the cards back for the missed guesses
-                               if(i<=5){
-                                   cardback2[i] = new JLabel(new ImageIcon("C:\\Users\\Zack\\Desktop\\pics\\card back1.png"));
-                                   cardback2[i].setBounds(118 + i*227, 100, 177, 277);
-                               }
-                               else{
-                                   cardback2[i] = new JLabel(new ImageIcon("C:\\Users\\Zack\\Desktop\\pics\\card back1.png"));
-                                   cardback2[i].setBounds(118 + (i-6)*227, 477, 177, 277);
-                               }
-                               frame.add(cardback2[i]);
-                           }
-                       }
-                       //reloads image
-                       frame.revalidate();
-                       frame.repaint();
-                       //I think it is unnecessary but haven't messed with it yet
-                       x1 = null;
-                       x2 = null;
-                   }
+        x1 = x2 = null;
+        //frame.setVisible(true);
+        for(int k = 0; k<12 ; k++){
+            cardback3[k].addActionListener(buttonListener);
+        }
 
 
-                   //if statements seeing if click was on a card and that card hadn't been selected
-                   //All 12 work the same for the 12 cards just changing position on screen or position in array
-
-                   if(x>=118 && x<=295 && y>=100 && y <= 377 && cardtrack[0]==0){
-
-                       frame.remove(cardback2[0]);
-
-                       //if it is the first picture selected
-                       if(!click1) {
-                           //puts the picture matching to this card in the randomized array over the card
-                           c2 = new JLabel(new ImageIcon(arraypic[1]));
-                           c2.setBounds(118, 100, 177, 277);
-                           frame.add(c2, 0);
-                           //to track which picture was used
-                           x1 = arraypic[1];
-                       }
-                       //same but for second click
-                       else{
-                           c3 = new JLabel(new ImageIcon(arraypic[1]));
-                           c3.setBounds(118, 100, 177, 277);
-                           frame.add(c3, 0);
-                           x2 = arraypic[1];
-                       }
-                       //refreshes the image to show new picture
-                       //frame.remove(cardback2[0]);
-                       frame.revalidate();
-                       frame.repaint();
-                       //keeps track of if this is the first or second picture selected
-                       if(!click1)
-                           click1 = true;
-                       else
-                           click2 = true;
-                       //sets this card to 1 to track that it was selected this turn
-                       cardtrack[0]=1;
-                   }
-                   if(x>=345 && x<= 522 && y>=100 && y<= 377 && cardtrack[1]==0) {
-
-                       frame.remove(cardback2[1]);
-
-                       if(!click1) {
-                           c2 = new JLabel(new ImageIcon(arraypic[2]));
-                           c2.setBounds(345, 100, 177, 277);
-                           frame.add(c2, 0);
-                           x1 = arraypic[2];
-                       }
-                       else{
-                           c3 = new JLabel(new ImageIcon(arraypic[2]));
-                           c3.setBounds(345, 100, 177, 277);
-                           frame.add(c3, 0);
-                           x2 = arraypic[2];
-                       }
-                       frame.revalidate();
-                       frame.repaint();
-                       if(!click1)
-                           click1 = true;
-                       else
-                           click2 = true;
-                       cardtrack[1]=1;
-                   }
-                   if(x>=572 && x<= 749 && y>=100 && y <= 377 && cardtrack[2]==0) {
-                       frame.remove(cardback2[2]);
-
-                       if(!click1) {
-                           c2 = new JLabel(new ImageIcon(arraypic[3]));
-                           c2.setBounds(572, 100, 177, 277);
-                           frame.add(c2, 0);
-                           x1 = arraypic[3];
-                       }
-                       else{
-                           c3 = new JLabel(new ImageIcon(arraypic[3]));
-                           c3.setBounds(572, 100, 177, 277);
-                           frame.add(c3, 0);
-                           x2 = arraypic[3];
-                       }
-                       frame.revalidate();
-                       frame.repaint();
-                       if(!click1)
-                           click1 = true;
-                       else
-                           click2 = true;
-                       cardtrack[2]=1;
-                   }
-                   if(x>=799 && x<= 976 && y>=100 && y <= 377 && cardtrack[3]==0) {
-                       frame.remove(cardback2[3]);
-                       if(!click1) {
-                           c2 = new JLabel(new ImageIcon(arraypic[4]));
-                           c2.setBounds(799, 100, 177, 277);
-                           frame.add(c2, 0);
-                           x1 = arraypic[4];
-                       }
-                       else{
-                           c3 = new JLabel(new ImageIcon(arraypic[4]));
-                           c3.setBounds(799, 100, 177, 277);
-                           frame.add(c3, 0);
-                           x2 = arraypic[4];
-                       }
-                       frame.revalidate();
-                       frame.repaint();
-                       if(!click1)
-                           click1 = true;
-                       else
-                           click2 = true;
-                       cardtrack[3]=1;
-                   }
-                   if(x>=1026 && x<= 1203 && y>=100 && y <= 377 && cardtrack[4]==0) {
-                       frame.remove(cardback2[4]);
-                       if(!click1) {
-                           c2 = new JLabel(new ImageIcon(arraypic[5]));
-                           c2.setBounds(1026, 100, 177, 277);
-                           frame.add(c2, 0);
-                           x1 = arraypic[5];
-                       }
-                       else{
-                           c3 = new JLabel(new ImageIcon(arraypic[5]));
-                           c3.setBounds(1026, 100, 177, 277);
-                           frame.add(c3, 0);
-                           x2 = arraypic[5];
-                       }
-                       frame.revalidate();
-                       frame.repaint();
-                       if(!click1)
-                           click1 = true;
-                       else
-                           click2 = true;
-                       cardtrack[4]=1;
-                   }
-
-                   if(x>=1253 && x<= 1430 && y>=100 && y <= 377 && cardtrack[5]==0) {
-                       frame.remove(cardback2[5]);
-                       if(!click1) {
-                           c2 = new JLabel(new ImageIcon(arraypic[6]));
-                           c2.setBounds(1253, 100, 177, 277);
-                           frame.add(c2, 0);
-                           x1 = arraypic[6];
-                       }
-                       else{
-                           c3 = new JLabel(new ImageIcon(arraypic[6]));
-                           c3.setBounds(1253, 100, 177, 277);
-                           frame.add(c3, 0);
-                           x2 = arraypic[6];
-                       }
-                       frame.revalidate();
-                       frame.repaint();
-                       if(!click1)
-                           click1 = true;
-                       else
-                           click2 = true;
-                       cardtrack[5]=1;
-                   }
-                   if(x>=118 && x<=295 && y>=477 && y<= 754 && cardtrack[6]==0){
-                       frame.remove(cardback2[6]);
-                       if(!click1) {
-                           c2 = new JLabel(new ImageIcon(arraypic[7]));
-                           c2.setBounds(118, 477, 177, 277);
-                           frame.add(c2, 0);
-                           x1 = arraypic[7];
-                       }
-                       else{
-                           c3 = new JLabel(new ImageIcon(arraypic[7]));
-                           c3.setBounds(118, 477, 177, 277);
-                           frame.add(c3, 0);
-                           x2 = arraypic[7];
-                       }
-                       frame.revalidate();
-                       frame.repaint();
-                       if(!click1)
-                           click1 = true;
-                       else
-                           click2 = true;
-                       cardtrack[6]=1;
-                   }
-                   if(x>=345 && x<= 522 && y>=477 && y<= 754 && cardtrack[7]==0) {
-                       frame.remove(cardback2[7]);
-                       if(!click1) {
-                           c2 = new JLabel(new ImageIcon(arraypic[8]));
-                           c2.setBounds(345, 477, 177, 277);
-                           frame.add(c2, 0);
-                           x1 = arraypic[8];
-                       }
-                       else{
-                           c3 = new JLabel(new ImageIcon(arraypic[8]));
-                           c3.setBounds(345, 477, 177, 277);
-                           frame.add(c3, 0);
-                           x2 = arraypic[8];
-                       }
-                       frame.revalidate();
-                       frame.repaint();
-                       if(!click1)
-                           click1 = true;
-                       else
-                           click2 = true;
-                       cardtrack[7]=1;
-                   }
-                   if(x>=572 && x<= 749 && y>=477 && y<= 754 && cardtrack[8]==0) {
-                       frame.remove(cardback2[8]);
-                       if(!click1) {
-                           c2 = new JLabel(new ImageIcon(arraypic[9]));
-                           c2.setBounds(572, 477, 177, 277);
-                           frame.add(c2, 0);
-                           x1 = arraypic[9];
-                       }
-                       else{
-                           c3 = new JLabel(new ImageIcon(arraypic[9]));
-                           c3.setBounds(572, 477, 177, 277);
-                           frame.add(c3, 0);
-                           x2 = arraypic[9];
-                       }
-                       frame.revalidate();
-                       frame.repaint();
-                       if(!click1)
-                           click1 = true;
-                       else
-                           click2 = true;
-                       cardtrack[8]=1;
-                   }
-                   if(x>=799 && x<= 976 && y>=477 && y<= 754 && cardtrack[9]==0) {
-                       frame.remove(cardback2[9]);
-                       if(!click1) {
-                           c2 = new JLabel(new ImageIcon(arraypic[10]));
-                           c2.setBounds(799, 477, 177, 277);
-                           frame.add(c2, 0);
-                           x1 = arraypic[10];
-                       }
-                       else{
-                           c3 = new JLabel(new ImageIcon(arraypic[10]));
-                           c3.setBounds(799, 477, 177, 277);
-                           frame.add(c3, 0);
-                           x2 = arraypic[10];
-                       }
-                       frame.revalidate();
-                       frame.repaint();
-                       if(!click1)
-                           click1 = true;
-                       else
-                           click2 = true;
-                       cardtrack[9]=1;
-                   }
-                   if(x>=1026 && x<= 1203 && y>=477 && y<= 754 && cardtrack[10]==0) {
-                       frame.remove(cardback2[10]);
-                       if(!click1) {
-                           c2 = new JLabel(new ImageIcon(arraypic[11]));
-                           c2.setBounds(1026, 477, 177, 277);
-                           frame.add(c2, 0);
-                           x1 = arraypic[11];
-                       }
-                       else{
-                           c3 = new JLabel(new ImageIcon(arraypic[11]));
-                           c3.setBounds(1026, 477, 177, 277);
-                           frame.add(c3, 0);
-                           x2 = arraypic[11];
-                       }
-                       frame.revalidate();
-                       frame.repaint();
-                       if(!click1)
-                           click1 = true;
-                       else
-                           click2 = true;
-                       cardtrack[10]=1;
-                   }
-
-                   if(x>=1253 && x<= 1430 && y>=477 && y<= 754 && cardtrack[11]==0) {
-                       frame.remove(cardback2[11]);
-                       if(!click1) {
-                           c2 = new JLabel(new ImageIcon(arraypic[0]));
-                           c2.setBounds(1253, 477, 177, 277);
-                           frame.add(c2, 0);
-                           x1 = arraypic[0];
-                       }
-                       else{
-                           c3 = new JLabel(new ImageIcon(arraypic[0]));
-                           c3.setBounds(1253, 477, 177, 277);
-                           frame.add(c3, 0);
-                           x2 = arraypic[0];
-                       }
-                       frame.revalidate();
-                       frame.repaint();
-                       if(!click1)
-                           click1 = true;
-                       else
-                           click2 = true;
-                       cardtrack[11]=1;
-                   }
-               }
-            });
     }
 
+    //runs everytime a button is clicked
+    static ActionListener buttonListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //which button was pressed
+            Object o = e.getSource();
+            //checks if flip the cards button was pressed. Removes it and puts all cards facedown
+            if( o == flipCards){
+                frame.remove(flipCards);
+                for(int i =0; i < 12; i++){
+                    cardback3[i].setFont(new Font(cardback3[i].getFont().getName(), Font.PLAIN,12));
+                    cardback3[i].setIcon(cardBackImage);
+                    //changes when cards flipped down so cards can't get selected before that button is pushed.
+                    cardtrack[12]=1;
+                }
+                frame.validate();
+                frame.repaint();
+            }
+            checkForCorrect();
+            if(cardtrack[12]!=1) {
+                return;
+            }
+            for(int i = 0; i < 12; i++){
+                if(o == cardback3[i] && cardtrack[i]==0){
+                    if(x1 == null)
+                        x1 = arraypic[i];
+                    else
+                        x2 = arraypic[i];
+                    cardback3[i].setFont(new Font(cardback3[i].getFont().getName(),cardback3[i].getFont().getStyle(), 120));
+                    cardback3[i].setText(arraypic[i]);
+                    cardback3[i].setIcon(null);
+                    frame.validate();
+                    frame.repaint();
+                    cardtrack[i]=1;
+                }
+            }
+            checkFinished();
+        }
+    };
+    //checks if the two cards were a match
+    private static void checkForCorrect(){
+        //checks if two different cards have been picked
+        if(x2!=null) {
+            turns = turns + 2;
+            for (int i = 0; i < 12; i++) {
+                if (cardtrack[i] == 1) {
+                    if (Objects.equals(x1, x2)) {
+                        cardtrack[i] = 2;
+                        cardback3[i].removeActionListener(buttonListener);
+                    } else {
+                        cardtrack[i] = 0;
+                        cardback3[i].setFont(new Font(cardback3[i].getFont().getName(),cardback3[i].getFont().getStyle(), 12));
+                        cardback3[i].setIcon(cardBackImage);
+                        cardback3[i].setBorderPainted(false);
+                    }
+
+                }
+            }
+            x1=x2=null;
+        }
+        frame.validate();
+        frame.repaint();
+    }
+    //shuffles array
+    private static void shuffle(){
+        arraypic = new String[]{"\uD83D\uDE00",
+                "\uD83D\uDE00", "\uD83D\uDC4C",
+                "\uD83D\uDC4C", "\uD83D\uDE43",
+                "\uD83D\uDE43", "\uD83D\uDE30",
+                "\uD83D\uDE30", "\uD83D\uDE08",
+                "\uD83D\uDE08", "\uD83E\uDD21",
+                "\uD83E\uDD21"};
+        List<String> strList = Arrays.asList(arraypic);
+        Collections.shuffle(strList);
+        arraypic = strList.toArray(new String[0]);
+    }
+
+    private static void checkFinished(){
+        boolean checkfin = true;
+        for(int l =0; l<12; l++) {
+            System.out.println(cardtrack[l]);
+
+            if (cardtrack[l] == 0)
+                checkfin = false;
+        }
+            if(checkfin) {
+                //add 2 for last two guesses to finish and divide to make each turn two guesses
+                turns = turns + 2;
+                turns = turns/2;
+                JOptionPane.showMessageDialog(frame.getComponent(0), "You won in " + turns + " turns");
+            }
+    }
 }
+
+
+
