@@ -30,6 +30,7 @@ public static void main(String[] args)
     Object unit = cat.get(3);
     for(int i = 3; i<cat.size(); i+=6){
       unit = cat.get(i);
+      unit = strip((String) unit);
       System.out.println(unit);
     }
 
@@ -47,7 +48,9 @@ public static void main(String[] args)
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    
+    //var question = getUrlContents("https://emojiapi.dev/api/v1/slightly_smiling_face/512.png");
+    //System.out.println(question);
+
 
     //one emoji
     output = getUrlContents(host + "emojis/grinning-squinting-face" + key);
@@ -85,7 +88,16 @@ public static void main(String[] args)
       output = getUrlContents(host + args[0] + key);
       System.out.println("here");
     }
-  }  
+  }
+
+  //strip
+  private static String strip(String cp)
+  {
+    cp = cp.replace("codePoint","");
+    cp = cp.replace("\"","");
+    cp = cp.replace(":","");//0x
+    return(cp);
+  }
 
   private static String getUrlContents(String theUrl)
   {
