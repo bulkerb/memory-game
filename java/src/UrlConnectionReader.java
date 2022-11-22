@@ -33,7 +33,7 @@ public static void main(String[] args)
       unit = strip((String) unit);
       System.out.println(unit);
     }
-
+/*
     //curl getting image
     String command = "curl -X GET https://emojiapi.dev/api/v1/" + unit + "/512.png --output thisemoji.png";
     ProcessBuilder im = new ProcessBuilder(command.split(" "));
@@ -50,7 +50,7 @@ public static void main(String[] args)
     }
     //var question = getUrlContents("https://emojiapi.dev/api/v1/slightly_smiling_face/512.png");
     //System.out.println(question);
-
+*/
 
     //one emoji
     output = getUrlContents(host + "emojis/grinning-squinting-face" + key);
