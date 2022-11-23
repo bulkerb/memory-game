@@ -6,19 +6,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
+import java.net.*;
+import java.io.*;
+import javax.imageio.ImageIO;
+import java.awt.Image;
 
 public class Rememboji1 {
+
+  /**
+   * @param args
+ */
+
     //images to change quickly
     public static String startBackground = "C:\\Users\\Zack\\Desktop\\pics\\titleScreen.png";
     public static String startbuttonpic = "C:\\Users\\Zack\\Desktop\\pics\\start.png";
     public static String gameBackground = "C:\\Users\\Zack\\Desktop\\pics\\background.png";
     public static String cardBackPicture = "C:\\Users\\Zack\\Desktop\\pics\\cardBack.png";
     public static ImageIcon cardBackImage = new ImageIcon(cardBackPicture);
+    public static String category, cat, lil, letter;
 
 
     //array to hold pictures
@@ -32,8 +42,30 @@ public class Rememboji1 {
     private static JFrame frame;
     private static int turns;
 
+    //references
+    public static String host = "https://emoji-api.com/";
+    public static String key = "?access_key=f48301a44b0c8d06490563f08004880e0de02e51";
 
     public static void main(String[] args) {
+        if(args.length != 0){
+            category = args[0];}
+            else category = "smileys-emotion";
+        
+        //"change category" show user list of categories
+        //String allcat = getUrlContents(host + "categories" + key);
+        //System.out.println(allcat);
+
+        //list of emoji to shuffle
+        cat = getUrlContents(host + "categories/" + category + key);
+        List<String> lil = Arrays.asList(cat.split("\\s*,\\s*"));
+        List em = ProcessListunicode(lil);//emoji
+        System.out.println(em);
+        List cp = PocessListcodepoint(lil);//codepoint
+        System.out.println(cp);
+        List ie = ProcessListutf8(cp);//internetexplorer //?need?
+        System.out.println(ie);
+        //image
+        fontage((String) cp.get(0));
 
         // Initialize Frame
         frame = new JFrame("Start Screen");
@@ -61,6 +93,88 @@ public class Rememboji1 {
 
         frame.setVisible(true);
     }
+
+    private static void docs(){
+        //all api info https://emoji-api.com/emojis?access_key=f48301a44b0c8d06490563f08004880e0de02e51
+        String output = getUrlContents(host + "emojis" + key);
+    }
+    
+    //emoji
+    private static List ProcessListunicode(List lil){
+        List temp = new ArrayList<>();
+        String unit = "";
+        for(int i = 1; i<lil.size(); i+=6){
+          unit = (String) lil.get(i);
+          unit = unit.replace("character\":","");
+          unit = unit.replace("\"","");
+          temp.add(unit);
+        }
+        return(temp);
+    }
+
+    //internetexplorer
+  private static List ProcessListutf8(List cp){
+    List temp = new ArrayList<>();
+    String letter = "";
+    for(int i = 3; i<3/*cp.size()*/; i+=6){
+        //try{
+        letter = "&#" + Integer.parseInt((String) cp.get(i),16);
+        //}
+        //catch NumberFormatException{}
+      temp.add(letter);
+    }
+    return(temp);
+    }
+
+    //codepoint
+    private static List PocessListcodepoint(List lil){
+    List temp = new ArrayList<>();
+    String letter = "";
+    for(int i=3; i<lil.size(); i+=6){
+        letter = (String) lil.get(i);
+        letter = letter.replace("codePoint","");
+        letter = letter.replace("\"","");
+        letter = letter.replace(":","");//0x
+        temp.add(letter);
+    }
+    return(temp);
+    }
+
+  //display image
+  private static void fontage(String cp){
+    Image image = null;
+      try {
+          URL url = new URL("https://emojiapi.dev/api/v1/" + cp + "/512.png");
+          image = ImageIO.read(url);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      
+      JFrame frame = new JFrame();
+      frame.setSize(300, 300);
+      JLabel label = new JLabel(new ImageIcon(image));
+      frame.add(label);
+      frame.setVisible(true);
+  }
+
+  private static String getUrlContents(String theUrl)
+  {
+    StringBuilder content = new StringBuilder();
+  // Use try and catch to avoid the exceptions
+    try
+    {
+      URL url = new URL(theUrl); // creating a url object
+      URLConnection urlConnection = url.openConnection(); // creating a urlconnection object
+      // wrapping the urlconnection in a bufferedreader  
+      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+      String line;
+      // reading from the urlconnection using the bufferedreader
+      while ((line = bufferedReader.readLine()) != null){content.append(line + "\n");}
+      bufferedReader.close();
+    }
+    catch(Exception e){e.printStackTrace();}
+    return content.toString();
+  }
 
     public static void startGame() {
         // Initialize Frame

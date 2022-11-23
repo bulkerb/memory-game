@@ -1,13 +1,24 @@
 import java.net.*;
 import java.io.*;
 import java.util.*;
+import javax.imageio.ImageIO;
+import java.awt.Image;
+//import java.awt.image.RenderedImage;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
+import java.net.URL;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 
 public class UrlConnectionReader
 {  
   /**
- * @param args
+   * @param args
  */
-public static void main(String[] args)
+public static <BufferedImage> void main(String[] args)
   {
     //references
     String host = "https://emoji-api.com/";
@@ -48,9 +59,7 @@ public static void main(String[] args)
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    //var question = getUrlContents("https://emojiapi.dev/api/v1/slightly_smiling_face/512.png");
-    //System.out.println(question);
-*/
+    */
 
     //one emoji
     output = getUrlContents(host + "emojis/grinning-squinting-face" + key);
@@ -61,7 +70,7 @@ public static void main(String[] args)
     var em = select.get(1);
     
     //codepoint
-    var cp =select.get(3);
+    var cp = select.get(3);
 
     //print info
     em = em.replace("character\":","");
@@ -80,14 +89,15 @@ public static void main(String[] args)
     //direct print emoji to terminal
     PrintWriter uc = new PrintWriter(System.out,true);
     String two = "&#" + cc;
-    uc.println(two);
+    //return(two);
     uc.close();
 
     //get args info
     if(args.length != 0){
-      output = getUrlContents(host + args[0] + key);
+      //output = getUrlContents(host + args[0] + key);
       System.out.println("here");
     }
+    fontage(cp);
   }
 
   //strip
@@ -97,6 +107,23 @@ public static void main(String[] args)
     cp = cp.replace("\"","");
     cp = cp.replace(":","");//0x
     return(cp);
+  }
+
+  //display image
+  private static void fontage(String cp){
+    Image image = null;
+      try {
+          URL url = new URL("https://emojiapi.dev/api/v1/" + cp + "/512.png");
+          image = ImageIO.read(url);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      
+      JFrame frame = new JFrame();
+      frame.setSize(300, 300);
+      JLabel label = new JLabel(new ImageIcon(image));
+      frame.add(label);
+      frame.setVisible(true);
   }
 
   private static String getUrlContents(String theUrl)
