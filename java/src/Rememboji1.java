@@ -15,13 +15,8 @@ import java.net.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.Image;
-@SuppressWarnings("rawtypes")
 
 public class Rememboji1 {
-
-  /**
-   * @param args
- */
 
     //images to change quickly
     public static String startBackground = "C:\\Users\\Zack\\Desktop\\pics\\titleScreen.png";
@@ -29,8 +24,6 @@ public class Rememboji1 {
     public static String gameBackground = "C:\\Users\\Zack\\Desktop\\pics\\background.png";
     public static String cardBackPicture = "C:\\Users\\Zack\\Desktop\\pics\\cardBack.png";
     public static ImageIcon cardBackImage = new ImageIcon(cardBackPicture);
-    public static String category, cat, lil, letter;
-
 
     //array to hold pictures
     private static String[] arraypic;
@@ -42,6 +35,10 @@ public class Rememboji1 {
     private static JButton[] cardback3;
     private static JFrame frame;
     private static int turns;
+
+    //Strings and lists for emoji
+    public static String category, cat, lil, letter;
+    public static List<String> temp = new ArrayList<>();
 
     //references
     public static String host = "https://emoji-api.com/";
@@ -61,17 +58,21 @@ public class Rememboji1 {
 
         //list of emoji to shuffle
         cat = getUrlContents(host + "categories/" + category + key);
-        List<String> lil = Arrays.asList(cat.split("\\s*,\\s*"));
-        //List em = ProcessListunicode(lil);//emoji
-        //System.out.println(em);
-        List cp = PocessListcodepoint(lil);//codepoint
-        System.out.println(cp);
-        //List ie = ProcessListutf8(cp);//html //?need?
-        //System.out.println(ie);
+        List<String> cp = Arrays.asList(cat.split("\\s*,\\s*"));
+        List<String> lil = ProcessListcodepoint(cp);//codepoint
+        temp = new ArrayList<String>();//clear
+        Collections.shuffle(lil);
+
         //image
-        for(int i=0; i<cp.size();i++){
-            fontage((String) cp.get(i));
+        for(int i=0; i<4/* lil.size() */; i++){
+            System.out.print(lil.get(i) + " ");
+            fontage((String) lil.get(i));
         }
+
+        //space image
+        String spaceimageurl = space();
+        System.out.println(spaceimageurl);
+
         // Initialize Frame
         frame = new JFrame("Start Screen");
         frame.setUndecorated(true);
@@ -84,10 +85,7 @@ public class Rememboji1 {
         // Add Start Button
         JLabel startButton = new JLabel(new ImageIcon(startbuttonpic));
         startButton.setBounds(634, 550, 268, 88);
-        /*
-         * MouseEvent code retrieved from:
-         * https://stackoverflow.com/questions/2275277/how-to-put-clickable-image-jframe
-         */
+        
         startButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 frame.setVisible(false);
@@ -100,53 +98,19 @@ public class Rememboji1 {
     }
 
     //codepoint
-    private static List PocessListcodepoint(List lil){
-        List<String> temp = new ArrayList<>();
+    private static List<String> ProcessListcodepoint(List<String> lil){
         String letter = "";
         for(int i=3; i<lil.size(); i+=6){
             letter = (String) lil.get(i);
-            letter = letter.replace("codePoint","");
-            letter = letter.replace("\"","");
-            letter = letter.replace(":","");//0x
-            letter = letter.replace(" ","-");
-            temp.add(letter);
-        }
-        return(temp);
-        }
-
-    /*
-    private static void docs(){
-        //all api info https://emoji-api.com/emojis?access_key=f48301a44b0c8d06490563f08004880e0de02e51
-        String output = getUrlContents(host + "emojis" + key);
-    } 
-    
-    //emoji
-    private static List ProcessListunicode(List lil){
-        List<String> temp = new ArrayList<>();
-        String unit = "";
-        for(int i = 1; i<lil.size(); i+=6){
-          unit = (String) lil.get(i);
-          unit = unit.replace("character\":","");
-          unit = unit.replace("\"","");
-          temp.add(unit);
+            if(!letter.contains(" ")){//letter.replace(" ","_");
+                letter = letter.replace("codePoint","");
+                letter = letter.replace("\"","");
+                letter = letter.replace(":","");//0x
+                temp.add(letter);
+            }
         }
         return(temp);
     }
-
-    //html emoji
-  private static List ProcessListutf8(List cp){
-    List<String> temp = new ArrayList<>();
-    String letter = "";
-    for(int i = 3; i<3/*cp.size()* /; i+=6){
-        //try{
-        letter = "&#" + Integer.parseInt((String) cp.get(i),16);
-        //}
-        //catch NumberFormatException{}
-      temp.add(letter);
-    }
-    return(temp);
-    }
-*/
 
   //display image
   private static void fontage(String cp){
@@ -154,35 +118,47 @@ public class Rememboji1 {
       try {
           URL url = new URL("https://emojiapi.dev/api/v1/" + cp + "/512.png");
           image = ImageIO.read(url);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      
+      } catch (IOException e) {e.printStackTrace();}
       JFrame frame = new JFrame();
       frame.setSize(300, 300);
       JLabel label = new JLabel(new ImageIcon(image));
       frame.add(label);
       frame.setVisible(true);
-  }
-
-  private static String getUrlContents(String theUrl)
-  {
-    StringBuilder content = new StringBuilder();
-  // Use try and catch to avoid the exceptions
-    try
-    {
-      URL url = new URL(theUrl); // creating a url object
-      URLConnection urlConnection = url.openConnection(); // creating a urlconnection object
-      // wrapping the urlconnection in a bufferedreader  
-      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-      String line;
-      // reading from the urlconnection using the bufferedreader
-      while ((line = bufferedReader.readLine()) != null){content.append(line + "\n");}
-      bufferedReader.close();
     }
-    catch(Exception e){e.printStackTrace();}
-    return content.toString();
-  }
+
+    //get today's space image
+    public static <BufferedImage> String space(){
+        //references
+        String hostspace = "https://api.nasa.gov/planetary/apod";
+        String keyspace = "?api_key=qxxxDZYEZaVxSUQbqKsgPpJjYUjZC6MsUjBsmg8U";
+    
+        //imageurl
+        String pic = getUrlContents(hostspace + keyspace);
+        List<String> json = Arrays.asList(pic.split("\\s*,\\s*"));
+        for(int i=0; i<json.size(); i++){
+            if(json.get(i).contains("hdurl")){
+                pic = json.get(i).substring(9,json.get(i).length()-1);
+                break;
+            }
+        }
+        return pic;
+      }
+
+    //url data
+    private static String getUrlContents(String theUrl){
+        StringBuilder content = new StringBuilder();
+        try {
+            URL url = new URL(theUrl);
+            URLConnection urlConnection = url.openConnection();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                content.append(line + "\n");}
+            bufferedReader.close();
+        }
+        catch(Exception e){e.printStackTrace();}
+        return content.toString();
+    }
 
     public static void startGame() {
         // Initialize Frame
