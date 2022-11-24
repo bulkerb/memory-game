@@ -5,8 +5,8 @@ import javax.imageio.ImageIO;
 import java.awt.Image;
 //import java.awt.image.RenderedImage;
 import java.io.IOException;
-import java.io.File;
-import java.io.FileWriter;
+//import java.io.File;
+//import java.io.FileWriter;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -44,22 +44,6 @@ public static <BufferedImage> void main(String[] args)
       unit = strip((String) unit);
       System.out.println(unit);
     }
-/*
-    //curl getting image
-    String command = "curl -X GET https://emojiapi.dev/api/v1/" + unit + "/512.png --output thisemoji.png";
-    ProcessBuilder im = new ProcessBuilder(command.split(" "));
-    im.directory(new File("memory-game/java/"));
-    Process process;
-    try {
-      process = im.start();
-      InputStream inputstream = process.getInputStream();
-      int exitCode=process.exitValue();
-      process.destroy();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    */
 
     //one emoji
     output = getUrlContents(host + "emojis/grinning-squinting-face" + key);
@@ -88,7 +72,8 @@ public static <BufferedImage> void main(String[] args)
     
     //direct print emoji to terminal
     PrintWriter uc = new PrintWriter(System.out,true);
-    String two = "&#" + cc;
+    //String two = "&#" + cc;
+    //System.out.println(two);
     //return(two);
     uc.close();
 
@@ -98,6 +83,7 @@ public static <BufferedImage> void main(String[] args)
       System.out.println("here");
     }
     fontage(cp);
+    return;
   }
 
   //strip

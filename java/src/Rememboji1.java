@@ -15,6 +15,7 @@ import java.net.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.Image;
+@SuppressWarnings("rawtypes")
 
 public class Rememboji1 {
 
@@ -46,10 +47,13 @@ public class Rememboji1 {
     public static String host = "https://emoji-api.com/";
     public static String key = "?access_key=f48301a44b0c8d06490563f08004880e0de02e51";
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         if(args.length != 0){
             category = args[0];}
-            else category = "smileys-emotion";
+        else category = "smileys-emotion";
         
         //"change category" show user list of categories
         //String allcat = getUrlContents(host + "categories" + key);
@@ -58,15 +62,16 @@ public class Rememboji1 {
         //list of emoji to shuffle
         cat = getUrlContents(host + "categories/" + category + key);
         List<String> lil = Arrays.asList(cat.split("\\s*,\\s*"));
-        List em = ProcessListunicode(lil);//emoji
-        System.out.println(em);
+        //List em = ProcessListunicode(lil);//emoji
+        //System.out.println(em);
         List cp = PocessListcodepoint(lil);//codepoint
         System.out.println(cp);
-        List ie = ProcessListutf8(cp);//internetexplorer //?need?
-        System.out.println(ie);
+        //List ie = ProcessListutf8(cp);//html //?need?
+        //System.out.println(ie);
         //image
-        fontage((String) cp.get(0));
-
+        for(int i=0; i<cp.size();i++){
+            fontage((String) cp.get(i));
+        }
         // Initialize Frame
         frame = new JFrame("Start Screen");
         frame.setUndecorated(true);
@@ -94,14 +99,30 @@ public class Rememboji1 {
         frame.setVisible(true);
     }
 
+    //codepoint
+    private static List PocessListcodepoint(List lil){
+        List<String> temp = new ArrayList<>();
+        String letter = "";
+        for(int i=3; i<lil.size(); i+=6){
+            letter = (String) lil.get(i);
+            letter = letter.replace("codePoint","");
+            letter = letter.replace("\"","");
+            letter = letter.replace(":","");//0x
+            letter = letter.replace(" ","-");
+            temp.add(letter);
+        }
+        return(temp);
+        }
+
+    /*
     private static void docs(){
         //all api info https://emoji-api.com/emojis?access_key=f48301a44b0c8d06490563f08004880e0de02e51
         String output = getUrlContents(host + "emojis" + key);
-    }
+    } 
     
     //emoji
     private static List ProcessListunicode(List lil){
-        List temp = new ArrayList<>();
+        List<String> temp = new ArrayList<>();
         String unit = "";
         for(int i = 1; i<lil.size(); i+=6){
           unit = (String) lil.get(i);
@@ -112,11 +133,11 @@ public class Rememboji1 {
         return(temp);
     }
 
-    //internetexplorer
+    //html emoji
   private static List ProcessListutf8(List cp){
-    List temp = new ArrayList<>();
+    List<String> temp = new ArrayList<>();
     String letter = "";
-    for(int i = 3; i<3/*cp.size()*/; i+=6){
+    for(int i = 3; i<3/*cp.size()* /; i+=6){
         //try{
         letter = "&#" + Integer.parseInt((String) cp.get(i),16);
         //}
@@ -125,20 +146,7 @@ public class Rememboji1 {
     }
     return(temp);
     }
-
-    //codepoint
-    private static List PocessListcodepoint(List lil){
-    List temp = new ArrayList<>();
-    String letter = "";
-    for(int i=3; i<lil.size(); i+=6){
-        letter = (String) lil.get(i);
-        letter = letter.replace("codePoint","");
-        letter = letter.replace("\"","");
-        letter = letter.replace(":","");//0x
-        temp.add(letter);
-    }
-    return(temp);
-    }
+*/
 
   //display image
   private static void fontage(String cp){
