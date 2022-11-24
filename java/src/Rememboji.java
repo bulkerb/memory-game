@@ -1,5 +1,3 @@
-//package cpsc3720.memoryGame;
-
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -16,14 +14,14 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.Image;
 
-public class Rememboji1 {
+public class Rememboji {
 
     //images to change quickly
-    public static String startBackground = "C:\\Users\\Zack\\Desktop\\pics\\titleScreen.png";
-    public static String startbuttonpic = "C:\\Users\\Zack\\Desktop\\pics\\start.png";
-    public static String gameBackground = "C:\\Users\\Zack\\Desktop\\pics\\background.png";
-    public static String cardBackPicture = "C:\\Users\\Zack\\Desktop\\pics\\cardBack.png";
+    public static String startbuttonpic = "images/start.png";
+    public static String cardBackPicture = "images/cardBack.png";
     public static ImageIcon cardBackImage = new ImageIcon(cardBackPicture);
+    public static ImageIcon startBackground = new ImageIcon(cardBackPicture);
+    public static ImageIcon gameBackground = new ImageIcon(cardBackPicture);
 
     //array to hold pictures
     private static String[] arraypic;
@@ -38,7 +36,7 @@ public class Rememboji1 {
 
     //Strings and lists for emoji
     public static String category, cat, lil, letter;
-    public static List<String> temp = new ArrayList<>();
+    public static List<String> uni, temp = new ArrayList<>();
 
     //references
     public static String host = "https://emoji-api.com/";
@@ -56,7 +54,7 @@ public class Rememboji1 {
         //String allcat = getUrlContents(host + "categories" + key);
         //System.out.println(allcat);
 
-        //list of emoji to shuffle
+        //list of emoji to shuffle in codepoint
         cat = getUrlContents(host + "categories/" + category + key);
         List<String> cp = Arrays.asList(cat.split("\\s*,\\s*"));
         List<String> lil = ProcessListcodepoint(cp);//codepoint
@@ -64,17 +62,27 @@ public class Rememboji1 {
         Collections.shuffle(lil);
 
         //image
-        for(int i=0; i<4/* lil.size() */; i++){
+        for(int i=0; i<1/* lil.size() */; i++){
             System.out.print(lil.get(i) + " ");
             fontage((String) lil.get(i));
+        //    fontage((String) lil.get(i));
         }
 
+        //list of emoji to shuffle in unicode
+        uni = ProcessListunicode(cp);
+        temp = new ArrayList<String>();//clear
+        Collections.shuffle(uni);//unicode
+        arraypic = uni.toArray(new String[0]);
+        
         //space image
-        String spaceimageurl = space();
-        System.out.println(spaceimageurl);
-        startBackground = spaceimageurl; 
-        gameBackground = spaceimageurl;
-
+        URL spaceimage = null;
+        try {spaceimage = space();
+        } catch (MalformedURLException e) {e.printStackTrace();}
+        ImageIcon si = null;
+        try {si = new ImageIcon(ImageIO.read(spaceimage));
+        } catch (IOException e) {e.printStackTrace();}
+        startBackground = si;
+        gameBackground = si;
 
         // Initialize Frame
         frame = new JFrame("Start Screen");
@@ -83,7 +91,7 @@ public class Rememboji1 {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Add Title Screen
-        frame.setContentPane(new JLabel(new ImageIcon(startBackground)));
+        frame.setContentPane(new JLabel(startBackground));
 
         // Add Start Button
         JLabel startButton = new JLabel(new ImageIcon(startbuttonpic));
@@ -96,7 +104,6 @@ public class Rememboji1 {
             }
         });
         frame.add(startButton);
-
         frame.setVisible(true);
     }
 
@@ -111,6 +118,17 @@ public class Rememboji1 {
                 letter = letter.replace(":","");//0x
                 temp.add(letter);
             }
+        }
+        return(temp);
+    }
+    
+    //unicode
+    private static List<String> ProcessListunicode(List<String> un){
+        String ucase = "";
+        for(int i=1; i<un.size(); i+=6){
+            ucase = un.get(i).substring(13,un.get(i).length()-1).toUpperCase();
+            ucase = ucase.replace('U','u');
+            temp.add(ucase);
         }
         return(temp);
     }
@@ -130,7 +148,7 @@ public class Rememboji1 {
     }
 
     //get today's space image
-    public static <BufferedImage> String space(){
+    public static <BufferedImage> URL space() throws MalformedURLException{
         //references
         String hostspace = "https://api.nasa.gov/planetary/apod";
         String keyspace = "?api_key=qxxxDZYEZaVxSUQbqKsgPpJjYUjZC6MsUjBsmg8U";
@@ -144,7 +162,7 @@ public class Rememboji1 {
                 break;
             }
         }
-        return pic;
+        return (new URL(pic));
       }
 
     //url data
@@ -171,7 +189,7 @@ public class Rememboji1 {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         shuffle();
         // Add Background
-        frame.setContentPane(new JLabel(new ImageIcon(gameBackground)));
+        frame.setContentPane(new JLabel(gameBackground));
         //array for the JLabels
         cardback3 = new JButton[12];
         // Setup Card Layout
@@ -179,16 +197,14 @@ public class Rememboji1 {
         frame.setVisible(true);
 
         int x = 0;
-        for (int j = 100; j < 478; j += 377) {
+        for (int j = 100; j < 478; j += 377)
             for (int i = 118; i < 1418; i += 227) {
-
                 cardback3[x] = new JButton(arraypic[x]);
                 cardback3[x].setFont(new Font(cardback3[x].getFont().getName(), Font.PLAIN, 120));
                 cardback3[x].setBounds(i, j, 177, 277);
                 frame.add(cardback3[x]);
                 x++;
             }
-        }
 
         flipCards = new JButton("Flip Cards Over");
         flipCards.addActionListener(buttonListener);
@@ -197,19 +213,13 @@ public class Rememboji1 {
         frame.validate();
         frame.repaint();
         flipCards.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent me) {
-
-            }
-        });
+            public void mouseClicked(MouseEvent me) {}});
 
         //Randomizes the array of pictures and puts them back into the array
         x1 = x2 = null;
         //frame.setVisible(true);
-        for(int k = 0; k<12 ; k++){
+        for(int k = 0; k<12 ; k++)
             cardback3[k].addActionListener(buttonListener);
-        }
-
-
     }
 
     //runs everytime a button is clicked
@@ -251,12 +261,13 @@ public class Rememboji1 {
             checkFinished();
         }
     };
+
     //checks if the two cards were a match
     private static void checkForCorrect(){
         //checks if two different cards have been picked
         if(x2!=null) {
             turns = turns + 2;
-            for (int i = 0; i < 12; i++) {
+            for (int i = 0; i < 12; i++)
                 if (cardtrack[i] == 1) {
                     if (Objects.equals(x1, x2)) {
                         cardtrack[i] = 2;
@@ -267,16 +278,20 @@ public class Rememboji1 {
                         cardback3[i].setIcon(cardBackImage);
                         cardback3[i].setBorderPainted(false);
                     }
-
                 }
-            }
             x1=x2=null;
         }
         frame.validate();
         frame.repaint();
     }
+
     //shuffles array
     private static void shuffle(){
+        //System.out.println("\uD83D\uDC7D");
+        //enum
+        //Character.toChars("0x" + codepoint);
+        //char[] ap = uni.get(i).toCharArray();
+        // TODO: https://medium.com/swlh/how-to-easily-handle-emoji-unicode-in-java-ff905f264f98
         arraypic = new String[]{"\uD83D\uDE00",
                 "\uD83D\uDE00", "\uD83D\uDC4C",
                 "\uD83D\uDC4C", "\uD83D\uDE43",
@@ -291,18 +306,15 @@ public class Rememboji1 {
 
     private static void checkFinished(){
         boolean checkfin = true;
-        for(int l =0; l<12; l++) {
-            System.out.println(cardtrack[l]);
-
+        for(int l =0; l<12; l++)
             if (cardtrack[l] == 0)
                 checkfin = false;
+        if(checkfin) {
+            //add 2 for last two guesses to finish and divide to make each turn two guesses
+            turns = turns + 2;
+            turns = turns/2;
+            JOptionPane.showMessageDialog(frame.getComponent(0), "You won in " + turns + " turns");
         }
-            if(checkfin) {
-                //add 2 for last two guesses to finish and divide to make each turn two guesses
-                turns = turns + 2;
-                turns = turns/2;
-                JOptionPane.showMessageDialog(frame.getComponent(0), "You won in " + turns + " turns");
-            }
     }
 }
 
