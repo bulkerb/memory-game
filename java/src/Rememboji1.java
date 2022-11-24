@@ -72,6 +72,9 @@ public class Rememboji1 {
         //space image
         String spaceimageurl = space();
         System.out.println(spaceimageurl);
+        startBackground = spaceimageurl; 
+        gameBackground = spaceimageurl;
+
 
         // Initialize Frame
         frame = new JFrame("Start Screen");
