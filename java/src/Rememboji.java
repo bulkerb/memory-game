@@ -72,7 +72,7 @@ public class Rememboji {
         uni = ProcessListunicode(cp);
         temp = new ArrayList<String>();//clear
         Collections.shuffle(uni);//unicode
-        arraypic = uni.toArray(new String[0]);
+        //arraypic = uni.toArray(new String[0]);
         
         //space image
         URL spaceimage = null;
@@ -173,8 +173,8 @@ public class Rememboji {
             URLConnection urlConnection = url.openConnection();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String line;
-            while ((line = bufferedReader.readLine()) != null){
-                content.append(line + "\n");}
+            while ((line = bufferedReader.readLine()) != null)
+                content.append(line + "\n");
             bufferedReader.close();
         }
         catch(Exception e){e.printStackTrace();}
@@ -231,7 +231,7 @@ public class Rememboji {
             //checks if flip the cards button was pressed. Removes it and puts all cards facedown
             if( o == flipCards){
                 frame.remove(flipCards);
-                for(int i =0; i < 12; i++){
+                for(int i =0; i < 12; i++) {
                     cardback3[i].setFont(new Font(cardback3[i].getFont().getName(), Font.PLAIN,12));
                     cardback3[i].setIcon(cardBackImage);
                     //changes when cards flipped down so cards can't get selected before that button is pushed.
@@ -241,11 +241,11 @@ public class Rememboji {
                 frame.repaint();
             }
             checkForCorrect();
-            if(cardtrack[12]!=1) {
+            if(cardtrack[12]!=1)
                 return;
-            }
+            
             for(int i = 0; i < 12; i++){
-                if(o == cardback3[i] && cardtrack[i]==0){
+                if(o == cardback3[i] && cardtrack[i]==0) {
                     if(x1 == null)
                         x1 = arraypic[i];
                     else
@@ -263,7 +263,7 @@ public class Rememboji {
     };
 
     //checks if the two cards were a match
-    private static void checkForCorrect(){
+    private static void checkForCorrect() {
         //checks if two different cards have been picked
         if(x2!=null) {
             turns = turns + 2;
@@ -286,12 +286,7 @@ public class Rememboji {
     }
 
     //shuffles array
-    private static void shuffle(){
-        //System.out.println("\uD83D\uDC7D");
-        //enum
-        //Character.toChars("0x" + codepoint);
-        //char[] ap = uni.get(i).toCharArray();
-        // TODO: https://medium.com/swlh/how-to-easily-handle-emoji-unicode-in-java-ff905f264f98
+    private static void shuffle() {
         arraypic = new String[]{"\uD83D\uDE00",
                 "\uD83D\uDE00", "\uD83D\uDC4C",
                 "\uD83D\uDC4C", "\uD83D\uDE43",
@@ -299,12 +294,13 @@ public class Rememboji {
                 "\uD83D\uDE30", "\uD83D\uDE08",
                 "\uD83D\uDE08", "\uD83E\uDD21",
                 "\uD83E\uDD21"};
+        System.out.println(uni.get(0));
         List<String> strList = Arrays.asList(arraypic);
         Collections.shuffle(strList);
         arraypic = strList.toArray(new String[0]);
     }
 
-    private static void checkFinished(){
+    private static void checkFinished() {
         boolean checkfin = true;
         for(int l =0; l<12; l++)
             if (cardtrack[l] == 0)
