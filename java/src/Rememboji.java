@@ -294,7 +294,6 @@ public class Rememboji {
                 "\uD83D\uDE30", "\uD83D\uDE08",
                 "\uD83D\uDE08", "\uD83E\uDD21",
                 "\uD83E\uDD21"};
-        System.out.println(uni.get(0));
         List<String> strList = Arrays.asList(arraypic);
         Collections.shuffle(strList);
         arraypic = strList.toArray(new String[0]);
@@ -302,7 +301,7 @@ public class Rememboji {
 
     private static void checkFinished() {
         boolean checkfin = true;
-        for(int l =0; l<12; l++)
+        for(int l=0; l<12; l++)
             if (cardtrack[l] == 0)
                 checkfin = false;
         if(checkfin) {
