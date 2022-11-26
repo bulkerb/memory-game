@@ -187,7 +187,7 @@ public class Rememboji {
         frame.setUndecorated(true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        shuffle();
+        arraypic = shuffle(uni);
         // Add Background
         frame.setContentPane(new JLabel(gameBackground));
         //array for the JLabels
@@ -285,23 +285,35 @@ public class Rememboji {
         frame.repaint();
     }
 
+        /*
+            String[] s0 = new String[] {uni.get(0)};
+            String[] s1 = new String[] {uni.get(1)};
+            String[] s2 = new String[] {uni.get(2)};
+            String[] s3 = new String[] {uni.get(3)};
+            String[] s4 = new String[] {uni.get(4)};
+            String[] s5 = new String[] {uni.get(5)};
+            s0[0],s0[0],s1[0],s1[0],s2[0],s2[0],s3[0],s3[0],s4[0],s4[0],s5[0],s5[0], */
+        //Object obj = un.get(0);
+        //String[] s = new String[] {obj.toString()};
     //shuffles array
-    private static void shuffle() {
-        System.out.println(uni.get(0));
-        System.out.println(uni.get(0).toCharArray());
-        String[] s = new String[] {"\""+uni.get(0)+"\""};
+    private static String[] shuffle(List<String> un) {
+        List<String> uni = new ArrayList<>();
+        uni.add("\uD83D\uDE00");//element
+        String[] s = new String[] {uni.get(0)};
         System.out.println(s.toString());
-        arraypic = new String[]{s[0],
-                "\uD83D\uDE00", "\uD83D\uDC4C",
-                "\uD83D\uDC4C", "\uD83D\uDE43",
-                "\uD83D\uDE43", "\uD83D\uDE30",
-                "\uD83D\uDE30", "\uD83D\uDE08",
-                "\uD83D\uDE08", "\uD83E\uDD21",
-                "\uD83E\uDD21"};
+        var arraypic = new String[]{
+        s[0],s[0],
+        "\uD83D\uDE00","\uD83D\uDE00",
+        "\uD83D\uDC4C","\uD83D\uDC4C",
+        "\uD83D\uDE43","\uD83D\uDE43",
+        "\uD83D\uDE30","\uD83D\uDE30",
+        "\uD83D\uDE08","\uD83D\uDE08",
+        "\uD83E\uDD21","\uD83E\uDD21"};
         System.out.println(Arrays.toString(arraypic));
         List<String> strList = Arrays.asList(arraypic);
         Collections.shuffle(strList);
         arraypic = strList.toArray(new String[0]);
+        return arraypic;
     }
 
     private static void checkFinished() {
