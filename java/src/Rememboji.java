@@ -166,16 +166,16 @@ public class Rememboji {
       }
 
     //url data
-    private static String getUrlContents(String theUrl){
+    private static String getUrlContents(String it){
         StringBuilder content = new StringBuilder();
         try {
-            URL url = new URL(theUrl);
-            URLConnection urlConnection = url.openConnection();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            URL url = new URL(it);
+            URLConnection urlc = url.openConnection();
+            BufferedReader br = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
             String line;
-            while ((line = bufferedReader.readLine()) != null)
+            while ((line = br.readLine()) != null)
                 content.append(line + "\n");
-            bufferedReader.close();
+            br.close();
         }
         catch(Exception e){e.printStackTrace();}
         return content.toString();
@@ -197,8 +197,8 @@ public class Rememboji {
         frame.setVisible(true);
 
         int x = 0;
-        for (int j = 100; j < 478; j += 377)
-            for (int i = 118; i < 1418; i += 227) {
+        for (int j=100; j<478; j+=377)
+            for (int i=118; i<1418; i+=227) {
                 cardback3[x] = new JButton(arraypic[x]);
                 cardback3[x].setFont(new Font(cardback3[x].getFont().getName(), Font.PLAIN, 120));
                 cardback3[x].setBounds(i, j, 177, 277);
@@ -218,7 +218,7 @@ public class Rememboji {
         //Randomizes the array of pictures and puts them back into the array
         x1 = x2 = null;
         //frame.setVisible(true);
-        for(int k = 0; k<12 ; k++)
+        for(int k=0; k<12 ; k++)
             cardback3[k].addActionListener(buttonListener);
     }
 
@@ -231,7 +231,7 @@ public class Rememboji {
             //checks if flip the cards button was pressed. Removes it and puts all cards facedown
             if( o == flipCards){
                 frame.remove(flipCards);
-                for(int i =0; i < 12; i++) {
+                for(int i=0; i<12; i++) {
                     cardback3[i].setFont(new Font(cardback3[i].getFont().getName(), Font.PLAIN,12));
                     cardback3[i].setIcon(cardBackImage);
                     //changes when cards flipped down so cards can't get selected before that button is pushed.
@@ -244,7 +244,7 @@ public class Rememboji {
             if(cardtrack[12]!=1)
                 return;
             
-            for(int i = 0; i < 12; i++){
+            for(int i=0; i<12; i++){
                 if(o == cardback3[i] && cardtrack[i]==0) {
                     if(x1 == null)
                         x1 = arraypic[i];
@@ -266,8 +266,8 @@ public class Rememboji {
     private static void checkForCorrect() {
         //checks if two different cards have been picked
         if(x2!=null) {
-            turns = turns + 2;
-            for (int i = 0; i < 12; i++)
+            turns = turns+2;
+            for (int i=0; i<12; i++)
                 if (cardtrack[i] == 1) {
                     if (Objects.equals(x1, x2)) {
                         cardtrack[i] = 2;
@@ -287,13 +287,18 @@ public class Rememboji {
 
     //shuffles array
     private static void shuffle() {
-        arraypic = new String[]{"\uD83D\uDE00",
+        System.out.println(uni.get(0));
+        System.out.println(uni.get(0).toCharArray());
+        String[] s = new String[] {"\""+uni.get(0)+"\""};
+        System.out.println(s.toString());
+        arraypic = new String[]{s[0],
                 "\uD83D\uDE00", "\uD83D\uDC4C",
                 "\uD83D\uDC4C", "\uD83D\uDE43",
                 "\uD83D\uDE43", "\uD83D\uDE30",
                 "\uD83D\uDE30", "\uD83D\uDE08",
                 "\uD83D\uDE08", "\uD83E\uDD21",
                 "\uD83E\uDD21"};
+        System.out.println(Arrays.toString(arraypic));
         List<String> strList = Arrays.asList(arraypic);
         Collections.shuffle(strList);
         arraypic = strList.toArray(new String[0]);
@@ -306,12 +311,9 @@ public class Rememboji {
                 checkfin = false;
         if(checkfin) {
             //add 2 for last two guesses to finish and divide to make each turn two guesses
-            turns = turns + 2;
+            turns = turns+2;
             turns = turns/2;
             JOptionPane.showMessageDialog(frame.getComponent(0), "You won in " + turns + " turns");
         }
     }
 }
-
-
-
