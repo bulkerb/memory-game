@@ -296,11 +296,11 @@ public class Rememboji {
         //Object obj = un.get(0);
         //String[] s = new String[] {obj.toString()};
     //shuffles array
+    //private static String[] shuffle(List<Character> un) {
     private static String[] shuffle(List<String> un) {
-        List<String> uni = new ArrayList<>();
-        uni.add("\uD83D\uDE00");//element
-        String[] s = new String[] {uni.get(0)};
-        System.out.println(s.toString());
+        List<String> unic = new ArrayList<>();
+        unic.add("\uD83D\uDE00");//element
+        String[] s = new String[] {unic.get(0)};
         var arraypic = new String[]{
         s[0],s[0],
         "\uD83D\uDE00","\uD83D\uDE00",
