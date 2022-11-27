@@ -34,6 +34,7 @@ public class Rememboji {
     private static JButton[] cardback3;
     private static JFrame frame;
     private static int turns;
+    public static long timer;
 
     //Strings and lists for emoji
     public static String category, cat, lil, letter;
@@ -189,6 +190,9 @@ public class Rememboji {
     }
 
     public static void startGame() {
+        //timer
+        timer = System.currentTimeMillis();
+
         // Initialize Frame
         frame = new JFrame("Game Screen");
         frame.setUndecorated(true);
@@ -326,7 +330,9 @@ public class Rememboji {
             //add 2 for last two guesses to finish and divide to make each turn two guesses
             turns = turns+2;
             turns = turns/2;
-            JOptionPane.showMessageDialog(frame.getComponent(0), "You won in " + turns + " turns");
+            timer = (System.currentTimeMillis() - timer)/1000;
+            JOptionPane.showMessageDialog(frame.getComponent(0),
+            "You won in " + turns + " turns\r\n" + timer + " seconds\r\n" + "PLAY AGAIN");
         }
     }
 }
