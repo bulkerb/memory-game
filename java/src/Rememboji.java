@@ -13,7 +13,7 @@ import java.net.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.Image;
-import java.lang.*;
+//import java.lang.*;
 
 public class Rememboji {
 
@@ -38,6 +38,12 @@ public class Rememboji {
     //Strings and lists for emoji
     public static String category, cat, lil, letter;
     public static List<String> uni, temp = new ArrayList<>();
+
+    //categories
+    enum category {
+        SMILEYS, PEOPLE, ANIMALS, FOOD, FLAGS,
+        TRAVEL, ACTIVITIES, OBJECTS, SYMBOLS
+    }
 
     //references
     public static String host = "https://emoji-api.com/";
@@ -286,24 +292,18 @@ public class Rememboji {
         frame.repaint();
     }
 
-        /*
-            String[] s0 = new String[] {uni.get(0)};
-            String[] s1 = new String[] {uni.get(1)};
-            String[] s2 = new String[] {uni.get(2)};
-            String[] s3 = new String[] {uni.get(3)};
-            String[] s4 = new String[] {uni.get(4)};
-            String[] s5 = new String[] {uni.get(5)};
-            s0[0],s0[0],s1[0],s1[0],s2[0],s2[0],s3[0],s3[0],s4[0],s4[0],s5[0],s5[0], */
-        //Object obj = un.get(0);
-        //String[] s = new String[] {obj.toString()};
-    //shuffles array
-    //private static String[] shuffle(List<Character> un) {
+    /*
+    
+     */
     private static String[] shuffle(List<String> un) {
-        List<String> unic = new ArrayList<>();
-        unic.add("\uD83D\uDE00");//element
+        ArrayList<String> unic = new ArrayList<>();
+        //for(String i : un)
+            unic.add("\uD83D\uDE00");//i
+        //unic.addAll(un);
+        //lil.codePointAt();
         String[] s = new String[] {unic.get(0)};
         var arraypic = new String[]{
-        s[0],s[0],
+        unic.get(0),s[0],
         "\uD83D\uDE00","\uD83D\uDE00",
         "\uD83D\uDC4C","\uD83D\uDC4C",
         "\uD83D\uDE43","\uD83D\uDE43",
@@ -312,7 +312,7 @@ public class Rememboji {
         "\uD83E\uDD21","\uD83E\uDD21"};
         System.out.println(Arrays.toString(arraypic));
         List<String> strList = Arrays.asList(arraypic);
-        Collections.shuffle(strList);
+        //Collections.shuffle(strList);
         arraypic = strList.toArray(new String[0]);
         return arraypic;
     }
