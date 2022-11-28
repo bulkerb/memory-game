@@ -1,10 +1,10 @@
 import java.util.*;
-import java.lang.*;
-import java.io.*;
+//import java.lang.*;
+//import java.io.*;
  
 class Ideone
 {
-	public static void main (String[] args) throws java.lang.Exception
+	public static void main (String[] args)
 	{
         List<String> uni = new ArrayList<>();
         uni.add("\uD83D\uDE00");

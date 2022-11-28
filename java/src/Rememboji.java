@@ -13,7 +13,7 @@ import java.net.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.Image;
-import java.lang.*;
+//import java.lang.*;
 
 public class Rememboji {
 
@@ -34,10 +34,17 @@ public class Rememboji {
     private static JButton[] cardback3;
     private static JFrame frame;
     private static int turns;
+    public static long timer;
 
     //Strings and lists for emoji
     public static String category, cat, lil, letter;
     public static List<String> uni, temp = new ArrayList<>();
+
+    //categories
+    enum category {
+        SMILEYS, PEOPLE, ANIMALS, FOOD, FLAGS,
+        TRAVEL, ACTIVITIES, OBJECTS, SYMBOLS
+    }
 
     //references
     public static String host = "https://emoji-api.com/";
@@ -183,12 +190,15 @@ public class Rememboji {
     }
 
     public static void startGame() {
+        //timer
+        timer = System.currentTimeMillis();
+
         // Initialize Frame
         frame = new JFrame("Game Screen");
         frame.setUndecorated(true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        shuffle();
+        arraypic = shuffle(uni);
         // Add Background
         frame.setContentPane(new JLabel(gameBackground));
         //array for the JLabels
@@ -286,23 +296,29 @@ public class Rememboji {
         frame.repaint();
     }
 
-    //shuffles array
-    private static void shuffle() {
-        System.out.println(uni.get(0));
-        System.out.println(uni.get(0).toCharArray());
-        String[] s = new String[] {"\""+uni.get(0)+"\""};
-        System.out.println(s.toString());
-        arraypic = new String[]{s[0],
-                "\uD83D\uDE00", "\uD83D\uDC4C",
-                "\uD83D\uDC4C", "\uD83D\uDE43",
-                "\uD83D\uDE43", "\uD83D\uDE30",
-                "\uD83D\uDE30", "\uD83D\uDE08",
-                "\uD83D\uDE08", "\uD83E\uDD21",
-                "\uD83E\uDD21"};
+    /*
+    
+     */
+    private static String[] shuffle(List<String> un) {
+        ArrayList<String> unic = new ArrayList<>();
+        //for(String i : un)
+            unic.add("\uD83D\uDE00");//i
+        //unic.addAll(un);
+        //lil.codePointAt();
+        String[] s = new String[] {unic.get(0)};
+        var arraypic = new String[]{
+        unic.get(0),s[0],
+        "\uD83D\uDE00","\uD83D\uDE00",
+        "\uD83D\uDC4C","\uD83D\uDC4C",
+        "\uD83D\uDE43","\uD83D\uDE43",
+        "\uD83D\uDE30","\uD83D\uDE30",
+        "\uD83D\uDE08","\uD83D\uDE08",
+        "\uD83E\uDD21","\uD83E\uDD21"};
         System.out.println(Arrays.toString(arraypic));
         List<String> strList = Arrays.asList(arraypic);
-        Collections.shuffle(strList);
+        //Collections.shuffle(strList);
         arraypic = strList.toArray(new String[0]);
+        return arraypic;
     }
 
     private static void checkFinished() {
@@ -314,7 +330,9 @@ public class Rememboji {
             //add 2 for last two guesses to finish and divide to make each turn two guesses
             turns = turns+2;
             turns = turns/2;
-            JOptionPane.showMessageDialog(frame.getComponent(0), "You won in " + turns + " turns");
+            timer = (System.currentTimeMillis() - timer)/1000;
+            JOptionPane.showMessageDialog(frame.getComponent(0),
+            "You won in " + turns + " turns\r\n" + timer + " seconds\r\n" + "PLAY AGAIN");
         }
     }
 }
