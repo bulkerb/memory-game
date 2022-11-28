@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 import java.awt.Image;
 //import java.lang.*;
 
-public class Rememboji {
+public class Rememboji implements ir{
 
     //images to change quickly
     public static String startbuttonpic = "images/start.png";
@@ -333,6 +333,8 @@ public class Rememboji {
             timer = (System.currentTimeMillis() - timer)/1000;
             JOptionPane.showMessageDialog(frame.getComponent(0),
             "You won in " + turns + " turns\r\n" + timer + " seconds\r\n" + "PLAY AGAIN");
+            //board.writeboard();
+            System.gc();
         }
     }
 }
