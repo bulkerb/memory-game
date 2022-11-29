@@ -1,0 +1,39 @@
+h1 {
+    height: 100%;
+    width: 90%;
+    align-items: center;
+    color:lightseagreen;   
+}
+
+.game_info {
+    background-color:gold;
+    color:black;
+    display: flex;
+    justify-content: space-around;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.button {
+  padding: 10px 30px;
+  font-size: 15px;
+}
+
+#list-items {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 185px;
+}
+
+#list-items a {
+  display: block;
+  font-size: 18px;
+  background-color: gold;
+  color: black;
+  text-decoration: none;
+  padding: 10px;
+}

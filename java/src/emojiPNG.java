@@ -9,8 +9,9 @@ public class emojiPNG {
         String file = "/api/v1/"+unicode+"/512.png";
         String file_name = unicode+".png";
         try{
+
+            // code from https://www.baeldung.com/java-download-file
             URL url = new URL(protocol, host, file);
-            System.out.println(url);
             InputStream in = url.openStream();
             Files.copy(in, Paths.get(file_name), StandardCopyOption.REPLACE_EXISTING);
         }
@@ -20,8 +21,7 @@ public class emojiPNG {
     }
     
     public static void main(String[] args) {
-        // whatever unicode we need - this was moreso for testing on my end
-        String emojiCode = "1f92a";
+        // test
         getPng(emojiCode);
         
     }
