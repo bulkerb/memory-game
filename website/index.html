@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <meta charset="utf-8">
+        <title> Memory Game </title>
+        <link rel="stylesheet" href="style.css">
+        <script>
+            function getChoice() {
+                var elementID = document.getElementById("themes");
+                var themeVal = elementID.options[elementID.selectedIndex].value;
+                var themeText = elementID.options[elementID.selectedIndex].text;
+            }
+        </script>
+    </head> 
+    
+
+    <body>
+        <h1> Memory Game </h1>
+        <!-- inspired by code from http://net-informations.com/js/progs/lists.htm -->
+        <select id="themes">
+            <option value="1">Smileys</option>
+            <option value="2">People</option>
+            <option value="3">Animals</option>
+            <option value="4">Food</option>
+            <option value="5">Flags</option>
+            <option value="6">Travel</option>
+            <option value="7">Activities</option>
+            <option value="8">Objects</option>
+            <option value="9">Symbols</option>
+        </select>
+        <br>
+        <button onclick="getChoice()"> Choose Game Theme</button>
+
+            
+<!--run java-->
+        <applet code="Rememboji.class" width="300" height="300"> Error java not enabled </applet> 
+    </body>
+
+</html>
