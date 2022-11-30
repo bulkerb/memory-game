@@ -1,3 +1,4 @@
+import api.*;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -15,7 +16,7 @@ import javax.imageio.ImageIO;
 import java.awt.Image;
 //import java.lang.*;
 
-public class Rememboji {
+public class Rememboji implements ir{
 
     //images to change quickly
     public static String startbuttonpic = "images/start.png";
@@ -150,6 +151,7 @@ public class Rememboji {
       } catch (IOException e) {e.printStackTrace();}
       JFrame frame = new JFrame();
       frame.setSize(300, 300);
+      frame.setLocation(50, 50);
       JLabel label = new JLabel(new ImageIcon(image));
       frame.add(label);
       frame.setVisible(true);
@@ -306,9 +308,9 @@ public class Rememboji {
         //unic.addAll(un);
         //lil.codePointAt();
         String[] s = new String[] {unic.get(0)};
-        var arraypic = new String[]{
-        unic.get(0),s[0],
-        "\uD83D\uDE00","\uD83D\uDE00",
+        /* var */ String[] arraypic = new String[]{
+        /* unic.get(0), */ s[0],
+        /* "\uD83D\uDE00", */"\uD83D\uDE00",
         "\uD83D\uDC4C","\uD83D\uDC4C",
         "\uD83D\uDE43","\uD83D\uDE43",
         "\uD83D\uDE30","\uD83D\uDE30",
@@ -316,7 +318,7 @@ public class Rememboji {
         "\uD83E\uDD21","\uD83E\uDD21"};
         System.out.println(Arrays.toString(arraypic));
         List<String> strList = Arrays.asList(arraypic);
-        //Collections.shuffle(strList);
+        Collections.shuffle(strList);
         arraypic = strList.toArray(new String[0]);
         return arraypic;
     }
@@ -333,6 +335,14 @@ public class Rememboji {
             timer = (System.currentTimeMillis() - timer)/1000;
             JOptionPane.showMessageDialog(frame.getComponent(0),
             "You won in " + turns + " turns\r\n" + timer + " seconds\r\n" + "PLAY AGAIN");
+            //board.writeboard();
+            System.gc();
         }
+    }
+
+    @Override
+    public List<String> ProcessListcodepoint2(List<String> lil) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
