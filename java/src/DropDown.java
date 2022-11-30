@@ -12,7 +12,7 @@ public class DropDown {
 
         JFrame jFrame = new JFrame();
 
-        JTextPane text = new JTextPane(;
+        //JTextPane text = new JTextPane();
         JComboBox<String> jComboBox = new JComboBox<>(optionsToChoose);
         jComboBox.setBounds(80, 50, 140, 20);
 

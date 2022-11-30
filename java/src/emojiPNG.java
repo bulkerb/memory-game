@@ -22,7 +22,7 @@ public class emojiPNG {
     
     public static void main(String[] args) {
         // test
-        getPng(emojiCode);
+        getPng(""/* emojiCode */);
         
     }
 }
