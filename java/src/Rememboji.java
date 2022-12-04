@@ -1,4 +1,4 @@
-import api.*;
+//import api.*;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -86,9 +86,10 @@ public class Rememboji implements ir{
         //space image
         URL spaceimage = null;
         try {spaceimage = space();
-        } catch (MalformedURLException e) {e.printStackTrace();}
-        ImageIcon si = null;
-        try {si = new ImageIcon(ImageIO.read(spaceimage));
+        } catch (MalformedURLException e) {//e.printStackTrace();
+        } finally{}
+        ImageIcon si = new ImageIcon("images/background.png");
+        try {if(spaceimage!= null) si = new ImageIcon(ImageIO.read(spaceimage));
         } catch (IOException e) {e.printStackTrace();}
         startBackground = si;
         gameBackground = si;
@@ -171,6 +172,7 @@ public class Rememboji implements ir{
                 pic = json.get(i).substring(9,json.get(i).length()-1);
                 break;
             }
+            if(i==json.size())return(null);
         }
         return (new URL(pic));
       }
@@ -342,7 +344,7 @@ public class Rememboji implements ir{
 
     @Override
     public List<String> ProcessListcodepoint2(List<String> lil) {
-        // TODO Auto-generated method stub
+        //  Auto-generated method stub
         return null;
     }
 }

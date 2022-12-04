@@ -33,8 +33,8 @@ public class DropDown {
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String selectedFruit = "You selected " + jComboBox.getItemAt(jComboBox.getSelectedIndex());
-                jLabel.setText(selectedFruit);
+                //String selectedFruit = "You selected " + jComboBox.getItemAt(jComboBox.getSelectedIndex());
+                //jLabel.setText(selectedFruit);
             }
         });
 
