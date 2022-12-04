@@ -5,8 +5,11 @@ import java.awt.event.ActionListener;
 // inspired by https://www.delftstack.com/howto/java/java-drop-down-menu/
 // works but is boring to look at 
 // made in case the html js version does not work with our program
-public class DropDown {
-    public static void main(String[] args) {
+
+public class DropDown  {
+    public static String selected;
+    public void showDropDown() {
+
         String[] optionsToChoose = {"SMILEYS", "PEOPLE", "ANIMALS", "FOOD", "FLAGS",
         "TRAVEL", "ACTIVITIES", "OBJECTS", "SYMBOLS"};
 
@@ -33,10 +36,13 @@ public class DropDown {
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String selectedFruit = "You selected " + jComboBox.getItemAt(jComboBox.getSelectedIndex());
-                jLabel.setText(selectedFruit);
+                selected = jComboBox.getItemAt(jComboBox.getSelectedIndex());
+                getChoice();
             }
         });
+    }
 
+    public void getChoice() {
+        System.out.println(selected);
     }
 }

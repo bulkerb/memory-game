@@ -1,4 +1,4 @@
-import api.*;
+//import api.*;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -47,6 +47,11 @@ public class Rememboji implements ir{
         TRAVEL, ACTIVITIES, OBJECTS, SYMBOLS
     }
 
+    public static String[] optionsToChoose = {"SMILEYS", "PEOPLE", "ANIMALS", "FOOD", "FLAGS",
+        "TRAVEL", "ACTIVITIES", "OBJECTS", "SYMBOLS"};
+    
+    public static String chosenCategory;
+
     //references
     public static String host = "https://emoji-api.com/";
     public static String key = "?access_key=f48301a44b0c8d06490563f08004880e0de02e51";
@@ -55,6 +60,7 @@ public class Rememboji implements ir{
      * @param args
      */
     public static void main(String[] args) {
+
         if(args.length != 0){
             category = args[0];}
         else category = "smileys-emotion";
@@ -62,7 +68,8 @@ public class Rememboji implements ir{
         //"change category" show user list of categories
         //String allcat = getUrlContents(host + "categories" + key);
         //System.out.println(allcat);
-
+        
+        
         //list of emoji to shuffle in codepoint
         cat = getUrlContents(host + "categories/" + category + key);
         List<String> cp = Arrays.asList(cat.split("\\s*,\\s*"));
@@ -101,7 +108,19 @@ public class Rememboji implements ir{
 
         // Add Title Screen
         frame.setContentPane(new JLabel(startBackground));
+        
+        // Categories Drop Down menu -  inspired by https://www.delftstack.com/howto/java/java-drop-down-menu/ 
+        JComboBox<String> jComboBox = new JComboBox<>(optionsToChoose);
+        jComboBox.setBounds(80, 50, 140, 20);
 
+        JLabel jLabel = new JLabel();
+        jLabel.setBounds(90, 100, 400, 100);
+
+        frame.add(jComboBox);
+
+        frame.setLayout(null);
+        frame.setSize(350, 250);
+        frame.setVisible(true);
         // Add Start Button
         JLabel startButton = new JLabel(new ImageIcon(startbuttonpic));
         startButton.setBounds(634, 550, 268, 88);
@@ -109,6 +128,8 @@ public class Rememboji implements ir{
         startButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 frame.setVisible(false);
+                // when user press start button, the chosen category is the one they selected 
+                chosenCategory = jComboBox.getItemAt(jComboBox.getSelectedIndex());
                 startGame();
             }
         });
@@ -253,6 +274,8 @@ public class Rememboji implements ir{
                 frame.validate();
                 frame.repaint();
             }
+
+
             checkForCorrect();
             if(cardtrack[12]!=1)
                 return;
