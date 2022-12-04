@@ -35,7 +35,7 @@ public class Remembojitester implements ir{
     private static JButton[] cardback3;
     private static JFrame frame;
     private static int turns;
-    public static long timer;
+    public static long time;
 
     //Strings and lists for emoji
     public static String category, cat, letter;
@@ -201,9 +201,6 @@ public class Remembojitester implements ir{
     }
 
     public static void startGame() {
-        //timer
-        timer = System.currentTimeMillis();
-
         // Initialize Frame
         frame = new JFrame("Game Screen");
         frame.setUndecorated(true);
@@ -241,6 +238,9 @@ public class Remembojitester implements ir{
                 frame.add(cardback3[x]);
                 x++;
             }
+
+        //timer
+        time = System.currentTimeMillis();
 
         flipCards = new JButton("Flip Cards Over");
         flipCards.addActionListener(buttonListener);
@@ -378,9 +378,9 @@ public class Remembojitester implements ir{
             //add 2 for last two guesses to finish and divide to make each turn two guesses
             turns= turns +2;
             turns = turns/2;
-            timer = (System.currentTimeMillis() - timer)/1000;
+            time = (System.currentTimeMillis() - time)/1000;
             JOptionPane.showMessageDialog(frame.getComponent(0),
-                    "You won in " + turns + " turns\r\n" + timer + " seconds\r\n" + "PLAY AGAIN");
+                    "You won in " + turns + " turns\r\n" + time + " seconds\r\n" + "PLAY AGAIN");
             //board.writeboard();
             System.gc();
         }
