@@ -19,8 +19,8 @@ import java.awt.Image;
 public class Remembojitester implements ir{
 
     //images to change quickly
-    public static String startbuttonpic = "C:\\Users\\Zack\\Desktop\\pics\\start_button2.jpg";
-    public static String cardBackPicture = "C:\\Users\\Zack\\Desktop\\pics\\cardBack.png";
+    public static String startbuttonpic = "images/start.png";
+    public static String cardBackPicture = "images/cardBack.png";
     public static ImageIcon cardBackImage = new ImageIcon(cardBackPicture);
     public static ImageIcon startBackground = new ImageIcon(cardBackPicture);
     public static ImageIcon gameBackground = new ImageIcon(cardBackPicture);
@@ -35,7 +35,7 @@ public class Remembojitester implements ir{
     private static JButton[] cardback3;
     private static JFrame frame;
     private static int turns;
-    public static long timer;
+    public static long time;
 
     //Strings and lists for emoji
     public static String category, cat, letter;
@@ -93,9 +93,10 @@ public class Remembojitester implements ir{
         //space image
         URL spaceimage = null;
         try {spaceimage = space();
-        } catch (MalformedURLException e) {e.printStackTrace();}
-        ImageIcon si = null;
-        try {si = new ImageIcon(ImageIO.read(spaceimage));
+        } catch (MalformedURLException e) {//e.printStackTrace();
+        } finally{}
+        ImageIcon si = new ImageIcon("images/background.png");
+        try {if(spaceimage!= null) si = new ImageIcon(ImageIO.read(spaceimage));
         } catch (IOException e) {e.printStackTrace();}
         startBackground = si;
         gameBackground = si;
@@ -151,7 +152,7 @@ public class Remembojitester implements ir{
 
     //display image
     private static void fontage(String cp){
-        Image image = null;
+        //Image image = null;
         /*try {
             URL url = new URL("https://emojiapi.dev/api/v1/" + cp + "/512.png");
             image = ImageIO.read(url);
@@ -178,6 +179,7 @@ public class Remembojitester implements ir{
                 pic = json.get(i).substring(9,json.get(i).length()-1);
                 break;
             }
+            if(i==json.size())return(null);
         }
         return (new URL(pic));
     }
@@ -199,9 +201,6 @@ public class Remembojitester implements ir{
     }
 
     public static void startGame() {
-        //timer
-        timer = System.currentTimeMillis();
-
         // Initialize Frame
         frame = new JFrame("Game Screen");
         frame.setUndecorated(true);
@@ -239,6 +238,9 @@ public class Remembojitester implements ir{
                 frame.add(cardback3[x]);
                 x++;
             }
+
+        //timer
+        time = System.currentTimeMillis();
 
         flipCards = new JButton("Flip Cards Over");
         flipCards.addActionListener(buttonListener);
@@ -333,9 +335,9 @@ public class Remembojitester implements ir{
 
      */
     private static String[] shuffle(List<String> un) {
-        ArrayList<String> unic = new ArrayList<>();
+        //ArrayList<String> unic = new ArrayList<>();
         ArrayList<String> arraytry = new ArrayList<>();
-        String tester;
+        //String tester;
         //for(String i : un)
         //unic.add("\uD83D\uDE00");//i
         //unic.addAll(un);
@@ -376,9 +378,9 @@ public class Remembojitester implements ir{
             //add 2 for last two guesses to finish and divide to make each turn two guesses
             turns= turns +2;
             turns = turns/2;
-            timer = (System.currentTimeMillis() - timer)/1000;
+            time = (System.currentTimeMillis() - time)/1000;
             JOptionPane.showMessageDialog(frame.getComponent(0),
-                    "You won in " + turns + " turns\r\n" + timer + " seconds\r\n" + "PLAY AGAIN");
+                    "You won in " + turns + " turns\r\n" + time + " seconds\r\n" + "PLAY AGAIN");
             //board.writeboard();
             System.gc();
         }
@@ -386,7 +388,7 @@ public class Remembojitester implements ir{
 
     @Override
     public List<String> ProcessListcodepoint2(List<String> lil) {
-        // TODO Auto-generated method stub
+        //  Auto-generated method stub
         return null;
     }
 }
