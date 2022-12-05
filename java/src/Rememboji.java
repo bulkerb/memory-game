@@ -19,6 +19,7 @@ import java.awt.Image;
 public class Rememboji implements ir{
 
     //images to change quickly
+    public static String titlePicture = "images/title.png";
     public static String startbuttonpic = "images/start.png";
     public static String cardBackPicture = "images/cardBack.png";
     public static ImageIcon cardBackImage = new ImageIcon(cardBackPicture);
@@ -118,6 +119,10 @@ public class Rememboji implements ir{
         jLabel.setBounds(90, 100, 400, 100);
 
         frame.add(jComboBox);
+        
+        JLabel titleLabel = new JLabel(new ImageIcon(title));
+        titleLabel.setBounds(460, 200, 598, 222);
+        frame.add(titleLabel);
 
         frame.setLayout(null);
         frame.setSize(350, 250);
