@@ -120,7 +120,7 @@ public class Rememboji implements ir{
 
         frame.add(jComboBox);
         
-        JLabel titleLabel = new JLabel(new ImageIcon(title));
+        JLabel titleLabel = new JLabel(new ImageIcon(titlePicture));
         titleLabel.setBounds(460, 200, 598, 222);
         frame.add(titleLabel);
 
