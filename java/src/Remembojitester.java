@@ -1,4 +1,4 @@
-//import api.*;
+package com.example;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -14,9 +14,8 @@ import java.net.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.Image;
-//import java.lang.*;
 
-public class Remembojitester implements ir{
+public class Remembojitester{
 
     //images to change quickly
     public static String startbuttonpic = "images/start.png";
