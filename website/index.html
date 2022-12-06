@@ -7,8 +7,16 @@
         <script>
             function getChoice() {
                 var elementID = document.getElementById("themes");
-                var themeVal = elementID.options[elementID.selectedIndex].value;
+                // this is the selected category
+                var themeVal = elementID.options[elementID.selectedIndex].value; 
                 var themeText = elementID.options[elementID.selectedIndex].text;
+                return themeVal;
+            }
+
+            function makeURL(theme) {
+                var host = "https://emoji-api.com/";
+                var api_key = "?access_key=f48301a44b0c8d06490563f08004880e0de02e51";
+                var url = host + "categories/" + theme + api_key;
             }
         </script>
     </head> 
@@ -18,20 +26,20 @@
         <h1> Memory Game </h1>
         <!-- inspired by code from http://net-informations.com/js/progs/lists.htm -->
         <select id="themes">
-            <option value="1">Smileys</option>
-            <option value="2">People</option>
-            <option value="3">Animals</option>
-            <option value="4">Food</option>
-            <option value="5">Flags</option>
-            <option value="6">Travel</option>
-            <option value="7">Activities</option>
-            <option value="8">Objects</option>
-            <option value="9">Symbols</option>
+            <option value="smileys-emotion">SMILEYS</option>
+            <option value="people-body">PEOPLE</option>
+            <option value="animals-nature">ANIMALS</option>
+            <option value="food-drink">FOOD</option>
+            <option value="flags">FLAGS</option>
+            <option value="travel-places">TRAVEL</option>
+            <option value="activities">ACTIVITIES</option>
+            <option value="objects">OBJECTS</option>
+            <option value="symbols">SYMBOLS</option>
         </select>
         <br>
-        <button onclick="getChoice()"> Choose Game Theme</button>
+        <button onclick="var category = getChoice(); var api_url = makeURL(category)"> Choose Game Theme</button>
 
-            
+    
 <!--run java-->
         <applet code="Rememboji.class" width="300" height="300"> Error java not enabled </applet> 
     </body>
