@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> d1a8e227bed06b0ef585a3621a9f8ad845bc1610
 h1 {
     height: 100%;
     width: 90%;
@@ -6,6 +9,16 @@ h1 {
     color:lightseagreen;   
 }
 
+<<<<<<< HEAD
+=======
+.game_info {
+    background-color:gold;
+    color:black;
+    display: flex;
+    justify-content: space-around;
+}
+
+>>>>>>> d1a8e227bed06b0ef585a3621a9f8ad845bc1610
 .dropdown {
   position: relative;
   display: inline-block;
