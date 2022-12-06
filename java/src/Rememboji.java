@@ -49,8 +49,8 @@ public class Rememboji implements ir{
 
     public static String[] optionsToChoose = {"SMILEYS", "PEOPLE", "ANIMALS", "FOOD", "FLAGS",
         "TRAVEL", "ACTIVITIES", "OBJECTS", "SYMBOLS"};
-    
     public static String chosenCategory;
+    public static JComboBox<String> jComboBox;
 
     //references
     public static String host = "https://emoji-api.com/";
@@ -111,7 +111,7 @@ public class Rememboji implements ir{
         frame.setContentPane(new JLabel(startBackground));
         
         // Categories Drop Down menu -  inspired by https://www.delftstack.com/howto/java/java-drop-down-menu/ 
-        JComboBox<String> jComboBox = new JComboBox<>(optionsToChoose);
+        jComboBox = new JComboBox<>(optionsToChoose);
         jComboBox.setBounds(80, 50, 140, 20);
 
         JLabel jLabel = new JLabel();
@@ -130,7 +130,7 @@ public class Rememboji implements ir{
             public void mouseClicked(MouseEvent me) {
                 frame.setVisible(false);
                 // when user press start button, the chosen category is the one they selected 
-                chosenCategory = jComboBox.getItemAt(jComboBox.getSelectedIndex());
+                category = jComboBox.getItemAt(jComboBox.getSelectedIndex());
                 startGame();
             }
         });
