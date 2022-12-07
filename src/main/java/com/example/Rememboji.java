@@ -104,7 +104,7 @@ public class Rememboji{
         JLabel jLabel = new JLabel();
         jLabel.setBounds(90, 100, 400, 100);
 
-        //frame.add(jcb);
+        frame.add(jcb);
         
         JLabel titleLabel = new JLabel(new ImageIcon(titlePicture));
         titleLabel.setBounds(460, 200, 598, 222);
@@ -246,7 +246,7 @@ public class Rememboji{
  */                
 //System.out.println(optionsToChoose.toString());
 //System.out.println(jcb);
-//slug=categories.valueOfslug(chosenCategory);
+        //slug=categories.valueOfslug(chosenCategory);
         //list of emoji to shuffle in codepoint
         cat = getUrlContents(host + "categories/" + slug + key);
         cp = Arrays.asList(cat.split("\\s*,\\s*"));
