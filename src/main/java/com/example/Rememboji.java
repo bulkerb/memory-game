@@ -450,7 +450,7 @@ public class Rememboji {
     for (int i = 0; i < 6; i++) {
       int x = i;
       while (arraytry.contains(lil.get(x))) {
-\        x++;
+        x++;
       }
       arraytry.add(lil.get(x));
       arraypic[i] = lil.get(x);
