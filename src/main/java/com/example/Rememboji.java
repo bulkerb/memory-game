@@ -58,9 +58,6 @@ public class Rememboji{
         }
     }
 
-    public static String[] optionsToChoose = {
-        "SMILEYS", "PEOPLE", "ANIMALS", "FOOD", "FLAGS",
-        "TRAVEL", "ACTIVITIES", "OBJECTS", "SYMBOLS"};
     
     public static categories chosenCategory;
 
