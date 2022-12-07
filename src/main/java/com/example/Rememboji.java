@@ -125,23 +125,23 @@ public class Rememboji{
                 chosenCategory  = jcb.getItemAt(jcb.getSelectedIndex());
                 slug = chosenCategory.slug;
                  
-System.out.println(chosenCategory);
-System.out.println(slug);
+                System.out.println(chosenCategory);
+                System.out.println(slug);
 
 
-        //list of emoji to shuffle in codepoint
-        cat = getUrlContents(host + "categories/" + slug + key);
-        cp = Arrays.asList(cat.split("\\s*,\\s*"));
-        lil = ProcessListcodepoint(cp);//codepoint
-        temp = new ArrayList<String>();//clear
-        Collections.shuffle(lil);
+                //list of emoji to shuffle in codepoint
+                cat = getUrlContents(host + "categories/" + slug + key);
+                cp = Arrays.asList(cat.split("\\s*,\\s*"));
+                lil = ProcessListcodepoint(cp);//codepoint
+                temp = new ArrayList<String>();//clear
+                Collections.shuffle(lil);
 
-        //list of emoji to shuffle in unicode
-        uni = ProcessListunicode(cp);
-        temp = new ArrayList<String>();//clear
-        Collections.shuffle(uni);//unicode
-        
-        startGame();
+                //list of emoji to shuffle in unicode
+                uni = ProcessListunicode(cp);
+                temp = new ArrayList<String>();//clear
+                Collections.shuffle(uni);//unicode
+                
+                startGame();
             }
         });
 
@@ -154,6 +154,7 @@ System.out.println(slug);
         exitButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 frame.dispose();
+                System.exit(0);
             }
         });
 
@@ -281,6 +282,7 @@ System.out.println(slug);
         exitButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 frame.dispose();
+                System.exit(0);
             }
         });
 
