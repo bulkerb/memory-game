@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Rememboji$categories",
+            "request": "launch",
+            "mainClass": "com.example.Rememboji$categories",
+            "projectName": "my-app"
+        },
+        {
+            "type": "java",
             "name": "Launch Rememboji",
             "request": "launch",
             "mainClass": "com.example.Rememboji",

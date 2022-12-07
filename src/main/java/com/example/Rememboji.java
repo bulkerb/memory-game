@@ -39,18 +39,26 @@ public class Rememboji{
     public static long time;
 
     //Strings and lists for emoji
-    public static String category, cat, letter;
+    public static String slug, cat, letter;
     public static List<String> lil;
     public static List<String> uni, temp= new ArrayList<>();
     public static List<String> cp;
 
-    //categories
-    enum category {
-        SMILEYS, PEOPLE, ANIMALS, FOOD, FLAGS,
-        TRAVEL, ACTIVITIES, OBJECTS, SYMBOLS
+    public enum categories{
+        SMILEYS("smileys-emotion"), PEOPLE("people-body"), ANIMALS("animals-nature"),
+        FOOD("food-drink"), FLAGS("flags"), TRAVEL("travel-places"), 
+        ACTIVITIES("activities"), OBJECTS("objects"), SYMBOLS("symbols");
+        public final String slug;
+        private categories(String slug){
+            this.slug=slug;
+        }
+        public static String valueOfslug(String slug){
+            return slug;
+        }
     }
 
-    public static String[] optionsToChoose = {"SMILEYS", "PEOPLE", "ANIMALS", "FOOD", "FLAGS",
+    public static String[] optionsToChoose = {
+        "SMILEYS", "PEOPLE", "ANIMALS", "FOOD", "FLAGS",
         "TRAVEL", "ACTIVITIES", "OBJECTS", "SYMBOLS"};
     
     public static String chosenCategory;
@@ -64,37 +72,12 @@ public class Rememboji{
      */
     public static void main(String[] args) {
         if(args.length != 0){
-            category = args[0];}
-        else category = "smileys-emotion";
+            slug = args[0];}
+        else slug = "smileys-emotion";
 
         //"change category" show user list of categories
         //String allcat = getUrlContents(host + "categories" + key);
         //System.out.println(allcat);
-
-        //list of emoji to shuffle in codepoint
-        cat = getUrlContents(host + "categories/" + category + key);
-        cp = Arrays.asList(cat.split("\\s*,\\s*"));
-        /*for(int xi =0; xi < cp.size(); xi++){
-            System.out.println(cp.get(xi));
-            System.out.println("separate \n\n");
-        }*/
-        lil = ProcessListcodepoint(cp);//codepoint
-        temp = new ArrayList<String>();//clear
-        Collections.shuffle(lil);
-
-
-        //image
-        //for(int i=0; i<1/* lil.size() */; i++){
-        //    System.out.print(lil.get(i) + " ");
-        //    fontage((String) lil.get(i));
-            //    fontage((String) lil.get(i));
-        //}
-
-        //list of emoji to shuffle in unicode
-        uni = ProcessListunicode(cp);
-        temp = new ArrayList<String>();//clear
-        Collections.shuffle(uni);//unicode
-        //arraypic = uni.toArray(new String[0]);
 
         //space image
         URL spaceimage = null;
@@ -142,9 +125,26 @@ public class Rememboji{
                 frame.setVisible(false);
                 // when user press start button, the chosen category is the one they selected 
 /*                 chosenCategory = jcb.getItemAt(jcb.getSelectedIndex());
- */                startGame();
+ */                
+System.out.println(optionsToChoose);
+//System.out.println(jcb);
+//slug=categories.valueOfslug(jcb);
+        //list of emoji to shuffle in codepoint
+        cat = getUrlContents(host + "categories/" + slug + key);
+        cp = Arrays.asList(cat.split("\\s*,\\s*"));
+        lil = ProcessListcodepoint(cp);//codepoint
+        temp = new ArrayList<String>();//clear
+        Collections.shuffle(lil);
+
+        //list of emoji to shuffle in unicode
+        uni = ProcessListunicode(cp);
+        temp = new ArrayList<String>();//clear
+        Collections.shuffle(uni);//unicode
+        
+        startGame();
             }
         });
+
         frame.add(startButton);
         frame.setVisible(true);
     }
@@ -405,7 +405,7 @@ public class Rememboji{
             turns = turns/2;
             time = (System.currentTimeMillis() - time)/1000;
             JOptionPane.showMessageDialog(frame.getComponent(0),
-                    "You won in " + turns + " turns\r\n" + time + " seconds\r\n" + "PLAY AGAIN");
+                    "You won in " + turns + " turns\r\n" + time + " seconds\r\n" + "alt+f4 to exit"/* "PLAY AGAIN" */);
             //board.writeboard();
             System.gc();
         }
