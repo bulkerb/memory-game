@@ -23,7 +23,7 @@ public class Rememboji{
     public static String titlePicture = "images/title.png";
     public static String startbuttonpic = "images/start.png";
     public static String cardBackPicture = "images/cardBack.png";
-    public static String shufflePicture = "images/shufflingPic.png"
+    public static String shufflePicture = "images/shufflingPic.png";
     public static ImageIcon cardBackImage = new ImageIcon(cardBackPicture);
     public static ImageIcon startBackground = new ImageIcon(cardBackPicture);
     public static ImageIcon gameBackground = new ImageIcon(cardBackPicture);
