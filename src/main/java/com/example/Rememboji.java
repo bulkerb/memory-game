@@ -71,7 +71,7 @@ public class Rememboji{
     public static void main(String[] args) {
         if(args.length != 0){
             slug = args[0];}
-        else slug = "smileys-emotion";
+        else slug = "animals-nature";
 
         //"change category" show user list of categories
         //String allcat = getUrlContents(host + "categories" + key);
@@ -104,7 +104,7 @@ public class Rememboji{
         JLabel jLabel = new JLabel();
         jLabel.setBounds(90, 100, 400, 100);
 
-        frame.add(jcb);
+        //frame.add(jcb);
         
         JLabel titleLabel = new JLabel(new ImageIcon(titlePicture));
         titleLabel.setBounds(460, 200, 598, 222);
@@ -128,8 +128,7 @@ public class Rememboji{
 System.out.println(chosenCategory);
 System.out.println(slug);
 
-//System.out.println(jcb);
-//slug=categories.valueOfslug(jcb);
+
         //list of emoji to shuffle in codepoint
         cat = getUrlContents(host + "categories/" + slug + key);
         cp = Arrays.asList(cat.split("\\s*,\\s*"));
@@ -165,9 +164,10 @@ System.out.println(slug);
     //codepoint
     private static List<String> ProcessListcodepoint(List<String> lil){
         String letter = "";
-        for(int i=3; i<lil.size(); i+=6){
+        for(int i=3; i<lil.size(); i++){
             letter = (String) lil.get(i);
-            if(!letter.contains(" ")){//letter.replace(" ","_");
+            //System.out.println(letter);
+            if(!letter.contains(" ") && letter.contains("codePoint")){//letter.replace(" ","_");
                 letter = letter.replace("codePoint","");
                 letter = letter.replace("\"","");
                 letter = letter.replace(":","");//0x
@@ -238,7 +238,30 @@ System.out.println(slug);
         return content.toString();
     }
 
+    private static void getimages(){
+
+                // when user press start button, the chosen category is the one they selected 
+/*                 chosenCategory = jcb.getItemAt(jcb.getSelectedIndex());
+ */                
+//System.out.println(optionsToChoose.toString());
+//System.out.println(jcb);
+//slug=categories.valueOfslug(chosenCategory);
+        //list of emoji to shuffle in codepoint
+        cat = getUrlContents(host + "categories/" + slug + key);
+        cp = Arrays.asList(cat.split("\\s*,\\s*"));
+        lil = ProcessListcodepoint(cp);//codepoint
+        temp = new ArrayList<String>();//clear
+        Collections.shuffle(lil);
+
+        //list of emoji to shuffle in unicode
+        uni = ProcessListunicode(cp);
+        temp = new ArrayList<String>();//clear
+        Collections.shuffle(uni);//unicode
+
+    }
+
     public static void startGame() {
+        getimages();
         // Initialize Frame
         frame = new JFrame("Game Screen");
         frame.setUndecorated(true);
