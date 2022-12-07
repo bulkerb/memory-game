@@ -16,6 +16,13 @@
             "name": "Launch Rememboji",
             "request": "launch",
             "mainClass": "com.example.Rememboji",
+            "projectName": "demo"
+        },
+        {
+            "type": "java",
+            "name": "Launch Rememboji",
+            "request": "launch",
+            "mainClass": "com.example.Rememboji",
             "projectName": "my-app"
         },
         {

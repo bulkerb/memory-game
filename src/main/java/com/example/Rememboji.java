@@ -2,6 +2,7 @@ package com.example;
 
 import javax.swing.*;
 import java.awt.Font;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -146,6 +147,18 @@ System.out.println(optionsToChoose);
         });
 
         frame.add(startButton);
+
+        // add exit button
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBackground(Color.RED);
+        exitButton.setBounds(0, 0, 80, 40);
+        exitButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                frame.dispose();
+            }
+        });
+
+        frame.add(exitButton);
         frame.setVisible(true);
     }
 
@@ -238,6 +251,18 @@ System.out.println(optionsToChoose);
         cardback3 = new JButton[12];
         // Setup Card Layout
 
+        // add exit button
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBackground(Color.RED);
+        exitButton.setBounds(0, 0, 80, 40);
+        exitButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                frame.dispose();
+            }
+        });
+
+        frame.add(exitButton);
+        
         frame.setVisible(true);
 
         int x = 0;
