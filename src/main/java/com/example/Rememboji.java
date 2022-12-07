@@ -62,7 +62,7 @@ public class Rememboji{
         "SMILEYS", "PEOPLE", "ANIMALS", "FOOD", "FLAGS",
         "TRAVEL", "ACTIVITIES", "OBJECTS", "SYMBOLS"};
     
-    public static String chosenCategory;
+    public static categories chosenCategory;
 
     //references
     public static String host = "https://emoji-api.com/";
@@ -101,7 +101,7 @@ public class Rememboji{
         frame.setContentPane(new JLabel(startBackground));
         
         // Categories Drop Down menu -  inspired by https://www.delftstack.com/howto/java/java-drop-down-menu/ 
-        /* final */ JComboBox<String> jcb = new JComboBox<>(optionsToChoose);
+        final JComboBox<categories> jcb = new JComboBox<>(categories.values());
         jcb.setBounds(80, 50, 140, 20);
 
         JLabel jLabel = new JLabel();
@@ -125,9 +125,12 @@ public class Rememboji{
             public void mouseClicked(MouseEvent me) {
                 frame.setVisible(false);
                 // when user press start button, the chosen category is the one they selected 
-/*                 chosenCategory = jcb.getItemAt(jcb.getSelectedIndex());
- */                
-System.out.println(optionsToChoose);
+                chosenCategory  = jcb.getItemAt(jcb.getSelectedIndex());
+                slug = chosenCategory.slug;
+                 
+System.out.println(chosenCategory);
+System.out.println(slug);
+
 //System.out.println(jcb);
 //slug=categories.valueOfslug(jcb);
         //list of emoji to shuffle in codepoint
