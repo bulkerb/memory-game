@@ -120,7 +120,6 @@ public class Rememboji{
 
         startButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
-                frame.setVisible(false);
                 // when user press start button, the chosen category is the one they selected 
                 chosenCategory  = jcb.getItemAt(jcb.getSelectedIndex());
                 slug = chosenCategory.slug;
