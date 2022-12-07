@@ -455,7 +455,7 @@ public class Rememboji{
             turns = turns/2;
             time = (System.currentTimeMillis() - time)/1000;
             JOptionPane.showMessageDialog(frame.getComponent(0),
-                    "You won in " + turns + " turns\r\n" + time + " seconds\r\n" + "alt+f4 to exit"/* "PLAY AGAIN" */);
+                    "You won in " + turns + " turns\r\n" + time + " seconds\r\n" + "Exit button in top left"/* "PLAY AGAIN" */);
             //board.writeboard();
             System.gc();
         }
