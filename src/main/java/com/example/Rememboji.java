@@ -124,10 +124,6 @@ public class Rememboji{
                 // when user press start button, the chosen category is the one they selected 
                 chosenCategory  = jcb.getItemAt(jcb.getSelectedIndex());
                 slug = chosenCategory.slug;
-                 
-System.out.println(chosenCategory);
-System.out.println(slug);
-
 
         //list of emoji to shuffle in codepoint
         cat = getUrlContents(host + "categories/" + slug + key);
