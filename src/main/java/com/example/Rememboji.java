@@ -1,5 +1,4 @@
 package com.example;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -106,15 +105,21 @@ public class Rememboji {
 
     // Add Title Screen
     frame.setContentPane(new JLabel(startBackground));
-
     // Categories Drop Down menu -  inspired by https://www.delftstack.com/howto/java/java-drop-down-menu/
     final JComboBox<categories> jcb = new JComboBox<>(categories.values());
-    jcb.setBounds(80, 50, 140, 20);
+    jcb.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
+    jcb.setForeground(new Color(178,74,111));
+    jcb.setBounds(615, 450, 250, 70);
 
-    JLabel jLabel = new JLabel();
-    jLabel.setBounds(90, 100, 400, 100);
+    JLabel jLabel = new JLabel("Select Theme", JLabel.CENTER);
+    jLabel.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 26));
+    jLabel.setOpaque(true);
+    jLabel.setBackground(new Color(178,74,111));
+    jLabel.setForeground(new Color(254, 249, 210));
+    jLabel.setBounds(635,400 , 200, 50);
 
     frame.add(jcb);
+    frame.add(jLabel);
 
     JLabel titleLabel = new JLabel(new ImageIcon(titlePicture));
     titleLabel.setBounds(460, 200, 598, 222);
@@ -126,7 +131,7 @@ public class Rememboji {
 
     // Add Start Button
     JLabel startButton = new JLabel(new ImageIcon(startbuttonpic));
-    startButton.setBounds(634, 550, 268, 88);
+    startButton.setBounds(600, 550, 268, 88);
 
     startButton.addMouseListener(
       new MouseAdapter() {
