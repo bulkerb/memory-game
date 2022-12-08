@@ -13,11 +13,11 @@ import javax.imageio.ImageIO;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionListener;/* 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-
+ */
 public class Rememboji {
 
     //images to change quickly
@@ -153,15 +153,18 @@ public class Rememboji {
                 shuffleDialog.add(shuffleButton);
                 shuffleDialog.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
                 shuffleDialog.setVisible(true);
+                shuffleDialog.pack();
 
                 // when user press start button, the chosen category is the one they selected
                 chosenCategory = jcb.getItemAt(jcb.getSelectedIndex());
                 slug = chosenCategory.slug;
 
-                ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+                //not use jdialog
+                //getimages();
 
                 // Execute timer every second
-                service.scheduleAtFixedRate(Rememboji::startGame, 3, 99999, TimeUnit.SECONDS);
+                // ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+                //service.scheduleAtFixedRate(Rememboji.startGame()/* ::startGame */, 3, 99999, TimeUnit.SECONDS);
             }
         });
 
@@ -278,10 +281,12 @@ public class Rememboji {
         uni = ProcessListunicode(cp);
         temp = new ArrayList<String>(); //clear
         //Collections.shuffle(uni); //unicode
+
+        startGame();
     }
 
-    public static void startGame() {
-        getimages();
+    public static Runnable startGame() {
+        //getimages();
         // Initialize Frame
         frame = new JFrame("Game Screen");
         frame.setUndecorated(true);
@@ -354,6 +359,7 @@ public class Rememboji {
         //frame.setVisible(true);
         for (int k = 0; k < 12; k++)
             cardback3[k].addActionListener(buttonListener);
+        return null;
     }
 
     //runs everytime a button is clicked
@@ -396,13 +402,14 @@ public class Rememboji {
                     ImageIcon imageIcon = new ImageIcon(image); // load the image to a imageIcon
                     image = imageIcon.getImage(); // transform it
                     Image newimg = image.getScaledInstance(
-                        177,
-                        277,
+                        177, 277,
                         java.awt.Image.SCALE_SMOOTH
                     ); // scale it the smooth way
                     imageIcon = new ImageIcon(newimg);
                     cardback3[i].setIcon(imageIcon);
-                    //cardback3[i].setFont(new Font(cardback3[i].getFont().getName(),cardback3[i].getFont().getStyle(), 120));
+                    //cardback3[i].setFont(new Font(
+                    //cardback3[i].getFont().getName(),
+                    //cardback3[i].getFont().getStyle(), 120));
                     //cardback3[i].setText(arraypic[i]);
                     //cardback3[i].setIcon(null);
                     frame.validate();

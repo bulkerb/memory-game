@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import java.awt.Image;
 //import java.lang.*;
 
-public class Rememboji implements ir{
+public class Remembojiv1_1 implements ir{
 
     //images to change quickly
     public static String titlePicture = "images/title.png";
