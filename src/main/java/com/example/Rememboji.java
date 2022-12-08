@@ -277,8 +277,7 @@ public class Rememboji {
         //list of emoji to shuffle in unicode
         uni = ProcessListunicode(cp);
         temp = new ArrayList<String>(); //clear
-        Collections.shuffle(uni); //unicode
-
+        //Collections.shuffle(uni); //unicode
     }
 
     public static void startGame() {
@@ -307,9 +306,7 @@ public class Rememboji {
         });
 
         frame.add(exitButton);
-
         frame.setVisible(true);
-
         int x = 0;
 
         for (int j = 100; j < 478; j += 377)
@@ -501,5 +498,4 @@ public class Rememboji {
             System.gc();
         }
     }
-  }
-  
+}
