@@ -47,10 +47,8 @@ public class Rememboji {
 
   public enum categories {
     SMILEYS("smileys-emotion"),
-    //PEOPLE("people-body"),
     ANIMALS("animals-nature"),
     FOOD("food-drink"),
-    //FLAGS("flags"),
     TRAVEL("travel-places"),
     ACTIVITIES("activities"),
     OBJECTS("objects"),
@@ -102,7 +100,7 @@ public class Rememboji {
 
     // Initialize Frame
     frame = new JFrame("Start Screen");
-    frame.setUndecorated(true);
+    frame.setUndecorated(false);// TODO
     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -137,18 +135,6 @@ public class Rememboji {
           chosenCategory = jcb.getItemAt(jcb.getSelectedIndex());
           slug = chosenCategory.slug;
 
-          //list of emoji to shuffle in codepoint
-          cat = getUrlContents(host + "categories/" + slug + key);
-          cp = Arrays.asList(cat.split("\\s*,\\s*"));
-          lil = ProcessListcodepoint(cp); //codepoint
-          temp = new ArrayList<String>(); //clear
-          Collections.shuffle(lil);
-
-          //list of emoji to shuffle in unicode
-          uni = ProcessListunicode(cp);
-          temp = new ArrayList<String>(); //clear
-          Collections.shuffle(uni); //unicode
-
           startGame();
         }
       }
@@ -179,7 +165,8 @@ public class Rememboji {
     for (int i = 3; i < lil.size(); i++) {
       letter = (String) lil.get(i);
       //System.out.println(letter);
-      if (!letter.contains(" ") && letter.contains("codePoint")) { //letter.replace(" ","_");
+      if (!letter.contains(" ") && letter.contains("codePoint")) {
+        //letter.replace(" ","_");
         letter = letter.replace("codePoint", "");
         letter = letter.replace("\"", "");
         letter = letter.replace(":", ""); //0x
@@ -199,22 +186,22 @@ public class Rememboji {
     }
     return (temp);
   }
-
+/* 
   //display image
-  //private static void fontage(String cp){
-  //Image image = null;
-  /*try {
-            URL url = new URL("https://emojiapi.dev/api/v1/" + cp + "/512.png");
-            image = ImageIO.read(url);
-        } catch (IOException e) {e.printStackTrace();}
-        JFrame frame = new JFrame();
-        frame.setSize(300, 300);
-        frame.setLocation(50, 50);
-        JLabel label = new JLabel(new ImageIcon(image));
-        frame.add(label);
-        frame.setVisible(true);*/
-  //}
-
+  private static void fontage(String cp){
+    Image image = null;
+    try {
+      URL url = new URL("https://emojiapi.dev/api/v1/" + cp + "/512.png");
+      image = ImageIO.read(url);
+    } catch (IOException e) {e.printStackTrace();}
+      JFrame frame = new JFrame();
+      frame.setSize(300, 300);
+      frame.setLocation(50, 50);
+      JLabel label = new JLabel(new ImageIcon(image));
+      frame.add(label);
+      frame.setVisible(true);
+  }
+ */
   //get today's space image
   public static <BufferedImage> URL space() throws MalformedURLException {
     //references
@@ -252,25 +239,27 @@ public class Rememboji {
     return content.toString();
   }
 
+  //gets a list of emoji in the category
   private static void getimages() {
-    //list of emoji to shuffle in codepoint
     cat = getUrlContents(host + "categories/" + slug + key);
+
+    //list of emoji to shuffle in codepoint
     cp = Arrays.asList(cat.split("\\s*,\\s*"));
     lil = ProcessListcodepoint(cp); //codepoint
     temp = new ArrayList<String>(); //clear
-    Collections.shuffle(lil);
+    //Collections.shuffle(lil);
 
     //list of emoji to shuffle in unicode
     uni = ProcessListunicode(cp);
     temp = new ArrayList<String>(); //clear
-    Collections.shuffle(uni); //unicode
+    //Collections.shuffle(uni); //unicode
   }
 
   public static void startGame() {
     getimages();
     // Initialize Frame
     frame = new JFrame("Game Screen");
-    frame.setUndecorated(true);
+    frame.setUndecorated(false);// TODO
     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     arraypic = shuffle(uni);
@@ -300,7 +289,6 @@ public class Rememboji {
     int x = 0;
 
     for (int j = 100; j < 478; j += 377) for (int i = 118; i < 1418; i += 227) {
-      //cardback3[x] = new JButton(arraypic[x]);
       cardback3[x] = new JButton();
       Image image = null;
       URL url = null;
@@ -397,7 +385,11 @@ public class Rememboji {
           cardtrack[i] = 1;
         }
       }
-      checkFinished();
+      try {
+        checkFinished();
+      } catch (IOException e1) {
+        e1.printStackTrace();
+      }
     }
   };
 
@@ -434,14 +426,13 @@ public class Rememboji {
      */
   private static String[] shuffle(List<String> un) {
     ArrayList<String> arraytry = new ArrayList<>();
-    //String tester;
-    //for(String i : un)
-    //unic.add("\uD83D\uDE00");//i
-    //unic.addAll(un);
-    //lil.codePointAt();
-    //String[] s = new String[] {unic.get(0)};
+    //for(String i : )
+    //.add("\uD83D\uDE00");//i
+    //.addAll();
+    //.codePointAt();
+    //String[] s = new String[] {.get(0)};
     /* var */String[] arraypic = new String[12];
-    /* unic.get(0),  s[0], "\uD83D\uDE00",
+    /* .get(0),  s[0], "\uD83D\uDE00",
         "\uD83D\uDC4C","\uD83D\uDC4C",
         "\uD83D\uDE43","\uD83D\uDE43",
         "\uD83D\uDE30","\uD83D\uDE30",
@@ -458,14 +449,16 @@ public class Rememboji {
     for (int i = 6; i < 12; i++) {
       arraypic[i] = arraypic[i - 6];
     }
-    System.out.println(Arrays.toString(arraypic));
     List<String> strList = Arrays.asList(arraypic);
     Collections.shuffle(strList);
     arraypic = strList.toArray(new String[0]);
+
+    //print string
+    //System.out.println(Arrays.toString(arraypic));
     return arraypic;
   }
 
-  private static void checkFinished() {
+  private static void checkFinished() throws IOException {
     boolean checkfin = true;
     for (int l = 0; l < 12; l++) if (cardtrack[l] == 0) checkfin = false;
     if (checkfin) {
@@ -473,12 +466,44 @@ public class Rememboji {
       turns = turns + 2;
       turns = turns / 2;
       time = (System.currentTimeMillis() - time) / 1000;
+      //Long newrecord = board(time);// TODO //
       JOptionPane.showMessageDialog(
         frame.getComponent(0),
         "You won in " + turns + " turns\r\n" + time + " seconds\r\n"
         /* "PLAY AGAIN" */
+      //  + "best: " + newrecord
       );
+
+      
       System.gc();
     }
   }
+/*
+  private static FileInputStream v;
+  private static FileOutputStream w;
+  static{
+    try{
+      //StringBuffer append
+      //v = new FileInputStream("board.txt");
+      w = new FileOutputStream("board.txt", false);//boolean append
+    }catch(IOException ignored){}
+  }
+
+  private static long board1(long time) throws IOException{
+    final byte[] info = v.readAllBytes();
+    String in = new String(info);
+    final long linfo = Long.parseLong(in);
+    v.close();
+    long linfo = 18;
+    return time<linfo ? time:linfo;
+  }
+  
+  private static Long board(long time) throws IOException{
+    int x = (int) time;
+    w.write(x);
+    w.close();
+
+    return board1(time);
+  }
+  */
 }
