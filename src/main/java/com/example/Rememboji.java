@@ -123,7 +123,7 @@ public class Rememboji {
         }
     }
 
-    protected static int y = 2;
+    /* protected */ static int y = 2;
 
     private static int firstframe() {
         // Initialize Frame
