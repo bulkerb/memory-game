@@ -106,8 +106,12 @@ public class Rememboji {
         startBackground = si;
         gameBackground = si;
 
-        firstframe();
+        // !opens multiple times
+        //do{
+            firstframe();
+        //} while( close == false);
         getimages();
+        
         startGame();
     }
 
