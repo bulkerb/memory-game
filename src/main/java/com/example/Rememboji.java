@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.ActionListener;
  
-public class Rememboji {
+public class Rememboji extends JFrame implements ActionListener{
 
     //images to change quickly
     public static String titlePicture = "images/title.png";
@@ -29,6 +29,7 @@ public class Rememboji {
     //array to hold pictures
     private static String[] arraypic;
     private static JButton flipCards;
+    static JLabel startButton;
     //array keeps track of what cards have been selected
     private static final int[] cardtrack = new int[13];
     //for making comparison of the pictures
@@ -171,7 +172,7 @@ public class Rememboji {
         });
 
         // Add Start Button
-        JLabel startButton = new JLabel(new ImageIcon(startbuttonpic));
+        startButton = new JLabel(new ImageIcon(startbuttonpic));
         startButton.setBounds(600, 550, 268, 88);
         if (y == 2)
             frame.add(startButton);// TODO set breakpoint
@@ -180,6 +181,7 @@ public class Rememboji {
         //
         startButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
+                /* 
                 JLabel shuffleButton = new JLabel(new ImageIcon(shufflePicture));
                 shuffleButton.setBounds(600, 550, 268, 88);
 
@@ -191,14 +193,14 @@ public class Rememboji {
                 shuffleDialog.add(shuffleButton);
                 shuffleDialog.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
                 shuffleDialog.setVisible(true);
-                shuffleDialog.pack();
+                shuffleDialog.pack();  */
 
                 // when user press start button, the chosen category is the one they selected
                 chosenCategory = jcb.getItemAt(jcb.getSelectedIndex());
                 slug = chosenCategory.slug;
 
                 //not use jdialog
-                //getimages();// TODO //
+                getimages();// TODO //
                 /* startGame(); */
                 y = 9;
                 // Execute timer every second
@@ -307,6 +309,18 @@ public class Rememboji {
 
     //gets a list of emoji in the category
     private static void getimages() {
+
+        frame.remove(startButton);
+        frame.getContentPane();
+        //frame.revalidate();
+        //frame.repaint();
+ /* 
+        startButton = new JLabel(new ImageIcon(shufflePicture));
+        frame.add(startButton);
+        frame.revalidate();
+        frame.getContentPane();
+        frame.repaint();
+ */
         cat = getUrlContents(host + "categories/" + slug + key);
 
         //list of emoji to shuffle in codepoint
@@ -319,6 +333,7 @@ public class Rememboji {
         uni = ProcessListunicode(cp);
         temp = new ArrayList<String>(); //clear
         //Collections.shuffle(uni); //unicode
+
         startGame();// TODO //
     }
 
@@ -538,5 +553,11 @@ public class Rememboji {
 
             System.gc();
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 }
