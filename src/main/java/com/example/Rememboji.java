@@ -183,7 +183,7 @@ public class Rememboji {
                 slug = chosenCategory.slug;
 
                 //not use jdialog
-                getimages();
+                //getimages();
                 /* startGame(); */
                 y = 9;
                 // Execute timer every second
