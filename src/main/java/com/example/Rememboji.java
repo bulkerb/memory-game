@@ -20,6 +20,9 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 public class Rememboji {
 
+    //jframe
+    static boolean close = false;
+
     //images to change quickly
     public static String titlePicture = "images/title.png";
     public static String startbuttonpic = "images/start.png";
@@ -145,9 +148,6 @@ public class Rememboji {
         // Add Start Button
         JLabel startButton = new JLabel(new ImageIcon(startbuttonpic));
         startButton.setBounds(600, 550, 268, 88);
-
-        //
-        boolean close = false;
 
         //
         startButton.addMouseListener(new MouseAdapter() {
