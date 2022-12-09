@@ -12,8 +12,9 @@ An emoji-themed memory game.
 <a href="https://github.com/bulkerb/memory-game/edit/main/README.md#acknowledgements">Acknowledgements</a>
 </p>
 
-// Insert GIF
-
+<p align="center">
+  <img src="https://github.com/bulkerb/memory-game/blob/main/images/readmegif.gif" />
+</p>
 Usage
 ---
 Usage: Rememboji.java
