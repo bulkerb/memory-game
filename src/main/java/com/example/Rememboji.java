@@ -127,7 +127,7 @@ public class Rememboji {
     private static int firstframe() {
         // Initialize Frame
         frame = new JFrame("Screen");
-        frame.setUndecorated(true);
+        frame.setUndecorated(false);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
