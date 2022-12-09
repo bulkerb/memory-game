@@ -14,9 +14,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.ActionListener;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
  
 public class Rememboji {
 
@@ -102,16 +99,32 @@ public class Rememboji {
         startBackground = si;
         gameBackground = si;
 
-        // !opens multiple times
-        //do{
-        firstframe();
-        //} while( close == false);
-        //getimages();
-        
-        //startGame();
+        // 
+        int close = 0, x = 1;
+
+        while(close == 0) {
+            switch(x) {
+                case 1:
+                    x = 2;
+                    x = firstframe();
+                    break;
+                case 9:
+                    close = 1;
+                    getimages();
+                    frame.validate();
+                    frame.repaint();
+                    startGame();
+                    break;
+                case 2:
+                default:
+                    break;
+            }
+        }
     }
 
-    private static void firstframe() {
+    protected static int y = 2;
+
+    private static int firstframe() {
         // Initialize Frame
         frame = new JFrame("Screen");
         frame.setUndecorated(true);
@@ -172,11 +185,10 @@ public class Rememboji {
                 //not use jdialog
                 getimages();
                 /* startGame(); */
-
+                y = 9;
                 // Execute timer every second
                 //ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
                 //service.scheduleAtFixedRate(Rememboji.startGame(), 3, 99999, TimeUnit.SECONDS);
-                return;
             }
         });
 
@@ -196,6 +208,7 @@ public class Rememboji {
         frame.add(startButton);
         frame.add(exitButton);
         frame.setVisible(true);
+        return y;
 
     }
 
