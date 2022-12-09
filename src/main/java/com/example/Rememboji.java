@@ -111,7 +111,13 @@ public class Rememboji {
 
         // Add Title Screen
         startFrame.setContentPane(new JLabel(startBackground));
+        
+        firstframe();
+        getimages();
+        startGame();
+    }
 
+    private static void firstframe() {
         // Categories Drop Down menu -  inspired by https://www.delftstack.com/howto/java/java-drop-down-menu/
         final JComboBox<categories> jcb = new JComboBox<>(categories.values());
         jcb.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
@@ -161,6 +167,7 @@ public class Rememboji {
 
                 //not use jdialog
                 //getimages();
+                //starGame();
 
                 // Execute timer every second
                 // ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
@@ -281,8 +288,6 @@ public class Rememboji {
         uni = ProcessListunicode(cp);
         temp = new ArrayList<String>(); //clear
         //Collections.shuffle(uni); //unicode
-
-        startGame();
     }
 
     public static Runnable startGame() {
