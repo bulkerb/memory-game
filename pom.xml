@@ -10,7 +10,30 @@
 
   <name>demo</name>
   <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <url>https://bulkerb.github.io/memory-game/</url>
+
+   <distributionManagement>
+    <site>
+      <id>www.bulkerb.github.io</id>
+      <url>https://bulkerb.github.io/memory-game/</url>
+    </site>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>memory-game-repo</id>
+      <name>Memory Game</name>
+      <url>https://github.com/bulkerb/memory-game</url>
+      <layout>default</layout>
+    </repository>
+    <snapshotRepository>
+      <uniqueVersion>true</uniqueVersion>
+      <id>memory-game-repo</id>
+      <name>Memory Game</name>
+      <url>https://github.com/bulkerb/memory-gam</url>
+      <layout>legacy</layout>
+    </snapshotRepository>
+  </distributionManagement>
+
+
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -91,6 +114,15 @@
         </plugin>
         <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-publish-plugin</artifactId>
+          <version>3.1.0</version>
+          <configuration>
+            <pubScmUrl>${project.scm.developerConnection}</pubScmUrl>
+            <scmBranch>gh-pages</scmBranch>
+          </configuration>
+      </plugin>
+       <plugin>
           <artifactId>maven-site-plugin</artifactId>
           <version>3.7.1</version>
         </plugin>
