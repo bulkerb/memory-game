@@ -16,7 +16,7 @@
         <server>
             <id>memory-game-repo</id>
             <username></username>
-            <password>dummy-password</password>
+            <password></password>
             <filePermissions>664</filePermissions>
             <directoryPermissions>775</directoryPermissions>
             <configuration></configuration>
