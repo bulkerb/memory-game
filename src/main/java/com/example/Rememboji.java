@@ -146,6 +146,10 @@ public class Rememboji {
         JLabel startButton = new JLabel(new ImageIcon(startbuttonpic));
         startButton.setBounds(600, 550, 268, 88);
 
+        //
+        boolean close = false;
+
+        //
         startButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 JLabel shuffleButton = new JLabel(new ImageIcon(shufflePicture));
@@ -164,6 +168,7 @@ public class Rememboji {
                 // when user press start button, the chosen category is the one they selected
                 chosenCategory = jcb.getItemAt(jcb.getSelectedIndex());
                 slug = chosenCategory.slug;
+                close=true;
 
                 //not use jdialog
                 //getimages();
@@ -174,6 +179,8 @@ public class Rememboji {
                 //service.scheduleAtFixedRate(Rememboji.startGame()/* ::startGame */, 3, 99999, TimeUnit.SECONDS);
             }
         });
+
+        
 
         // add exit button
         JButton exitButton = new JButton("Exit");
@@ -189,6 +196,9 @@ public class Rememboji {
         startFrame.add(startButton);
         startFrame.add(exitButton);
         startFrame.setVisible(true);
+
+        if (close == true)
+        ;
     }
 
     //codepoint
