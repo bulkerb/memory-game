@@ -1,43 +1,40 @@
-# memory-game
-flip card to reveal
+<p align="center">
+  <img src="https://github.com/bulkerb/memory-game/blob/main/images/title.png" />
+</p>
 
-click on the green code button, open with github desktop, show in explorer
+<p align="center">
+An emoji-themed memory game.
+</p>
 
-right click in empty space of folder, git gui here or 
+<p align="center">
+<a href="https://github.com/bulkerb/memory-game/edit/main/README.md#usage">Usage</a> • 
+<a href="https://github.com/bulkerb/memory-game/edit/main/README.md#how-to-contribute">How to Contribute</a> •
+<a href="https://github.com/bulkerb/memory-game/edit/main/README.md#acknowledgements">Acknowledgements</a>
+</p>
 
-_
+// Insert GIF
 
-git bash here
+Usage
+---
+Usage: Rememboji.java
 
-git add .
+Try to match each pair of cards in the least amount of turns.
 
-git commit -a -m "describtion note"
+Developed by Bilkan Ulker -> (Github: bulkerb)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Devon Schroeder -> (Github: devonschroeder)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nicholas Jarrett -> (Github: NickJarrett425)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zachary Hunter -> (Github: VCUClemson)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ethan Johnson\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sullivan Kelley
 
-git push origin main
+How to Contribute
+---
+1. Clone repo and create a new branch: `$ git checkout https://github.com/bulkerb/memory-game -b name_for_new_branch`
+2. Make changes and test.
+3. Submit Pull Request with comprehensive description of changes.
 
-_
-
-to create a new branch
-
-git checkout -b nameyourbranch
-
-_
-
-to switch to another existing branch
-
-git checkout theirbranch
-
-don't use git merge nameyourbranch
-
-_
-
-to update the latest changes from branched code
-
-git fetch
-
-to check for changes
-
-git status
-
-## Examples Found Online
-https://www.memozor.com/other-memory-games/numbers-memory-games/match-game-numbers
+Acknowledgements
+---
+- <a href="https://stackoverflow.com/users/2695641/trolologuy">trolologuy's</a> answer on <a href="https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon">Stack Overflow</a> was quite helpful.
+- DelftStack's <a href="https://www.delftstack.com/howto/java/java-drop-down-menu/">Create a Dropdown Menu in Java</a> tutorial was also quite helpful.
+- Background used in the event APOD is a video: <a href="http://www.freepik.com">Designed by coolvector / Freepik</a>.
