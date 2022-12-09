@@ -456,7 +456,7 @@ public class Rememboji {
             turns = turns / 2;
             time = (System.currentTimeMillis() - time) / 1000;
             // JOptionPane input code retrived from: https://stackoverflow.com/questions/14407804/how-to-change-the-default-text-of-buttons-in-joptionpane-showinputdialog
-            Object[] choices = {"Restart", "Exit"};
+            Object[] choices = {"Reshuffle", "Exit"};
             Object defaultChoice = choices[0];
             int input = JOptionPane.showOptionDialog(frame.getComponent(0), "You won in " + turns + " turns!\r\n" +
                     "You took " + time + " seconds...\r\n", "Finished!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, choices, defaultChoice);
