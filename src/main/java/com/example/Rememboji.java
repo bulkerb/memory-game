@@ -123,7 +123,7 @@ public class Rememboji {
         }
     }
 
-    protected static int y = 2;
+    /* protected */ static int y = 2;
 
     private static int firstframe() {
         // Initialize Frame
@@ -210,6 +210,8 @@ public class Rememboji {
         if (y == 9) {
             startButton.removeMouseListener(null);
             frame.remove(startButton);
+            //frame.validate();
+            //frame.repaint();
             getimages();
         }
 
