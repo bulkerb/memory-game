@@ -13,9 +13,12 @@ import javax.imageio.ImageIO;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
-import java.awt.event.ActionListener;
- 
-public class Rememboji extends JFrame implements ActionListener{
+import java.awt.event.ActionListener;/* 
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+ */
+public class Rememboji {
 
     //images to change quickly
     public static String titlePicture = "images/title.png";
@@ -29,13 +32,13 @@ public class Rememboji extends JFrame implements ActionListener{
     //array to hold pictures
     private static String[] arraypic;
     private static JButton flipCards;
-    static JLabel startButton;
     //array keeps track of what cards have been selected
     private static final int[] cardtrack = new int[13];
     //for making comparison of the pictures
     private static String x1 = null, x2 = null;
     private static JButton[] cardback3;
     private static JFrame frame;
+    private static JFrame startFrame;
     private static int turns;
     public static long time;
 
@@ -100,42 +103,15 @@ public class Rememboji extends JFrame implements ActionListener{
         startBackground = si;
         gameBackground = si;
 
-        // 
-        int close = 0, x = 1;
-
-        while(close == 0) {
-            switch(x) {
-                case 1:
-                    x = 2;
-                    x = firstframe();
-                    break;// TODO set preakpoint
-                case 9:
-                    close = 1;
-                    getimages();
-                    //shufflePic dialog always on top! replace start location, startButton.setVisible(false); 
-                    frame.validate();
-                    frame.repaint();
-                    //startGame();
-                    break;
-                case 2:
-                default:
-                    break;
-            }
-        }
-    }
-
-    /* protected */ static int y = 2;
-
-    private static int firstframe() {
         // Initialize Frame
-        frame = new JFrame("Screen");
-        frame.setUndecorated(false);// TODO //
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        startFrame = new JFrame("Start Screen");
+        startFrame.setUndecorated(true);
+        startFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Add Title Screen
-        frame.setContentPane(new JLabel(startBackground));
-        
+        startFrame.setContentPane(new JLabel(startBackground));
+
         // Categories Drop Down menu -  inspired by https://www.delftstack.com/howto/java/java-drop-down-menu/
         final JComboBox<categories> jcb = new JComboBox<>(categories.values());
         jcb.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
@@ -149,39 +125,23 @@ public class Rememboji extends JFrame implements ActionListener{
         jLabel.setForeground(new Color(254, 249, 210));
         jLabel.setBounds(635, 400, 200, 50);
 
-        frame.add(jcb);
-        frame.add(jLabel);
+        startFrame.add(jcb);
+        startFrame.add(jLabel);
 
         JLabel titleLabel = new JLabel(new ImageIcon(titlePicture));
         titleLabel.setBounds(460, 200, 598, 222);
-        frame.add(titleLabel);
+        startFrame.add(titleLabel);
 
-        frame.setLayout(null);
-        frame.setSize(350, 250);
-        frame.setVisible(true);
-
-        // add exit button
-        JButton exitButton = new JButton("Exit");
-        exitButton.setBackground(Color.RED);
-        exitButton.setBounds(0, 0, 80, 40);
-        exitButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent me) {
-                frame.dispose();
-                System.exit(0);
-            }
-        });
+        startFrame.setLayout(null);
+        startFrame.setSize(350, 250);
+        startFrame.setVisible(true);
 
         // Add Start Button
-        startButton = new JLabel(new ImageIcon(startbuttonpic));
+        JLabel startButton = new JLabel(new ImageIcon(startbuttonpic));
         startButton.setBounds(600, 550, 268, 88);
-        if (y == 2)
-            frame.add(startButton);// TODO set breakpoint
-        frame.add(exitButton);
-        frame.setVisible(true);
-        //
+
         startButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
-                /* 
                 JLabel shuffleButton = new JLabel(new ImageIcon(shufflePicture));
                 shuffleButton.setBounds(600, 550, 268, 88);
 
@@ -193,35 +153,35 @@ public class Rememboji extends JFrame implements ActionListener{
                 shuffleDialog.add(shuffleButton);
                 shuffleDialog.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
                 shuffleDialog.setVisible(true);
-                shuffleDialog.pack();  */
+                shuffleDialog.pack();
 
                 // when user press start button, the chosen category is the one they selected
                 chosenCategory = jcb.getItemAt(jcb.getSelectedIndex());
                 slug = chosenCategory.slug;
 
                 //not use jdialog
-                getimages();// TODO //
-                /* startGame(); */
-                y = 9;
+                //getimages();
+
                 // Execute timer every second
-                //ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-                //service.scheduleAtFixedRate(Rememboji.startGame(), 3, 99999, TimeUnit.SECONDS);
+                // ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+                //service.scheduleAtFixedRate(Rememboji.startGame()/* ::startGame */, 3, 99999, TimeUnit.SECONDS);
             }
         });
 
-        if (y == 9) {
-            startButton.removeMouseListener(null);
-            frame.remove(startButton);
-            //frame.validate();
-            //frame.repaint();
-            getimages();
-        }
+        // add exit button
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBackground(Color.RED);
+        exitButton.setBounds(0, 0, 80, 40);
+        exitButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                startFrame.dispose();
+                System.exit(0);
+            }
+        });
 
-        //
-        //frame.remove(startButton);// TODO set breakpoint
-        frame.setVisible(true);
-        return y;
-
+        startFrame.add(startButton);
+        startFrame.add(exitButton);
+        startFrame.setVisible(true);
     }
 
     //codepoint
@@ -309,18 +269,6 @@ public class Rememboji extends JFrame implements ActionListener{
 
     //gets a list of emoji in the category
     private static void getimages() {
-
-        frame.remove(startButton);
-        frame.getContentPane();
-        //frame.revalidate();
-        //frame.repaint();
- /* 
-        startButton = new JLabel(new ImageIcon(shufflePicture));
-        frame.add(startButton);
-        frame.revalidate();
-        frame.getContentPane();
-        frame.repaint();
- */
         cat = getUrlContents(host + "categories/" + slug + key);
 
         //list of emoji to shuffle in codepoint
@@ -334,13 +282,16 @@ public class Rememboji extends JFrame implements ActionListener{
         temp = new ArrayList<String>(); //clear
         //Collections.shuffle(uni); //unicode
 
-        startGame();// TODO //
+        startGame();
     }
 
     public static Runnable startGame() {
         //getimages();
-        frame.getContentPane().removeAll();
-        frame.repaint();
+        // Initialize Frame
+        frame = new JFrame("Game Screen");
+        frame.setUndecorated(true);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         arraypic = shuffle(uni);
         // Add Background
         frame.setContentPane(new JLabel(gameBackground));
@@ -553,11 +504,5 @@ public class Rememboji extends JFrame implements ActionListener{
 
             System.gc();
         }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        
     }
 }
