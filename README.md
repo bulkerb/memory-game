@@ -13,7 +13,7 @@ An emoji-themed memory game.
 </p>
 
 <p align="center">
-  <img src="https://github.com/bulkerb/memory-game/blob/main/images/readmegif.gif" />
+  <img src="https://github.com/bulkerb/memory-game/blob/main/images/game.gif" />
 </p>
 
 Usage
