@@ -103,6 +103,12 @@ public class Rememboji {
         startBackground = si;
         gameBackground = si;
 
+        firstframe();
+        getimages();
+        startGame();
+    }
+
+    private static void firstframe() {
         // Initialize Frame
         startFrame = new JFrame("Start Screen");
         startFrame.setUndecorated(true);
@@ -112,12 +118,6 @@ public class Rememboji {
         // Add Title Screen
         startFrame.setContentPane(new JLabel(startBackground));
         
-        firstframe();
-        getimages();
-        startGame();
-    }
-
-    private static void firstframe() {
         // Categories Drop Down menu -  inspired by https://www.delftstack.com/howto/java/java-drop-down-menu/
         final JComboBox<categories> jcb = new JComboBox<>(categories.values());
         jcb.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
