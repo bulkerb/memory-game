@@ -107,13 +107,14 @@ public class Rememboji {
                 case 1:
                     x = 2;
                     x = firstframe();
-                    break;
+                    break;// TODO set preakpoint
                 case 9:
                     close = 1;
                     getimages();
+                    //shufflePic dialog always on top! replace start location, startButton.setVisible(false); 
                     frame.validate();
                     frame.repaint();
-                    startGame();
+                    //startGame();
                     break;
                 case 2:
                 default:
@@ -158,10 +159,24 @@ public class Rememboji {
         frame.setSize(350, 250);
         frame.setVisible(true);
 
+        // add exit button
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBackground(Color.RED);
+        exitButton.setBounds(0, 0, 80, 40);
+        exitButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent me) {
+                frame.dispose();
+                System.exit(0);
+            }
+        });
+
         // Add Start Button
         JLabel startButton = new JLabel(new ImageIcon(startbuttonpic));
         startButton.setBounds(600, 550, 268, 88);
-
+        if (y == 2)
+            frame.add(startButton);// TODO set breakpoint
+        frame.add(exitButton);
+        frame.setVisible(true);
         //
         startButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
@@ -183,7 +198,7 @@ public class Rememboji {
                 slug = chosenCategory.slug;
 
                 //not use jdialog
-                //getimages();
+                //getimages();// TODO //
                 /* startGame(); */
                 y = 9;
                 // Execute timer every second
@@ -192,21 +207,14 @@ public class Rememboji {
             }
         });
 
-        
+        if (y == 9) {
+            startButton.removeMouseListener(null);
+            frame.remove(startButton);
+            getimages();
+        }
 
-        // add exit button
-        JButton exitButton = new JButton("Exit");
-        exitButton.setBackground(Color.RED);
-        exitButton.setBounds(0, 0, 80, 40);
-        exitButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent me) {
-                frame.dispose();
-                System.exit(0);
-            }
-        });
-
-        frame.add(startButton);
-        frame.add(exitButton);
+        //
+        //frame.remove(startButton);// TODO set breakpoint
         frame.setVisible(true);
         return y;
 
@@ -309,7 +317,7 @@ public class Rememboji {
         uni = ProcessListunicode(cp);
         temp = new ArrayList<String>(); //clear
         //Collections.shuffle(uni); //unicode
-        startGame();
+        startGame();// TODO //
     }
 
     public static Runnable startGame() {
