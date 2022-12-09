@@ -210,8 +210,8 @@ public class Rememboji {
         if (y == 9) {
             startButton.removeMouseListener(null);
             frame.remove(startButton);
-            frame.validate();
-            frame.repaint();
+            //frame.validate();
+            //frame.repaint();
             getimages();
         }
 
