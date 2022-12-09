@@ -13,11 +13,8 @@ import javax.imageio.ImageIO;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
-import java.awt.event.ActionListener;/* 
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
- */
+import java.awt.event.ActionListener;
+ 
 public class Rememboji {
 
     //images to change quickly
@@ -38,7 +35,6 @@ public class Rememboji {
     private static String x1 = null, x2 = null;
     private static JButton[] cardback3;
     private static JFrame frame;
-    private static JFrame startFrame;
     private static int turns;
     public static long time;
 
@@ -103,21 +99,41 @@ public class Rememboji {
         startBackground = si;
         gameBackground = si;
 
-        // Initialize Frame
-        startFrame = new JFrame("Start Screen");
-        startFrame.setUndecorated(true);
-        startFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // 
+        int close = 0, x = 1;
 
-        // Add Title Screen
-        startFrame.setContentPane(new JLabel(startBackground));
-        
-        firstframe();
-        getimages();
-        startGame();
+        while(close == 0) {
+            switch(x) {
+                case 1:
+                    x = 2;
+                    x = firstframe();
+                    break;
+                case 9:
+                    close = 1;
+                    getimages();
+                    frame.validate();
+                    frame.repaint();
+                    startGame();
+                    break;
+                case 2:
+                default:
+                    break;
+            }
+        }
     }
 
-    private static void firstframe() {
+    protected static int y = 2;
+
+    private static int firstframe() {
+        // Initialize Frame
+        frame = new JFrame("Screen");
+        frame.setUndecorated(true);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Add Title Screen
+        frame.setContentPane(new JLabel(startBackground));
+        
         // Categories Drop Down menu -  inspired by https://www.delftstack.com/howto/java/java-drop-down-menu/
         final JComboBox<categories> jcb = new JComboBox<>(categories.values());
         jcb.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
@@ -131,21 +147,22 @@ public class Rememboji {
         jLabel.setForeground(new Color(254, 249, 210));
         jLabel.setBounds(635, 400, 200, 50);
 
-        startFrame.add(jcb);
-        startFrame.add(jLabel);
+        frame.add(jcb);
+        frame.add(jLabel);
 
         JLabel titleLabel = new JLabel(new ImageIcon(titlePicture));
         titleLabel.setBounds(460, 200, 598, 222);
-        startFrame.add(titleLabel);
+        frame.add(titleLabel);
 
-        startFrame.setLayout(null);
-        startFrame.setSize(350, 250);
-        startFrame.setVisible(true);
+        frame.setLayout(null);
+        frame.setSize(350, 250);
+        frame.setVisible(true);
 
         // Add Start Button
         JLabel startButton = new JLabel(new ImageIcon(startbuttonpic));
         startButton.setBounds(600, 550, 268, 88);
 
+        //
         startButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 JLabel shuffleButton = new JLabel(new ImageIcon(shufflePicture));
@@ -166,14 +183,16 @@ public class Rememboji {
                 slug = chosenCategory.slug;
 
                 //not use jdialog
-                //getimages();
-                //starGame();
-
+                getimages();
+                /* startGame(); */
+                y = 9;
                 // Execute timer every second
-                // ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-                //service.scheduleAtFixedRate(Rememboji.startGame()/* ::startGame */, 3, 99999, TimeUnit.SECONDS);
+                //ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+                //service.scheduleAtFixedRate(Rememboji.startGame(), 3, 99999, TimeUnit.SECONDS);
             }
         });
+
+        
 
         // add exit button
         JButton exitButton = new JButton("Exit");
@@ -181,14 +200,16 @@ public class Rememboji {
         exitButton.setBounds(0, 0, 80, 40);
         exitButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
-                startFrame.dispose();
+                frame.dispose();
                 System.exit(0);
             }
         });
 
-        startFrame.add(startButton);
-        startFrame.add(exitButton);
-        startFrame.setVisible(true);
+        frame.add(startButton);
+        frame.add(exitButton);
+        frame.setVisible(true);
+        return y;
+
     }
 
     //codepoint
@@ -288,15 +309,13 @@ public class Rememboji {
         uni = ProcessListunicode(cp);
         temp = new ArrayList<String>(); //clear
         //Collections.shuffle(uni); //unicode
+        startGame();
     }
 
     public static Runnable startGame() {
         //getimages();
-        // Initialize Frame
-        frame = new JFrame("Game Screen");
-        frame.setUndecorated(true);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().removeAll();
+        frame.repaint();
         arraypic = shuffle(uni);
         // Add Background
         frame.setContentPane(new JLabel(gameBackground));
