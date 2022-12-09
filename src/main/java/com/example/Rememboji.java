@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.ActionListener;
- 
+
 public class Rememboji {
 
     //images to change quickly
@@ -37,6 +37,7 @@ public class Rememboji {
     private static JFrame frame;
     private static int turns;
     public static long time;
+    public static int count;
 
     //Strings and lists for emoji
     public static String slug, cat, letter;
@@ -70,7 +71,7 @@ public class Rememboji {
     //references
     public static String host = "https://emoji-api.com/";
     public static String key =
-        "?access_key=f48301a44b0c8d06490563f08004880e0de02e51";
+            "?access_key=f48301a44b0c8d06490563f08004880e0de02e51";
 
     /**
      * @param args
@@ -80,15 +81,10 @@ public class Rememboji {
             slug = args[0];
         } else slug = "animals-nature";
 
-        //"change category" show user list of categories
-        //String allcat = getUrlContents(host + "categories" + key);
-        //System.out.println(allcat);
-
         //space image
         URL spaceimage = null;
         try {spaceimage = space();
         } catch (MalformedURLException e) {
-            //e.printStackTrace();
         } finally {}
         ImageIcon si = new ImageIcon("images/background.png");
         try {
@@ -99,7 +95,6 @@ public class Rememboji {
         startBackground = si;
         gameBackground = si;
 
-        // 
         int close = 0, x = 1;
 
         while(close == 0) {
@@ -107,14 +102,12 @@ public class Rememboji {
                 case 1:
                     x = 2;
                     x = firstframe();
-                    break;// TODO set preakpoint
+                    break;
                 case 9:
                     close = 1;
                     getimages();
-                    //shufflePic dialog always on top! replace start location, startButton.setVisible(false); 
                     frame.validate();
                     frame.repaint();
-                    //startGame();
                     break;
                 case 2:
                 default:
@@ -123,18 +116,18 @@ public class Rememboji {
         }
     }
 
-    /* protected */ static int y = 2;
+    static int y = 2;
 
     private static int firstframe() {
         // Initialize Frame
         frame = new JFrame("Screen");
-        frame.setUndecorated(false);// TODO //
+        frame.setUndecorated(false);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Add Title Screen
         frame.setContentPane(new JLabel(startBackground));
-        
+
         // Categories Drop Down menu -  inspired by https://www.delftstack.com/howto/java/java-drop-down-menu/
         final JComboBox<categories> jcb = new JComboBox<>(categories.values());
         jcb.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
@@ -177,46 +170,24 @@ public class Rememboji {
             frame.add(startButton);// TODO set breakpoint
         frame.add(exitButton);
         frame.setVisible(true);
-        //
+
         startButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
-                JLabel shuffleButton = new JLabel(new ImageIcon(shufflePicture));
-                shuffleButton.setBounds(600, 550, 268, 88);
-
-                JDialog shuffleDialog = new JDialog();
-                shuffleDialog.setUndecorated(true);
-                shuffleDialog.setTitle("shufflePic");
-                shuffleDialog.setSize(268,88);
-                shuffleDialog.setLocation(600, 550);
-                shuffleDialog.add(shuffleButton);
-                shuffleDialog.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
-                shuffleDialog.setVisible(true);
-                shuffleDialog.pack();
-
                 // when user press start button, the chosen category is the one they selected
                 chosenCategory = jcb.getItemAt(jcb.getSelectedIndex());
                 slug = chosenCategory.slug;
 
-                //not use jdialog
-                //getimages();// TODO //
-                /* startGame(); */
+                getimages();
                 y = 9;
-                // Execute timer every second
-                //ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-                //service.scheduleAtFixedRate(Rememboji.startGame(), 3, 99999, TimeUnit.SECONDS);
             }
         });
 
         if (y == 9) {
             startButton.removeMouseListener(null);
             frame.remove(startButton);
-            //frame.validate();
-            //frame.repaint();
             getimages();
         }
 
-        //
-        //frame.remove(startButton);// TODO set breakpoint
         frame.setVisible(true);
         return y;
 
@@ -227,9 +198,7 @@ public class Rememboji {
         String letter = "";
         for (int i = 3; i < lil.size(); i++) {
             letter = (String) lil.get(i);
-            //System.out.println(letter);
             if (!letter.contains(" ") && letter.contains("codePoint")) {
-                //letter.replace(" ","_");
                 letter = letter.replace("codePoint", "");
                 letter = letter.replace("\"", "");
                 letter = letter.replace(":", ""); //0x
@@ -249,23 +218,6 @@ public class Rememboji {
         }
         return (temp);
     }
-
-/*
-  //display image
-  private static void fontage(String cp){
-    Image image = null;
-    try {
-      URL url = new URL("https://emojiapi.dev/api/v1/" + cp + "/512.png");
-      image = ImageIO.read(url);
-    } catch (IOException e) {e.printStackTrace();}
-      JFrame frame = new JFrame();
-      frame.setSize(300, 300);
-      frame.setLocation(50, 50);
-      JLabel label = new JLabel(new ImageIcon(image));
-      frame.add(label);
-      frame.setVisible(true);
-  }
- */
 
     //get today's space image
     public static <BufferedImage> URL space() throws MalformedURLException {
@@ -293,14 +245,14 @@ public class Rememboji {
             URL url = new URL(it);
             URLConnection urlc = url.openConnection();
             BufferedReader br = new BufferedReader(
-                new InputStreamReader(urlc.getInputStream())
+                    new InputStreamReader(urlc.getInputStream())
             );
             String line;
             while ((line = br.readLine()) != null)
                 content.append(line + "\n");
             br.close();
         } catch (Exception e) {
-          e.printStackTrace();
+            e.printStackTrace();
         }
         return content.toString();
     }
@@ -313,17 +265,14 @@ public class Rememboji {
         cp = Arrays.asList(cat.split("\\s*,\\s*"));
         lil = ProcessListcodepoint(cp); //codepoint
         temp = new ArrayList<String>(); //clear
-        //Collections.shuffle(lil);
 
         //list of emoji to shuffle in unicode
         uni = ProcessListunicode(cp);
         temp = new ArrayList<String>(); //clear
-        //Collections.shuffle(uni); //unicode
-        startGame();// TODO //
+        startGame();
     }
 
     public static Runnable startGame() {
-        //getimages();
         frame.getContentPane().removeAll();
         frame.repaint();
         arraypic = shuffle(uni);
@@ -363,13 +312,12 @@ public class Rememboji {
                 ImageIcon imageIcon = new ImageIcon(image); // load the image to a imageIcon
                 image = imageIcon.getImage(); // transform it
                 Image newimg = image.getScaledInstance(
-                    177,
-                    277,
-                    java.awt.Image.SCALE_SMOOTH
+                        177,
+                        277,
+                        java.awt.Image.SCALE_SMOOTH
                 ); // scale it the smooth way
                 imageIcon = new ImageIcon(newimg);
                 cardback3[x].setIcon(imageIcon);
-                //cardback3[x].setFont(new Font(cardback3[x].getFont().getName(), Font.PLAIN, 120));
                 cardback3[x].setBounds(i, j, 177, 277);
                 frame.add(cardback3[x]);
                 x++;
@@ -390,7 +338,6 @@ public class Rememboji {
 
         //Randomizes the array of pictures and puts them back into the array
         x1 = x2 = null;
-        //frame.setVisible(true);
         for (int k = 0; k < 12; k++)
             cardback3[k].addActionListener(buttonListener);
         return null;
@@ -407,7 +354,7 @@ public class Rememboji {
                 frame.remove(flipCards);
                 for (int i = 0; i < 12; i++) {
                     cardback3[i].setFont(
-                        new Font(cardback3[i].getFont().getName(), Font.PLAIN, 12)
+                            new Font(cardback3[i].getFont().getName(), Font.PLAIN, 12)
                     );
                     cardback3[i].setIcon(cardBackImage);
                     //changes when cards flipped down so cards can't get selected before that button is pushed.
@@ -436,22 +383,17 @@ public class Rememboji {
                     ImageIcon imageIcon = new ImageIcon(image); // load the image to a imageIcon
                     image = imageIcon.getImage(); // transform it
                     Image newimg = image.getScaledInstance(
-                        177, 277,
-                        java.awt.Image.SCALE_SMOOTH
+                            177, 277,
+                            java.awt.Image.SCALE_SMOOTH
                     ); // scale it the smooth way
                     imageIcon = new ImageIcon(newimg);
                     cardback3[i].setIcon(imageIcon);
-                    //cardback3[i].setFont(new Font(
-                    //cardback3[i].getFont().getName(),
-                    //cardback3[i].getFont().getStyle(), 120));
-                    //cardback3[i].setText(arraypic[i]);
-                    //cardback3[i].setIcon(null);
                     frame.validate();
                     frame.repaint();
                     cardtrack[i] = 1;
                 }
             }
-            checkFinished();
+                checkFinished();
         }
     };
 
@@ -468,9 +410,9 @@ public class Rememboji {
                     } else {
                         cardtrack[i] = 0;
                         cardback3[i].setFont(new Font(
-                            cardback3[i].getFont().getName(),
-                            cardback3[i].getFont().getStyle(),
-                            12
+                                cardback3[i].getFont().getName(),
+                                cardback3[i].getFont().getStyle(),
+                                12
                         ));
                         cardback3[i].setIcon(cardBackImage);
                         cardback3[i].setBorderPainted(false);
@@ -482,27 +424,12 @@ public class Rememboji {
         frame.repaint();
     }
 
-    /*
-
-     */
     private static String[] shuffle(List<String> un) {
         ArrayList<String> arraytry = new ArrayList<>();
-    //for(String i : )
-    //.add("\uD83D\uDE00");//i
-    //.addAll();
-    //.codePointAt();
-    //String[] s = new String[] {.get(0)};
-    /* var */String[] arraypic = new String[12];
-    /* .get(0),  s[0], "\uD83D\uDE00",
-        "\uD83D\uDC4C","\uD83D\uDC4C",
-        "\uD83D\uDE43","\uD83D\uDE43",
-        "\uD83D\uDE30","\uD83D\uDE30",
-        "\uD83D\uDE08","\uD83D\uDE08",
-        "\uD83E\uDD21","\uD83E\uDD21"};*/
+        String[] arraypic = new String[12];
         for (int i = 0; i < 6; i++) {
             int x = i;
             while (arraytry.contains(lil.get(x))) {
-                //arraytry.add(lil.get(x));
                 x++;
             }
             arraytry.add(lil.get(x));
@@ -515,8 +442,6 @@ public class Rememboji {
         Collections.shuffle(strList);
         arraypic = strList.toArray(new String[0]);
 
-        //print string
-        //System.out.println(Arrays.toString(arraypic));
         return arraypic;
     }
 
@@ -530,12 +455,31 @@ public class Rememboji {
             turns = turns + 2;
             turns = turns / 2;
             time = (System.currentTimeMillis() - time) / 1000;
-            JOptionPane.showMessageDialog(
-                frame.getComponent(0),
-                "You won in " + turns + " turns\r\n" + time + " seconds\r\n"
-                /* "PLAY AGAIN" */
-            );
+            // JOptionPane input code retrived from: https://stackoverflow.com/questions/14407804/how-to-change-the-default-text-of-buttons-in-joptionpane-showinputdialog
+            Object[] choices = {"Restart", "Exit"};
+            Object defaultChoice = choices[0];
+            int input = JOptionPane.showOptionDialog(frame.getComponent(0), "You won in " + turns + " turns!\r\n" +
+                    "You took " + time + " seconds...\r\n", "Finished!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, choices, defaultChoice);
 
+            // Perform action on options retrived from: https://stackoverflow.com/questions/17979438/how-to-perform-action-on-ok-of-joptionpane-showmessagedialog
+            if (input == JOptionPane.OK_OPTION) {
+                for (int l = 0; l < 12; l++) {
+                    cardtrack[l] = 0;
+                }
+
+                turns = 0;
+                time = 0;
+                frame.dispose();
+                startGame();
+            }
+            else if (input == JOptionPane.NO_OPTION) {
+                frame.dispose();
+                System.exit(0);
+            }
+            else if (input == JOptionPane.CLOSED_OPTION) {
+                frame.dispose();
+                System.exit(0);
+            }
             System.gc();
         }
     }
