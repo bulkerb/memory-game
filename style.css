@@ -1,22 +1,14 @@
-h1 {
-    height: 100%;
-    width: 90%;
-    align-items: center;
-    color:lightseagreen;   
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
-
-.drop-down {
-  display: flex;
-  justify-content: center;
+h3 {
+  font-family: "Arial Rounded MT Bold";
+  text-align: center;
 }
-
-  /* .drop-down #themes {
-    background-color: orange;
-    color: white;
-
-  } */
-
-.button {
-  display: flex;
-  justify-content: center;
+p {
+  font-family: "Arial Rounded MT Bold";
+  text-align: center;
 }
