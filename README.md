@@ -32,7 +32,7 @@ Developed by Bilkan Ulker -> (Github: bulkerb)\
 
 User Stories 
 ---
-User needs to see cards face-up for some amount of time before the game begins so they can know where the matching cards are. 
+User needs to see cards face-up for some amount of time before the game begins so they can know where the matching cards are.
 User needs to know if the pair of cards they picked was a match or not. 
 User needs the cards that they have already matched to remain face up, so they do not pick those cards again.
 User needs incorrectly guessed cards to be put back face down, so they can re-draw for a new match. 
