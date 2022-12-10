@@ -18,10 +18,10 @@ import java.awt.event.ActionListener;
 public class Rememboji {
 
     //images to change quickly
-    public static String titlePicture = "src/main/java/com/images/title.png";
-    public static String startbuttonpic = "src/main/java/com/images/start.png";
-    public static String cardBackPicture = "src/main/java/com/images/cardBack.png";
-    public static String shufflePicture = "src/main/java/com/images/shufflingPic.png";
+    public static String titlePicture = "images/title.png";
+    public static String startbuttonpic = "images/start.png";
+    public static String cardBackPicture = "images/cardBack.png";
+    public static String shufflePicture = "images/shufflingPic.png";
     public static ImageIcon cardBackImage = new ImageIcon(cardBackPicture);
     public static ImageIcon startBackground = new ImageIcon(cardBackPicture);
     public static ImageIcon gameBackground = new ImageIcon(cardBackPicture);
@@ -86,7 +86,7 @@ public class Rememboji {
         try {spaceimage = space();
         } catch (MalformedURLException e) {
         } finally {}
-        ImageIcon si = new ImageIcon("src/main/java/com/images/background.png");
+        ImageIcon si = new ImageIcon("images/background.png");
         try {
             if (spaceimage != null) si = new ImageIcon(ImageIO.read(spaceimage));
         } catch (IOException e) {
@@ -245,7 +245,7 @@ public class Rememboji {
             URL url = new URL(it);
             URLConnection urlc = url.openConnection();
             BufferedReader br = new BufferedReader(
-                    new InputStreamReader(urlc.getInputStream())
+                new InputStreamReader(urlc.getInputStream())
             );
             String line;
             while ((line = br.readLine()) != null)
@@ -312,8 +312,7 @@ public class Rememboji {
                 ImageIcon imageIcon = new ImageIcon(image); // load the image to a imageIcon
                 image = imageIcon.getImage(); // transform it
                 Image newimg = image.getScaledInstance(
-                        177,
-                        277,
+                        177, 277,
                         java.awt.Image.SCALE_SMOOTH
                 ); // scale it the smooth way
                 imageIcon = new ImageIcon(newimg);
