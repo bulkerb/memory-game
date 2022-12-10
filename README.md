@@ -23,7 +23,7 @@ An emoji-themed memory game.
 
 Usage
 ---
-Usage: src/Rememboji.java
+Usage: Rememboji.java
 
 Select a category for your card theme.\
 Try to match each pair of cards in the least amount of turns.
