@@ -8,6 +8,7 @@ An emoji-themed memory game.
 
 <p align="center">
 <a href="https://github.com/bulkerb/memory-game/edit/main/README.md#usage">Usage</a> • 
+<a href="https://github.com/bulkerb/memory-game/edit/main/README.md#user-stories">User Stories</a> • 
 <a href="https://github.com/bulkerb/memory-game/edit/main/README.md#how-to-contribute">How to Contribute</a> •
 <a href="https://github.com/bulkerb/memory-game/edit/main/README.md#acknowledgements">Acknowledgements</a>
 </p>
