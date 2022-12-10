@@ -6,13 +6,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Rememboji",
-            "request": "launch",
-            "mainClass": "com.example.Rememboji",
-            "projectName": "demo"
-        },
-        {
-            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -44,17 +37,6 @@
             "request": "launch",
             "mainClass": "com.example.Rememboji",
             "projectName": "my-app"
-        },
-        {
-            "type": "devtools-for-chrome",
-            "request": "launch",
-            "name": "Launch Chrome DevTools"
-        },
-        {
-            "type": "devtools-for-chrome",
-            "request": "attach",
-            "name": "Attach Chrome DevTools",
-            "url": "http://localhost:8000/"
         }
     ]
 }
