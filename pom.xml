@@ -22,12 +22,11 @@
     </repository>
     <snapshotRepository>
       <uniqueVersion>true</uniqueVersion>
-      <id>memory-game-repo</id>
+      <id>memory-game</id>
       <name>Memory Game</name>
-      <url>https://maven.pkg.github.com/bulkerb/memory-gam</url>
+      <url>https://maven.pkg.github.com/bulkerb/memory-game</url>
     </snapshotRepository>
   </distributionManagement>
-
 
 
   <properties>
@@ -51,6 +50,7 @@
   </dependencies>
 
   <build>
+      <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
 <!--         <plugin>
@@ -103,6 +103,12 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+          <manifest>
+            <addClasspath>true</addClasspath>
+                        <mainClass>
+                            com.example.Rememboji
+                        </mainClass>
+                    </manifest>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
