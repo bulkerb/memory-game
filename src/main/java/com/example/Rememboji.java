@@ -463,6 +463,7 @@ public class Rememboji {
 
     private static String[] shuffle(List<String> un) {
         ArrayList<String> arraytry = new ArrayList<>();
+        Collections.shuffle(arraytry);
         String[] arraypic = new String[12];
         for (int i = 0; i < 6; i++) {
             int x = i;
@@ -476,7 +477,6 @@ public class Rememboji {
             arraypic[i] = arraypic[i - 6];
         }
         List<String> strList = Arrays.asList(arraypic);
-        Collections.shuffle(strList);
         arraypic = strList.toArray(new String[0]);
 
         return arraypic;
