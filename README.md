@@ -57,7 +57,7 @@ How to Contribute
 
 Acknowledgements
 ---
-- <a href="https://stackoverflow.com/users/2695641/trolologuy">trolologuy's</a> answer on <a href="https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon">Stack Overflow</a> was quite helpful.
+- <a href="https://stackoverflow.com/a/18335435">trolologuy's answer</a> on Stack Overflow was quite helpful.
 - DelftStack's <a href="https://www.delftstack.com/howto/java/java-drop-down-menu/">Create a Dropdown Menu in Java</a> tutorial was also quite helpful.
 - Background on website; also used in the event APOD is a video: <a href="http://www.freepik.com">Designed by coolvector / Freepik</a>.
 - For the restart functionality, <a href="https://stackoverflow.com/a/14408269">Gregory Peck's</a> and <a href="https://stackoverflow.com/a/17979629">Eng.Fouad's</a> answers on StackOverflow were used.
