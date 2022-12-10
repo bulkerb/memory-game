@@ -3,7 +3,10 @@
 </p>
 
 <p align="center">
-An emoji-themed memory game.\
+An emoji-themed memory game.
+</p>
+
+<p align="center">
 <a href="https://bulkerb.github.io/memory-game/">Download</a>
 </p>
 
