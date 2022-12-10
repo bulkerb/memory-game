@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <meta charset="utf-8">
+        <title> Memory Game </title>
+        <link rel="stylesheet" href="style.css">
+        <script>
+            function getChoice() {
+                var elementID = document.getElementById("themes");
+                // this is the selected category
+                var themeVal = elementID.options[elementID.selectedIndex].value; 
+                var themeText = elementID.options[elementID.selectedIndex].text;
+                return themeVal;
+            }
+
+            function makeURL(theme) {
+                var host = "https://emoji-api.com/";
+                var api_key = "?access_key=f48301a44b0c8d06490563f08004880e0de02e51";
+                var url = host + "categories/" + theme + api_key;
+                // alert(url);
+            }
+
+    
+        </script>
+    </head> 
+    
+
+    <body>
+        <h1> Memory Game </h1>
+        <!-- inspired by code from http://net-informations.com/js/progs/lists.htm -->
+        <div class = "drop-down">
+            <select id="themes">
+                <option value="smileys-emotion">SMILEYS</option>
+                <option value="people-body">PEOPLE</option>
+                <option value="animals-nature">ANIMALS</option>
+                <option value="food-drink">FOOD</option>
+                <option value="flags">FLAGS</option>
+                <option value="travel-places">TRAVEL</option>
+                <option value="activities">ACTIVITIES</option>
+                <option value="objects">OBJECTS</option>
+                <option value="symbols">SYMBOLS</option>
+            </select>
+        </div>
+        <br>
+        <div class = "button">
+            <button onclick="var category = getChoice(); var api_url = makeURL(category)"> Choose Game Theme</button>
+        </div>
+           
+
+    
+<!--run java-->
+        <applet code="Rememboji.class" width="300" height="300"> Error java not enabled </applet> 
+    </body>
+
+</html>

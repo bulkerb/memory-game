@@ -6,7 +6,7 @@ import java.net.*;
 import javax.swing.*;
 import java.util.List;
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.Objects;/*  */
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.imageio.ImageIO;
@@ -18,10 +18,10 @@ import java.awt.event.ActionListener;
 public class Rememboji {
 
     //images to change quickly
-    public static String titlePicture = "images/title.png";
-    public static String startbuttonpic = "images/start.png";
-    public static String cardBackPicture = "images/cardBack.png";
-    public static String shufflePicture = "images/shufflingPic.png";
+    public static String titlePicture = "src/main/java/com/example/images/title.png";
+    public static String startbuttonpic = "src/main/java/com/example/images/start.png";
+    public static String cardBackPicture = "src/main/java/com/example/images/cardBack.png";
+    public static String shufflePicture = "src/main/java/com/example/images/shufflingPic.png";
     public static ImageIcon cardBackImage = new ImageIcon(cardBackPicture);
     public static ImageIcon startBackground = new ImageIcon(cardBackPicture);
     public static ImageIcon gameBackground = new ImageIcon(cardBackPicture);
@@ -86,7 +86,7 @@ public class Rememboji {
         try {spaceimage = space();
         } catch (MalformedURLException e) {
         } finally {}
-        ImageIcon si = new ImageIcon("images/background.png");
+        ImageIcon si = new ImageIcon("src/main/java/com/example/images/background.png");
         try {
             if (spaceimage != null) si = new ImageIcon(ImageIO.read(spaceimage));
         } catch (IOException e) {

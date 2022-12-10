@@ -8,9 +8,6 @@
   <artifactId>demo</artifactId>
   <version>thedemo</version>
 
-  <name>demo</name>
-  <!-- FIXME change it to the project's website -->
-  <url>https://bulkerb.github.io/memory-game/</url>
 
    <distributionManagement>
     <site>
@@ -18,9 +15,8 @@
       <url>https://bulkerb.github.io/memory-game/</url>
     </site>
     <repository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>memory-game-repo</id>
-      <name>Memory Game</name>
+      <id>github</id>
+      <name>GitHub bulkerb Apache Maven Packages</name>
       <url>https://github.com/bulkerb/memory-game</url>
       <layout>default</layout>
     </repository>
@@ -28,8 +24,7 @@
       <uniqueVersion>true</uniqueVersion>
       <id>memory-game-repo</id>
       <name>Memory Game</name>
-      <url>https://github.com/bulkerb/memory-gam</url>
-      <layout>legacy</layout>
+      <url>https://maven.pkg.github.com/bulkerb/memory-gam</url>
     </snapshotRepository>
   </distributionManagement>
 
@@ -42,6 +37,11 @@
   </properties>
 
   <dependencies>
+    <dependency>
+    <groupId>org.apache.maven.scm</groupId>
+    <artifactId>maven-scm-provider-gitexe</artifactId>
+    <version>2.0.0-M3</version>
+  </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -130,6 +130,15 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+            <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-publish-plugin</artifactId>
+          <version>3.1.0</version>
+          <configuration>
+            <pubScmUrl>${project.scm.developerConnection}</pubScmUrl>
+            <scmBranch>gh-pages</scmBranch>
+          </configuration>
+    </plugin>
       </plugins>
     </pluginManagement>
   </build>
