@@ -125,7 +125,7 @@ public class Rememboji {
         }
 
         // Card Back Image
-        pic = "https://github.com/bulkerb/memory-game/raw/main/images/cardBack.png";
+        pic = "https://github.com/bulkerb/memory-game/raw/main/images/cardBack.PNG";
         try {cardBackURL = new URL(pic);} catch (MalformedURLException e) {}
         if (cardBackURL != null) {
             try {
@@ -134,7 +134,7 @@ public class Rememboji {
         }
 
         // Shuffling Image
-        pic = "https://github.com/bulkerb/memory-game/raw/main/images/shufflingPic.png";
+        pic = "https://github.com/bulkerb/memory-game/raw/main/images/shufflingPic.PNG";
         try {shuffling = new URL(pic);} catch (MalformedURLException e) {}
         if (shuffling != null) {
             try {
