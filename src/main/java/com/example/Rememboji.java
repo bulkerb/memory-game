@@ -21,7 +21,6 @@ public class Rememboji {
     public static URL titleURL = null;
     public static ImageIcon titlePicture = null;
 
-
     public static URL startURL = null;
     public static ImageIcon startbuttonpic = null;
 
