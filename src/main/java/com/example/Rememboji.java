@@ -6,7 +6,7 @@ import java.net.*;
 import javax.swing.*;
 import java.util.List;
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.Objects;/*  */
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.imageio.ImageIO;
@@ -18,21 +18,13 @@ import java.awt.event.ActionListener;
 public class Rememboji {
 
     //images to change quickly
-    public static URL titleURL = null;
-    public static ImageIcon titlePicture = null;
-
-    public static URL startURL = null;
-    public static ImageIcon startbuttonpic = null;
-
-    public static URL cardBackURL = null;
-    public static ImageIcon cardBackPicture = null;
-
-    public static URL backgroundURL = null;
-    public static ImageIcon backgroundPicture = null;
-
-    public static ImageIcon cardBackImage = null;
-    public static ImageIcon startBackground = null;
-    public static ImageIcon gameBackground = null;
+    public static String titlePicture = "images/title.png";
+    public static String startbuttonpic = "images/start.png";
+    public static String cardBackPicture = "images/cardBack.png";
+    public static String shufflePicture = "images/shufflingPic.png";
+    public static ImageIcon cardBackImage = new ImageIcon(cardBackPicture);
+    public static ImageIcon startBackground = new ImageIcon(cardBackPicture);
+    public static ImageIcon gameBackground = new ImageIcon(cardBackPicture);
 
     //array to hold pictures
     private static String[] arraypic;
@@ -44,15 +36,16 @@ public class Rememboji {
     private static JButton[] cardback3;
     private static JFrame frame;
     private static int turns;
-    private static long time;
+    public static long time;
+    public static int count;
 
     //Strings and lists for emoji
-    private static String slug, cat, letter;
-    private static List<String> lil;
-    private static List<String> uni, temp = new ArrayList<>();
-    private static List<String> cp;
+    public static String slug, cat, letter;
+    public static List<String> lil;
+    public static List<String> uni, temp = new ArrayList<>();
+    public static List<String> cp;
 
-    private enum categories {
+    public enum categories {
         SMILEYS("smileys-emotion"),
         ANIMALS("animals-nature"),
         FOOD("food-drink"),
@@ -61,23 +54,23 @@ public class Rememboji {
         OBJECTS("objects"),
         SYMBOLS("symbols");
 
-        private final String slug;
+        public final String slug;
 
         private categories(String slug) {
             this.slug = slug;
         }
 
-        private static String valueOfslug(String slug) {
+        public static String valueOfslug(String slug) {
             return slug;
         }
     }
 
 
-    private static categories chosenCategory;
+    public static categories chosenCategory;
 
     //references
-    private static String host = "https://emoji-api.com/";
-    private static String key =
+    public static String host = "https://emoji-api.com/";
+    public static String key =
             "?access_key=f48301a44b0c8d06490563f08004880e0de02e51";
 
     /**
@@ -88,53 +81,17 @@ public class Rememboji {
             slug = args[0];
         } else slug = "animals-nature";
 
-        // Default Background Image
-        String pic = "https://github.com/bulkerb/memory-game/raw/main/images/background.png";
-        try {backgroundURL = new URL(pic);} catch (MalformedURLException e) {}
-        if (backgroundURL != null) {
-            try {
-                backgroundPicture = new ImageIcon(ImageIO.read(backgroundURL));
-            } catch (IOException e) {}
-        }
-
         //space image
         URL spaceimage = null;
         try {spaceimage = space();
         } catch (MalformedURLException e) {
         } finally {}
-        ImageIcon si = backgroundPicture;
+        ImageIcon si = new ImageIcon("images/background.png");
         try {
             if (spaceimage != null) si = new ImageIcon(ImageIO.read(spaceimage));
-        } catch (IOException e) {}
-
-        // Title image
-        pic = "https://github.com/bulkerb/memory-game/raw/main/images/title.png";
-        try {titleURL = new URL(pic);} catch (MalformedURLException e) {}
-        if (titleURL != null) {
-            try {
-                titlePicture = new ImageIcon(ImageIO.read(titleURL));
-            } catch (IOException e) {}
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        // Start Button Image
-        pic = "https://github.com/bulkerb/memory-game/raw/main/images/start.PNG";
-        try {startURL = new URL(pic);} catch (MalformedURLException e) {}
-        if (startURL != null) {
-            try {
-                startbuttonpic = new ImageIcon(ImageIO.read(startURL));
-            } catch (IOException e) {}
-        }
-
-        // Card Back Image
-        pic = "https://github.com/bulkerb/memory-game/raw/main/images/cardBack.png";
-        try {cardBackURL = new URL(pic);} catch (MalformedURLException e) {}
-        if (cardBackURL != null) {
-            try {
-                cardBackPicture = new ImageIcon(ImageIO.read(cardBackURL));
-            } catch (IOException e) {}
-        }
-        cardBackImage = cardBackPicture;
-
         startBackground = si;
         gameBackground = si;
 
@@ -187,7 +144,7 @@ public class Rememboji {
         frame.add(jcb);
         frame.add(jLabel);
 
-        JLabel titleLabel = new JLabel(titlePicture);
+        JLabel titleLabel = new JLabel(new ImageIcon(titlePicture));
         titleLabel.setBounds(460, 200, 598, 222);
         frame.add(titleLabel);
 
@@ -207,10 +164,10 @@ public class Rememboji {
         });
 
         // Add Start Button
-        JLabel startButton = new JLabel(startbuttonpic);
+        JLabel startButton = new JLabel(new ImageIcon(startbuttonpic));
         startButton.setBounds(600, 550, 268, 88);
         if (y == 2)
-            frame.add(startButton);
+            frame.add(startButton);// TODO set breakpoint
         frame.add(exitButton);
         frame.setVisible(true);
 
@@ -263,7 +220,7 @@ public class Rememboji {
     }
 
     //get today's space image
-    private static <BufferedImage> URL space() throws MalformedURLException {
+    public static <BufferedImage> URL space() throws MalformedURLException {
         //references
         String hostspace = "https://api.nasa.gov/planetary/apod";
         String keyspace = "?api_key=qxxxDZYEZaVxSUQbqKsgPpJjYUjZC6MsUjBsmg8U";
@@ -288,13 +245,15 @@ public class Rememboji {
             URL url = new URL(it);
             URLConnection urlc = url.openConnection();
             BufferedReader br = new BufferedReader(
-                    new InputStreamReader(urlc.getInputStream())
+                new InputStreamReader(urlc.getInputStream())
             );
             String line;
             while ((line = br.readLine()) != null)
                 content.append(line + "\n");
             br.close();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return content.toString();
     }
 
@@ -313,7 +272,7 @@ public class Rememboji {
         startGame();
     }
 
-    private static Runnable startGame() {
+    public static Runnable startGame() {
         frame.getContentPane().removeAll();
         frame.repaint();
         arraypic = shuffle(uni);
@@ -346,13 +305,14 @@ public class Rememboji {
                 try {
                     url = new URL("https://emojiapi.dev/api/v1/" + arraypic[x] + "/512.png");
                     image = ImageIO.read(url);
-                } catch (IOException e) {}
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 //from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
                 ImageIcon imageIcon = new ImageIcon(image); // load the image to a imageIcon
                 image = imageIcon.getImage(); // transform it
                 Image newimg = image.getScaledInstance(
-                        177,
-                        277,
+                        177, 277,
                         java.awt.Image.SCALE_SMOOTH
                 ); // scale it the smooth way
                 imageIcon = new ImageIcon(newimg);
@@ -416,7 +376,9 @@ public class Rememboji {
                     try {
                         URL url = new URL("https://emojiapi.dev/api/v1/" + arraypic[i] + "/512.png");
                         image = ImageIO.read(url);
-                    } catch (IOException xe) {}
+                    } catch (IOException xe) {
+                        xe.printStackTrace();
+                    }
                     ImageIcon imageIcon = new ImageIcon(image); // load the image to a imageIcon
                     image = imageIcon.getImage(); // transform it
                     Image newimg = image.getScaledInstance(
@@ -430,7 +392,7 @@ public class Rememboji {
                     cardtrack[i] = 1;
                 }
             }
-            checkFinished();
+                checkFinished();
         }
     };
 
