@@ -66,11 +66,11 @@ public class Rememboji {
         static{
             // Default Background Image
             try {
-                        backgroundPicture = getpic("https://github.com/bulkerb/memory-game/raw/main/images/background.png");
-                        titlePicture = getpic("https://github.com/bulkerb/memory-game/raw/main/images/title.png");
-                        startbuttonpic = getpic("https://github.com/bulkerb/memory-game/raw/main/images/start.PNG");
-                        cardBackPicture =  getpic("https://github.com/bulkerb/memory-game/raw/main/images/cardBack.png");
-                        shufflingPic = getpic("https://github.com/bulkerb/memory-game/raw/main/images/shufflingPic.PNG");
+                backgroundPicture = getpic("https://github.com/bulkerb/memory-game/raw/main/images/background.png");
+                titlePicture = getpic("https://github.com/bulkerb/memory-game/raw/main/images/title.png");
+                startbuttonpic = getpic("https://github.com/bulkerb/memory-game/raw/main/images/start.PNG");
+                cardBackPicture =  getpic("https://github.com/bulkerb/memory-game/raw/main/images/cardBack.png");
+                shufflingPic = getpic("https://github.com/bulkerb/memory-game/raw/main/images/shufflingPic.PNG");
             } catch (IOException e) {}
         }
     
