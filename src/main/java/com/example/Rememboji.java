@@ -33,6 +33,9 @@ public class Rememboji {
     public static ImageIcon cardBackImage = null;
     public static ImageIcon startBackground = null;
     public static ImageIcon gameBackground = null;
+    
+    public static URL shuffling = null;
+    public static ImageIcon shufflingPic = null;
 
     //array to hold pictures
     private static String[] arraypic;
@@ -47,7 +50,7 @@ public class Rememboji {
     private static long time;
 
     //Strings and lists for emoji
-    private static String slug, cat, letter;
+    private static String slug, cat;//, letter;
     private static List<String> lil;
     private static List<String> uni, temp = new ArrayList<>();
     private static List<String> cp;
@@ -65,10 +68,6 @@ public class Rememboji {
 
         private categories(String slug) {
             this.slug = slug;
-        }
-
-        private static String valueOfslug(String slug) {
-            return slug;
         }
     }
 
@@ -117,7 +116,7 @@ public class Rememboji {
         }
 
         // Start Button Image
-        pic = "https://github.com/bulkerb/memory-game/raw/main/images/start.PNG";
+        pic = "https://github.com/bulkerb/memory-game/raw/main/images/start.png";
         try {startURL = new URL(pic);} catch (MalformedURLException e) {}
         if (startURL != null) {
             try {
@@ -131,6 +130,15 @@ public class Rememboji {
         if (cardBackURL != null) {
             try {
                 cardBackPicture = new ImageIcon(ImageIO.read(cardBackURL));
+            } catch (IOException e) {}
+        }
+
+        // Shuffling Image
+        pic = "https://github.com/bulkerb/memory-game/raw/main/images/shufflingPic.png";
+        try {shuffling = new URL(pic);} catch (MalformedURLException e) {}
+        if (shuffling != null) {
+            try {
+                shufflingPic = new ImageIcon(ImageIO.read(shuffling));
             } catch (IOException e) {}
         }
         cardBackImage = cardBackPicture;
@@ -148,9 +156,9 @@ public class Rememboji {
                     break;
                 case 9:
                     close = 1;
-                    getimages();
-                    frame.validate();
-                    frame.repaint();
+                    //getimages();
+                    //frame.validate();
+                    //frame.repaint();
                     break;
                 case 2:
                 default:
@@ -207,28 +215,28 @@ public class Rememboji {
         });
 
         // Add Start Button
-        JLabel startButton = new JLabel(startbuttonpic);
-        startButton.setBounds(600, 550, 268, 88);
+        final JToggleButton button = new JToggleButton(startbuttonpic);
+        button.setBounds(600, 550, 268, 88);
+
         if (y == 2)
-            frame.add(startButton);
+            frame.add(button);
+
+        button.setSelectedIcon(shufflingPic);
         frame.add(exitButton);
         frame.setVisible(true);
-
-        startButton.addMouseListener(new MouseAdapter() {
+        
+        button.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent me) {
                 // when user press start button, the chosen category is the one they selected
                 chosenCategory = jcb.getItemAt(jcb.getSelectedIndex());
                 slug = chosenCategory.slug;
-
                 getimages();
                 y = 9;
             }
         });
 
         if (y == 9) {
-            startButton.removeMouseListener(null);
-            frame.remove(startButton);
-            getimages();
+            button.removeMouseListener(null);
         }
 
         frame.setVisible(true);
@@ -288,7 +296,7 @@ public class Rememboji {
             URL url = new URL(it);
             URLConnection urlc = url.openConnection();
             BufferedReader br = new BufferedReader(
-                    new InputStreamReader(urlc.getInputStream())
+                new InputStreamReader(urlc.getInputStream())
             );
             String line;
             while ((line = br.readLine()) != null)
@@ -351,8 +359,7 @@ public class Rememboji {
                 ImageIcon imageIcon = new ImageIcon(image); // load the image to a imageIcon
                 image = imageIcon.getImage(); // transform it
                 Image newimg = image.getScaledInstance(
-                        177,
-                        277,
+                        177, 277,
                         java.awt.Image.SCALE_SMOOTH
                 ); // scale it the smooth way
                 imageIcon = new ImageIcon(newimg);
@@ -393,7 +400,7 @@ public class Rememboji {
                 frame.remove(flipCards);
                 for (int i = 0; i < 12; i++) {
                     cardback3[i].setFont(
-                            new Font(cardback3[i].getFont().getName(), Font.PLAIN, 12)
+                        new Font(cardback3[i].getFont().getName(), Font.PLAIN, 12)
                     );
                     cardback3[i].setIcon(cardBackImage);
                     //changes when cards flipped down so cards can't get selected before that button is pushed.
@@ -463,7 +470,6 @@ public class Rememboji {
 
     private static String[] shuffle(List<String> un) {
         ArrayList<String> arraytry = new ArrayList<>();
-        Collections.shuffle(arraytry);
         String[] arraypic = new String[12];
         for (int i = 0; i < 6; i++) {
             int x = i;
@@ -477,8 +483,8 @@ public class Rememboji {
             arraypic[i] = arraypic[i - 6];
         }
         List<String> strList = Arrays.asList(arraypic);
+        Collections.shuffle(strList);
         arraypic = strList.toArray(new String[0]);
-
         return arraypic;
     }
 
