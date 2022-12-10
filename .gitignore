@@ -1,4 +1,7 @@
 
 *.log
 .DS_Store
-build-jar/Rememboji.jar
+.idea
+.vscode
+.gitattributes
+target
