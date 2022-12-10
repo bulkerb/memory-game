@@ -30,6 +30,19 @@ Developed by Bilkan Ulker -> (Github: bulkerb)\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ethan Johnson -> (Github: ethanvjohnson)\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sullivan Kelley -> (Github: sullivk)
 
+User Stories 
+---
+User needs to see cards face-up for some amount of time before the game begins so they can know where the matching cards are. 
+User needs to know if the pair of cards they picked was a match or not. 
+User needs the cards that they have already matched to remain face up, so they do not pick those cards again.
+User needs incorrectly guessed cards to be put back face down, so they can re-draw for a new match. 
+User needs to be able to start the game so they can play the memory game. 
+User needs to know how many moves it took to finish the game.
+User needs to know how much time it took to finish the game. 
+User needs to be able to select a “play again” option after the end of the game.
+Users need to be presented with a reshuffled gameboard each game so that the game remains engaging and challenging. 
+
+
 How to Contribute
 ---
 1. Clone repo and create a new branch: `$ git checkout https://github.com/bulkerb/memory-game -b name_for_new_branch`
