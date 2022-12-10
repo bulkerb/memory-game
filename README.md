@@ -7,7 +7,7 @@ An emoji-themed memory game.
 </p>
 
 <p align="center">
-<a href="[https://github.com/bulkerb/memory-game/edit/main/README.md#usage](https://bulkerb.github.io/memory-game/)">Download</a>
+<a href="https://bulkerb.github.io/memory-game/">Download</a>
 </p>
 
 <p align="center">
