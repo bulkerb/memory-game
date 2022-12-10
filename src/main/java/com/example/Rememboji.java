@@ -16,27 +16,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.ActionListener;
 
 public class Rememboji {
-
-    //images to change quickly
-    public static URL titleURL = null;
-    public static ImageIcon titlePicture = null;
-
-    public static URL startURL = null;
-    public static ImageIcon startbuttonpic = null;
-
-    public static URL cardBackURL = null;
-    public static ImageIcon cardBackPicture = null;
-
-    public static URL backgroundURL = null;
-    public static ImageIcon backgroundPicture = null;
-
-    public static ImageIcon cardBackImage = null;
-    public static ImageIcon startBackground = null;
-    public static ImageIcon gameBackground = null;
-    
-    public static URL shuffling = null;
-    public static ImageIcon shufflingPic = null;
-
     //array to hold pictures
     private static String[] arraypic;
     private static JButton flipCards;
@@ -49,6 +28,10 @@ public class Rememboji {
     private static int turns;
     private static long time;
 
+    public static ImageIcon cardBackImage = null;
+    public static ImageIcon startBackground = null;
+    public static ImageIcon gameBackground = null;
+    
     //Strings and lists for emoji
     private static String slug, cat;//, letter;
     private static List<String> lil;
@@ -78,7 +61,19 @@ public class Rememboji {
     private static String host = "https://emoji-api.com/";
     private static String key =
             "?access_key=f48301a44b0c8d06490563f08004880e0de02e51";
+    private static ImageIcon backgroundPicture, titlePicture, startbuttonpic, cardBackPicture, shufflingPic;
 
+        static{
+            // Default Background Image
+            try {
+                        backgroundPicture = getpic("https://github.com/bulkerb/memory-game/raw/main/images/background.png");
+                        titlePicture = getpic("https://github.com/bulkerb/memory-game/raw/main/images/title.png");
+                        startbuttonpic = getpic("https://github.com/bulkerb/memory-game/raw/main/images/start.PNG");
+                        cardBackPicture =  getpic("https://github.com/bulkerb/memory-game/raw/main/images/cardBack.png");
+                        shufflingPic = getpic("https://github.com/bulkerb/memory-game/raw/main/images/shufflingPic.PNG");
+            } catch (IOException e) {}
+        }
+    
     /**
      * @param args
      */
@@ -87,14 +82,6 @@ public class Rememboji {
             slug = args[0];
         } else slug = "animals-nature";
 
-        // Default Background Image
-        String pic = "https://github.com/bulkerb/memory-game/raw/main/images/background.png";
-        try {backgroundURL = new URL(pic);} catch (MalformedURLException e) {}
-        if (backgroundURL != null) {
-            try {
-                backgroundPicture = new ImageIcon(ImageIO.read(backgroundURL));
-            } catch (IOException e) {}
-        }
 
         //space image
         URL spaceimage = null;
@@ -106,41 +93,6 @@ public class Rememboji {
             if (spaceimage != null) si = new ImageIcon(ImageIO.read(spaceimage));
         } catch (IOException e) {}
 
-        // Title image
-        pic = "https://github.com/bulkerb/memory-game/raw/main/images/title.png";
-        try {titleURL = new URL(pic);} catch (MalformedURLException e) {}
-        if (titleURL != null) {
-            try {
-                titlePicture = new ImageIcon(ImageIO.read(titleURL));
-            } catch (IOException e) {}
-        }
-
-        // Start Button Image
-        pic = "https://github.com/bulkerb/memory-game/raw/main/images/start.PNG";
-        try {startURL = new URL(pic);} catch (MalformedURLException e) {}
-        if (startURL != null) {
-            try {
-                startbuttonpic = new ImageIcon(ImageIO.read(startURL));
-            } catch (IOException e) {}
-        }
-
-        // Card Back Image
-        pic = "https://github.com/bulkerb/memory-game/raw/main/images/cardBack.png";
-        try {cardBackURL = new URL(pic);} catch (MalformedURLException e) {}
-        if (cardBackURL != null) {
-            try {
-                cardBackPicture = new ImageIcon(ImageIO.read(cardBackURL));
-            } catch (IOException e) {}
-        }
-
-        // Shuffling Image
-        pic = "https://github.com/bulkerb/memory-game/raw/main/images/shufflingPic.PNG";
-        try {shuffling = new URL(pic);} catch (MalformedURLException e) {}
-        if (shuffling != null) {
-            try {
-                shufflingPic = new ImageIcon(ImageIO.read(shuffling));
-            } catch (IOException e) {}
-        }
         cardBackImage = cardBackPicture;
 
         startBackground = si;
@@ -157,8 +109,6 @@ public class Rememboji {
                 case 9:
                     close = 1;
                     //getimages();
-                    //frame.validate();
-                    //frame.repaint();
                     break;
                 case 2:
                 default:
@@ -167,11 +117,15 @@ public class Rememboji {
         }
     }
 
-    static int y = 2;
+    private static ImageIcon getpic(String z) throws MalformedURLException, IOException {
+        return (new ImageIcon(ImageIO.read( new URL(z))));
+    }
+
+    static int q = 2;
 
     private static int firstframe() {
         // Initialize Frame
-        frame = new JFrame("Rememboji");
+        frame = new JFrame("Screen");
         frame.setUndecorated(false);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -191,14 +145,12 @@ public class Rememboji {
         jLabel.setBackground(new Color(178, 74, 111));
         jLabel.setForeground(new Color(254, 249, 210));
         jLabel.setBounds(635, 400, 200, 50);
-
         frame.add(jcb);
         frame.add(jLabel);
 
         JLabel titleLabel = new JLabel(titlePicture);
         titleLabel.setBounds(460, 200, 598, 222);
         frame.add(titleLabel);
-
         frame.setLayout(null);
         frame.setSize(350, 250);
         frame.setVisible(true);
@@ -218,10 +170,10 @@ public class Rememboji {
         final JToggleButton button = new JToggleButton(startbuttonpic);
         button.setBounds(600, 550, 268, 88);
 
-        if (y == 2)
+        if (q == 2)
             frame.add(button);
-
         button.setSelectedIcon(shufflingPic);
+
         frame.add(exitButton);
         frame.setVisible(true);
         
@@ -231,16 +183,16 @@ public class Rememboji {
                 chosenCategory = jcb.getItemAt(jcb.getSelectedIndex());
                 slug = chosenCategory.slug;
                 getimages();
-                y = 9;
+                q = 9;
             }
         });
 
-        if (y == 9) {
+        if (q == 9) {
             button.removeMouseListener(null);
         }
 
         frame.setVisible(true);
-        return y;
+        return q;
 
     }
 
@@ -275,7 +227,6 @@ public class Rememboji {
         //references
         String hostspace = "https://api.nasa.gov/planetary/apod";
         String keyspace = "?api_key=qxxxDZYEZaVxSUQbqKsgPpJjYUjZC6MsUjBsmg8U";
-
         //imageurl
         String pic = getUrlContents(hostspace + keyspace);
         List<String> json = Arrays.asList(pic.split("\\s*,\\s*"));
@@ -309,12 +260,10 @@ public class Rememboji {
     //gets a list of emoji in the category
     private static void getimages() {
         cat = getUrlContents(host + "categories/" + slug + key);
-
         //list of emoji to shuffle in codepoint
         cp = Arrays.asList(cat.split("\\s*,\\s*"));
         lil = ProcessListcodepoint(cp); //codepoint
         temp = new ArrayList<String>(); //clear
-
         //list of emoji to shuffle in unicode
         uni = ProcessListunicode(cp);
         temp = new ArrayList<String>(); //clear
@@ -371,7 +320,6 @@ public class Rememboji {
 
         //timer
         time = System.currentTimeMillis();
-
         flipCards = new JButton("Flip Cards Over");
         flipCards.addActionListener(buttonListener);
         flipCards.setBounds(650, 50, 200, 50);
@@ -503,13 +451,11 @@ public class Rememboji {
             Object defaultChoice = choices[0];
             int input = JOptionPane.showOptionDialog(frame.getComponent(0), "You won in " + turns + " turns!\r\n" +
                     "You took " + time + " seconds...\r\n", "Finished!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, choices, defaultChoice);
-
             // Perform action on options retrived from: https://stackoverflow.com/questions/17979438/how-to-perform-action-on-ok-of-joptionpane-showmessagedialog
             if (input == JOptionPane.OK_OPTION) {
                 for (int l = 0; l < 12; l++) {
                     cardtrack[l] = 0;
                 }
-
                 turns = 0;
                 time = 0;
                 frame.dispose();
