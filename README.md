@@ -40,7 +40,7 @@ User needs to be able to start the game so they can play the memory game. \
 User needs to know how many moves it took to finish the game.\
 User needs to know how much time it took to finish the game. \
 User needs to be able to select a “play again” option after the end of the game.\
-Users need to be presented with a reshuffled gameboard each game so that the game remains engaging and challenging. \
+Users need to be presented with a reshuffled gameboard each game so that the game remains engaging and challenging. 
 
 
 How to Contribute
