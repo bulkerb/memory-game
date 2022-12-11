@@ -1,3 +1,3 @@
-Main-Class: com.example.Rememboji
+Main-Class: src.main.java.com.example.Rememboji
 Name: images/
 Sealed: true

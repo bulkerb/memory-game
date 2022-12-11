@@ -28,12 +28,9 @@ public class Rememboji {
     private static int turns;
     private static long time;
 
-    public static ImageIcon cardBackImage = null;
-    public static ImageIcon startBackground = null;
-    public static ImageIcon gameBackground = null;
     
     //Strings and lists for emoji
-    private static String slug, cat;//, letter;
+    private static String slug, cat;
     private static List<String> lil;
     private static List<String> uni, temp = new ArrayList<>();
     private static List<String> cp;
@@ -58,8 +55,10 @@ public class Rememboji {
     private static String host = "https://emoji-api.com/";
     private static String key =
             "?access_key=f48301a44b0c8d06490563f08004880e0de02e51";
+    public static ImageIcon cardBackImage = null;
+    public static ImageIcon startBackground = null;
+    public static ImageIcon gameBackground = null;
     private static ImageIcon backgroundPicture, titlePicture, startbuttonpic, cardBackPicture, shufflingPic;
-
         static{
             // Default Background Image
             try {
@@ -70,7 +69,10 @@ public class Rememboji {
                 shufflingPic = getpic("https://github.com/bulkerb/memory-game/raw/main/images/shufflingPic.PNG");
             } catch (IOException e) {}
         }
-    
+    private static ImageIcon getpic(String z) throws MalformedURLException, IOException {
+        return (new ImageIcon(ImageIO.read(new URL(z))));
+    }
+
     /**
      * @param args
      */
@@ -113,12 +115,9 @@ public class Rememboji {
         }
     }
 
-    private static ImageIcon getpic(String z) throws MalformedURLException, IOException {
-        return (new ImageIcon(ImageIO.read( new URL(z))));
-    }
-
     static int q = 2;
 
+    // Menu Screen
     private static int firstframe() {
         // Initialize Frame
         frame = new JFrame("Screen");
@@ -191,7 +190,7 @@ public class Rememboji {
         return q;
     }
 
-    //codepoint
+    // codepoint
     private static List<String> ProcessListcodepoint(List<String> lil) {
         String letter = "";
         for (int i = 3; i < lil.size(); i++) {
@@ -206,7 +205,7 @@ public class Rememboji {
         return (temp);
     }
 
-    //unicode
+    // unicode
     private static List<String> ProcessListunicode(List<String> un) {
         String ucase = "";
         for (int i = 1; i < un.size(); i += 6) {
@@ -217,7 +216,7 @@ public class Rememboji {
         return (temp);
     }
 
-    //get today's space image
+    // get today's space image
     private static <BufferedImage> URL space() throws MalformedURLException {
         //references
         String hostspace = "https://api.nasa.gov/planetary/apod";
@@ -235,7 +234,7 @@ public class Rememboji {
         return (new URL(pic));
     }
 
-    //url data
+    // url data
     private static String getUrlContents(String it) {
         StringBuilder content = new StringBuilder();
         try {
@@ -252,7 +251,7 @@ public class Rememboji {
         return content.toString();
     }
 
-    //gets a list of emoji in the category
+    // gets a list of emoji in the category
     private static void getimages() {
         cat = getUrlContents(host + "categories/" + slug + key);
         //list of emoji to shuffle in codepoint
@@ -265,6 +264,7 @@ public class Rememboji {
         startGame();
     }
 
+    // play
     private static Runnable startGame() {
         frame.getContentPane().removeAll();
         frame.repaint();
@@ -313,7 +313,7 @@ public class Rememboji {
                 x++;
             }
 
-        //timer
+        // timer
         time = System.currentTimeMillis();
         flipCards = new JButton("Flip Cards Over");
         flipCards.addActionListener(buttonListener);
@@ -325,20 +325,20 @@ public class Rememboji {
             public void mouseClicked(MouseEvent me) {}
         });
 
-        //Randomizes the array of pictures and puts them back into the array
+        // Randomizes the array of pictures and puts them back into the array
         x1 = x2 = null;
         for (int k = 0; k < 12; k++)
             cardback3[k].addActionListener(buttonListener);
         return null;
     }
 
-    //runs everytime a button is clicked
+    // runs everytime a button is clicked
     static ActionListener buttonListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //which button was pressed
+            // which button was pressed
             Object o = e.getSource();
-            //checks if flip the cards button was pressed. Removes it and puts all cards facedown
+            // checks if flip the cards button was pressed. Removes it and puts all cards facedown
             if (o == flipCards) {
                 frame.remove(flipCards);
                 for (int i = 0; i < 12; i++) {
@@ -346,7 +346,7 @@ public class Rememboji {
                         new Font(cardback3[i].getFont().getName(), Font.PLAIN, 12)
                     );
                     cardback3[i].setIcon(cardBackImage);
-                    //changes when cards flipped down so cards can't get selected before that button is pushed.
+                    // changes when cards flipped down so cards can't get selected before that button is pushed.
                     cardtrack[12] = 1;
                 }
                 frame.validate();
@@ -384,9 +384,9 @@ public class Rememboji {
         }
     };
 
-    //checks if the two cards were a match
+    // checks if the two cards were a match
     private static void checkForCorrect() {
-        //checks if two different cards have been picked
+        // checks if two different cards have been picked
         if(x2 != null) {
             turns = turns + 2;
             for (int i = 0; i < 12; i++)
@@ -437,7 +437,7 @@ public class Rememboji {
             if (cardtrack[l] == 0)
                 checkfin = false;
         if(checkfin) {
-            //add 2 for last two guesses to finish and divide to make each turn two guesses
+            // add 2 for last two guesses to finish and divide to make each turn two guesses
             turns = turns + 2;
             turns = turns / 2;
             time = (System.currentTimeMillis() - time) / 1000;
