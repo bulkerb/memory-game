@@ -1,3 +1,0 @@
-Main-Class: src.main.java.com.example.Rememboji
-Name: images/
-Sealed: true
