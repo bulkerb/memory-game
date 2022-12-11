@@ -1,4 +1,4 @@
-package com.example;
+package src.main.java.com.example;
 
 import java.io.*;
 import java.awt.*;
@@ -48,13 +48,10 @@ public class Rememboji {
         SYMBOLS("symbols");
 
         private final String slug;
-
         private categories(String slug) {
             this.slug = slug;
         }
     }
-
-
     private static categories chosenCategory;
 
     //references
@@ -81,7 +78,6 @@ public class Rememboji {
         if (args.length != 0) {
             slug = args[0];
         } else slug = "animals-nature";
-
 
         //space image
         URL spaceimage = null;
@@ -193,7 +189,6 @@ public class Rememboji {
 
         frame.setVisible(true);
         return q;
-
     }
 
     //codepoint
